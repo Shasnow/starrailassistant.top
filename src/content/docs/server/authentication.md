@@ -46,7 +46,7 @@ curl -H "X-Access-Token: your-secret-token-here" \
   http://localhost:5000/api/Task/status
 ```
 
-### 方式二：URL 查询参数
+### 方式二：URL 查询参数（SSE 仅支持）
 
 ```
 ?access_token=your-secret-token-here
@@ -55,7 +55,7 @@ curl -H "X-Access-Token: your-secret-token-here" \
 示例：
 
 ```bash
-curl "http://localhost:5000/api/Task/status?access_token=your-secret-token-here"
+curl "http://localhost:5000/api/backend/logs/stream?access_token=your-secret-token-here"
 ```
 
 :::tip

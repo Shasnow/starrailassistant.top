@@ -108,7 +108,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-10.0.7-wind
 
 解决方法：
 
-- 手动点击游戏窗口以激活窗口。此问题通常是因为 Windows 认为你当前正在使用 SRA 窗口，因此拒绝了 SRA 将游戏窗口置于前台的请求。
+- 手动点击游戏窗口以激活窗口。此问题通常是因为 Windows 认为你正在使用其他窗口，因此拒绝了 SRA 将游戏窗口置于前台的请求。
 
 ### 开始任务后立即结束
 

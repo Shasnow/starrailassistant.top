@@ -8,7 +8,7 @@ import { Steps } from "@astrojs/starlight/components";
 
 由于 SRA 启动时需要管理员权限，因此无法有效地将 SRA 设置为启动项开机自启。
 
-为了实现开机自启，可以使用 Windows 计划任务程序来启动 SRA-cli。
+为了实现开机自启或定时运行，可以使用 Windows 计划任务程序来启动 SRA-cli。
 
 <Steps>
 1. 按下您键盘上的Windows徽标键，搜索“任务计划程序”，并打开它。
@@ -28,7 +28,7 @@ import { Steps } from "@astrojs/starlight/components";
 
    在“程序或脚本”栏中，填写SRA-cli的完整路径，例如 `C:\Program Files\SRA\SRA-cli.exe`。
 
-   在“添加参数”栏中，填写运行命令，例如 `run --config Default --once`。
+   在“添加参数”栏中，填写运行命令，例如 `-c run Default + exit`。参考[参数与启动选项](/cli/argument-and-startup)。
 
    在“起始于”栏中，填写SRA-cli的安装目录，例如 `C:\Program Files\SRA`。
 
