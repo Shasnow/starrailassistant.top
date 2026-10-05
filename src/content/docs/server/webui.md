@@ -6,7 +6,7 @@ sidebar:
 
 SRA WebUI 是 SRA 的网页控制面板，基于 Vue 3 + Element Plus 构建，随 SRA-server 一起分发。启动 SRA-server 后，在浏览器中打开服务地址即可使用，无需额外安装。
 
-在线预览：[StarRailAssistant WebUI](https://webui.starrailassistant.top)
+在线预览：[StarRailAssistant WebUI](https://sra-webui.netlify.app)
 
 通过 WebUI 可以完成任务配置、运行控制、实时日志查看、画面监控等全部常用操作。
 
