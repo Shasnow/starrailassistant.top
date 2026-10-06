@@ -1,11 +1,22 @@
 ---
 title: SRA Public API
-description: Public data APIs provided by StarRailAssistant.
+description: "Free public REST API by StarRailAssistant — no signup, no API key required. Get current game version and in-game event data as JSON for Honkai: Star Rail, Genshin Impact, Zenless Zone Zero, Wuthering Waves, and more."
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://starrailassistant.top/og/api.png
+  - tag: meta
+    attrs:
+      name: twitter:card
+      content: summary_large_image
 ---
 
 import GameTabs from "../../../../components/GameTabs.astro";
 
-StarRailAssistant provides a set of free public REST APIs for fetching various data. No authentication is required — just call them directly.
+StarRailAssistant (SRA) provides a set of **free public REST APIs** — no signup, no API key required — returning the current game version, version name, and in-game event times as JSON, with English and Chinese data available.
+
+Currently supported games: Honkai: Star Rail, Genshin Impact, Zenless Zone Zero, Wuthering Waves, NTE, Blue Archive (CN / JP / Global), Arknights, Arknights: Endfield, and Stella Sora. Great for event calendars, Discord / QQ bots, daily reminder tools, and more.
 
 ## API Endpoints
 
@@ -69,6 +80,28 @@ GET /activity/{game}-{locale}.json
 | `activities[].startTime`   | string  | Activity start time (ISO 8601)       |
 | `activities[].endTime`     | string  | Activity end time (ISO 8601)         |
 | `activities[].cover?`      | string? | Activity cover image URL             |
+
+## FAQ
+
+### Is this API free? Do I need an API key?
+
+It is completely free. No account or API key is needed — just send a GET request to the [API endpoints](#api-endpoints).
+
+### Which games are supported?
+
+Honkai: Star Rail (`sr`), Genshin Impact (`ys`), Zenless Zone Zero (`zzz`), Wuthering Waves (`ww`), NTE (`nte`), Blue Archive (`ba-cn` / `ba-jp` / `ba-global`), Arknights (`ak`), Arknights: Endfield (`end`), and Stella Sora (`xtlr`). See [Supported Games](#supported-games).
+
+### How often is the data updated?
+
+Data is updated by community maintainers after each game's version announcement, usually before the version goes live. It is extracted from official announcements and manually verified.
+
+### What does the data look like?
+
+Standard JSON containing the current version number, version name, version start/end times, and a list of activities (name, category, description, start/end times, cover image). All times are ISO 8601. See [Response Fields](#response-fields).
+
+### Found incorrect data?
+
+Please report it in [GitHub Issues](https://github.com/Shasnow/starrailassistant.top/issues), or submit a PR directly following the [Contributing](#contributing) guide below.
 
 ## Contributing
 

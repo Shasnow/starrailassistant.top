@@ -1,11 +1,22 @@
 ---
 title: SRA 公共 API
-description: StarRailAssistant 提供的公共数据 API。
+description: SRA 提供免费、无需注册、无需 API 密钥的公开 REST API，以 JSON 返回崩坏：星穹铁道、原神、绝区零、鸣潮等游戏的当前版本与活动时间数据，支持中英双语。
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://starrailassistant.top/og/api.png
+  - tag: meta
+    attrs:
+      name: twitter:card
+      content: summary_large_image
 ---
 
 import GameTabs from "../../../components/GameTabs.astro";
 
-StarRailAssistant 提供了一套免费的公开 REST API，用于获取各种数据。无需认证，直接调用即可。
+StarRailAssistant（SRA）提供了一套**免费、无需注册、无需 API 密钥**的公开 REST API，以 JSON 格式返回各游戏的当前版本号、版本名称与活动时间等数据，支持中英双语。
+
+目前支持崩坏：星穹铁道、原神、绝区零、鸣潮、异环、蔚蓝档案（国服 / 日服 / 国际服）、明日方舟、明日方舟：终末地、星塔旅人，适合用于活动日历、QQ / Discord 机器人、每日提醒工具等场景。
 
 ## API 端点
 
@@ -69,6 +80,28 @@ GET /activity/{game}-{locale}.json
 | `activities[].startTime`   | string  | 活动开始时间（ISO 8601） |
 | `activities[].endTime`     | string  | 活动结束时间（ISO 8601） |
 | `activities[].cover?`      | string? | 活动封面图 URL           |
+
+## 常见问题
+
+### 这个 API 收费吗？需要 API Key 吗？
+
+完全免费，无需注册账号，也无需申请任何密钥，直接向 [API 端点](#api-端点)发起 GET 请求即可。
+
+### 支持哪些游戏？
+
+目前支持崩坏：星穹铁道（`sr`）、原神（`ys`）、绝区零（`zzz`）、鸣潮（`ww`）、异环（`nte`）、蔚蓝档案（`ba-cn` / `ba-jp` / `ba-global`）、明日方舟（`ak`）、明日方舟：终末地（`end`）、星塔旅人（`xtlr`），具体见[支持的游戏](#支持的游戏)。
+
+### 数据多久更新一次？
+
+版本公告发布后由社区维护者更新，通常在版本开启前完成。数据提取自各游戏官方公告并经人工核对。
+
+### 数据格式是什么？
+
+标准 JSON，包含当前版本号、版本名称、版本起止时间及活动列表（名称、分类、描述、起止时间、封面图），时间均为 ISO 8601 格式，详见[响应字段说明](#响应字段说明)。
+
+### 发现数据有误怎么办？
+
+欢迎通过 [GitHub Issues](https://github.com/Shasnow/starrailassistant.top/issues) 反馈，或参照下方[贡献指南](#贡献指南)直接提交 PR。
 
 ## 贡献指南
 
