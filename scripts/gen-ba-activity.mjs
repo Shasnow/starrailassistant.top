@@ -323,7 +323,7 @@ const main = async () => {
     console.log(`${label}: ${activities.length} 条 → ${path.relative(REPO_ROOT, file)}`)
   }
 
-  console.log('\n用法：输出已是目标格式（version/versionName 为占位值），核对后写入 public/api/v1/activity/ba-{jp|global|cn}.json（保持 2 空格缩进、去掉结尾换行的差异按原文件风格）。')
+  console.log('\n用法：输出已是目标格式（version/versionName 为占位值），核对后写入 public/api/v1/activity/ba-{jp|global|cn}.json。')
 }
 
 main().catch(error => {

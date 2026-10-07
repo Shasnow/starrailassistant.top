@@ -5,37 +5,17 @@
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { games } from "../src/data/games.ts"; // Node ≥23.6 原生类型剥离，直接导入 TS 数据模块
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const gamesTs = readFileSync(join(root, "src/data/games.ts"), "utf8");
 const activityDir = join(root, "public/api/v1/activity");
-
-// 解析 games.ts 游戏条目（条目为多行对象：从 id 起到下一个 id 止，从中提取字段）
-const games = [];
-const idMatches = [...gamesTs.matchAll(/id:\s*"([^"]+)"/g)];
-for (let i = 0; i < idMatches.length; i++) {
-  const id = idMatches[i][1];
-  const start = idMatches[i].index;
-  const end = i + 1 < idMatches.length ? idMatches[i + 1].index : gamesTs.length;
-  const block = gamesTs.slice(start, end);
-  if (!block.includes("locales:")) continue; // 不是游戏条目
-  const name =
-    block.match(/name:\s*\{[^}]*?"zh-CN":\s*"([^"]+)"/)?.[1] ??
-    block.match(/name:\s*"([^"]+)"/)?.[1] ??
-    id;
-  const locales = [
-    ...(block.match(/locales:\s*\[([^\]]*)\]/)?.[1] ?? "").matchAll(
-      /"([^"]+)"/g,
-    ),
-  ].map((m) => m[1]);
-  const defaultLocale = block.match(/defaultLocale:\s*"([^"]+)"/)?.[1];
-  games.push({ id, name, locales, defaultLocale });
-}
 
 // 按基准逐项检查数据文件
 const rows = [];
 const missing = [];
 for (const g of games) {
+  const name =
+    typeof g.name === "object" ? g.name["zh-CN"] ?? g.id : g.name; // name 可能是多语言对象
   for (const locale of g.locales) {
     const file =
       locale === g.defaultLocale ? `${g.id}.json` : `${g.id}-${locale}.json`;
@@ -43,12 +23,12 @@ for (const g of games) {
     try {
       text = readFileSync(join(activityDir, file), "utf8");
     } catch {
-      missing.push({ game: g.name, locale, file });
+      missing.push({ game: name, locale, file });
       continue;
     }
     const data = JSON.parse(text);
     rows.push({
-      game: g.name,
+      game: name,
       locale,
       file,
       version: data.version ?? "?",

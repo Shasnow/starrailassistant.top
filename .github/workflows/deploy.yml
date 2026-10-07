@@ -5,6 +5,17 @@ on:
   push:
     branches:
       - main
+    # 仅当以下文件/文件夹变化时才触发部署
+    paths:
+      - "src/**" # 页面、组件、文档内容、样式
+      - "public/**" # 静态资源（接口 JSON、图标等）
+      - "astro.config.mjs"
+      - "tsconfig.json"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "CNAME" # 构建时会复制进 dist
+  workflow_dispatch: # 支持手动触发（不受 paths 限制）
 
 permissions:
   contents: write
