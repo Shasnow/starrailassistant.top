@@ -4,6 +4,14 @@ export interface Game {
   locales: string[];
   defaultLocale: string;
   dataSources: Record<string, GameDataSource[]>;
+  // 游戏活动数据更新模式：
+  // - version（大版本周期型，如绝区零）：以固定大版本为更新周期，版本持续期间
+  //   即使部分活动已结束，重新获取数据也不会得到新活动；仅在大版本正式结束时
+  //   触发一次完整的数据更新流程。
+  // - activity（持续活动型，如明日方舟）：没有明确的大版本概念，大活动进行期间
+  //   可能推出另一个新活动；应在每个活动结束时立即触发数据更新流程，及时获取
+  //   新活动信息。
+  updateMode?: "version" | "activity"; // 活动数据更新模式，缺省按版本号格式自动识别
 }
 
 export interface GameDataSource {
@@ -92,6 +100,7 @@ export const games: Game[] = [
   },
   {
     id: "ba-cn",
+    updateMode: "activity",
     name: { "zh-CN": "蔚蓝档案（国服）", en: "Blue Archive (CN)" },
     locales: ["zh-CN"],
     defaultLocale: "zh-CN",
@@ -101,6 +110,7 @@ export const games: Game[] = [
   },
   {
     id: "ba-jp",
+    updateMode: "activity",
     name: { "zh-CN": "蔚蓝档案（日服）", en: "Blue Archive (JP)" },
     locales: ["zh-CN"],
     defaultLocale: "zh-CN",
@@ -110,6 +120,7 @@ export const games: Game[] = [
   },
   {
     id: "ba-global",
+    updateMode: "activity",
     name: { "zh-CN": "蔚蓝档案（国际服）", en: "Blue Archive (Global)" },
     locales: ["zh-CN"],
     defaultLocale: "zh-CN",
@@ -119,6 +130,7 @@ export const games: Game[] = [
   },
   {
     id: "ak",
+    updateMode: "activity",
     name: { "zh-CN": "明日方舟", en: "Arknights" },
     locales: ["zh-CN"],
     defaultLocale: "zh-CN",
@@ -152,6 +164,7 @@ export const games: Game[] = [
   },
   {
     id: "xtlr",
+    updateMode: "activity",
     name: { "zh-CN": "星塔旅人", en: "Stella Sora" },
     locales: ["zh-CN"],
     defaultLocale: "zh-CN",

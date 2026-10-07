@@ -1,5 +1,9 @@
 // 以 src/data/games.ts 为基准，检查 public/api/v1/activity/ 目录里的数据：
-// - 对 games.ts 中每个游戏的每种语言，取数据文件顶层版本 endTime，最需要更新的排最前
+// - 更新模式由 games.ts 中的 getUpdateMode 识别：
+//   大版本周期型（version）→ 仅以顶层版本 endTime 判断过期，版本结束才需更新
+//   持续活动型（activity）→ 以顶层 endTime 与所有活动 activities[].endTime 中
+//   最早结束的时间判断过期，任一活动结束即需更新
+// - 最需要更新的排最前
 // - 额外列出 games.ts 已定义但目录里尚无对应数据文件的项
 // 用法：node scripts/check-stale-activity.mjs
 import { readFileSync } from "node:fs";
@@ -27,17 +31,29 @@ for (const g of games) {
       continue;
     }
     const data = JSON.parse(text);
+    const mode = g.updateMode ?? "version";
+    const versionEnd = typeof data.endTime === "string" ? data.endTime : null;
+    // 持续活动型：任一活动结束都可能已有新活动，纳入所有活动 endTime；
+    // 大版本周期型：版本内重抓不会有新活动，仅以顶层版本 endTime 判断
+    const activityEnds =
+      mode === "activity" && Array.isArray(data.activities)
+        ? data.activities
+            .map((a) => a?.endTime)
+            .filter((e) => typeof e === "string")
+        : [];
+    const ends = [versionEnd, ...activityEnds].filter((e) => e).sort();
     rows.push({
       game: name,
       locale,
       file,
       version: data.version ?? "?",
-      endTime: typeof data.endTime === "string" ? data.endTime : null,
+      mode,
+      endTime: ends[0] ?? null,
     });
   }
 }
 
-// 合并周期相同（版本 endTime 相同）的同一游戏不同语言
+// 合并周期相同（过期判断时间相同）的同一游戏不同语言
 const groups = new Map();
 for (const r of rows) {
   const key = `${r.game}|${r.endTime ?? ""}`;
@@ -51,7 +67,7 @@ for (const r of rows) {
 }
 const list = [...groups.values()];
 
-// 版本结束时间升序（无 endTime 排最后），最需要更新的在最前
+// 过期判断时间升序（无 endTime 排最后），最需要更新的在最前
 list.sort((a, b) => {
   if (!a.endTime && !b.endTime) return 0;
   if (!a.endTime) return 1;
@@ -59,10 +75,12 @@ list.sort((a, b) => {
   return a.endTime.localeCompare(b.endTime);
 });
 
-console.log("=== 按版本结束时间排序（最需要更新的在最前）===");
+const basisLabel = (m) => (m === "version" ? "版本结束" : "最早结束");
+
+console.log("=== 按过期判断时间排序（最需要更新的在最前）===");
 for (const r of list) {
   console.log(
-    `${r.game}（${r.locales.join(", ")}）  版本 ${r.version}  endTime=${r.endTime ?? "（无）"}  [${r.files.join(", ")}]`,
+    `${r.game}（${r.locales.join(", ")}）  版本=${r.version}  ${basisLabel(r.mode)}=${r.endTime ?? "（无）"}  [${r.files.join(", ")}]`,
   );
 }
 
@@ -73,7 +91,7 @@ if (top) {
       86400000,
   );
   console.log(
-    `\n最需要更新的游戏: ${top.game}（${top.locales.join(", ")}），更新时间（版本 endTime）: ${top.endTime}` +
+    `\n最需要更新的游戏: ${top.game}（${top.locales.join(", ")}），${basisLabel(top.mode)}时间: ${top.endTime}` +
       (expiredDays > 0 ? `（已过期 ${expiredDays} 天）` : ""),
   );
 }
