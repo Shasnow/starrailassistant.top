@@ -69,9 +69,6 @@ const SKIP_TITLE_KEYWORDS = ['战斗通行证', '网页活动']
 const PAGE_SIZE = 100
 const MAX_PAGES = 3
 
-/** 往前多带几天已经结束的活动，让数据在活动间隙里也有内容 */
-const RECENT_WINDOW_DAYS = 14
-
 /** SRA 的时间字段不带时区标记，按其既有数据的惯例填北京时间 */
 const TIMEZONE_OFFSET_MS = 8 * 60 * 60 * 1000
 
@@ -249,9 +246,8 @@ const fetchActivities = async serverId => {
   return items
 }
 
-/** 筛出目标分类、去重并按开始时间升序，转成 SRA 的活动条目 */
+/** 筛出目标分类、去重并按开始时间升序，转成 SRA 的活动条目（只保留未过期的活动） */
 const buildActivities = (items, now) => {
-  const horizon = now - RECENT_WINDOW_DAYS * 86400
   const picked = new Map()
 
   for (const item of items) {
@@ -264,7 +260,7 @@ const buildActivities = (items, now) => {
     const start = item.begin_at
     const end = item.end_at
     if (!Number.isFinite(start) || !Number.isFinite(end)) continue
-    if (end <= start || end < horizon) continue
+    if (end <= start || end <= now) continue
 
     // 同一活动可能被拆成多条记录：「保留结束时间最晚的那条」
     const existing = picked.get(name)

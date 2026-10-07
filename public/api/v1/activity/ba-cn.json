@@ -1,17 +1,10 @@
 {
   "version": "2026-10",
   "versionName": "国服活动",
-  "startTime": "2026-09-10T14:00:00",
+  "startTime": "2026-09-24T14:00:00",
   "endTime": "2026-10-29T14:00:59",
   "cover": "https://resource.starrailassistant.top/ba/activity/23967dbaae221c68c889dca541a123b878a8842b.webp",
   "activities": [
-    {
-      "name": "限时活动【百芳丛中独一枝 ~堂堂正正，水上争锋~】",
-      "description": "",
-      "startTime": "2026-09-10T14:00:00",
-      "endTime": "2026-09-24T14:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/73c99b029cba67df7640c5ff69c8b5015d0c335a.webp"
-    },
     {
       "name": "限时活动【夏日天空的约定】",
       "description": "",
