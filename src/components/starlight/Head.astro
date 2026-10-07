@@ -1,0 +1,14 @@
+---
+// 覆盖 Starlight 默认 Head，追加 Cloudflare Web Analytics 采集脚本
+// token 获取方式见 Cloudflare 后台 → Web Analytics → 手动添加代码片段
+import StarlightHead from '@astrojs/starlight/components/Head.astro';
+---
+
+<StarlightHead />
+
+<!-- Cloudflare Web Analytics -->
+<script type='module'
+  src='https://static.cloudflareinsights.com/beacon.min.js'
+  data-cf-beacon='{"token": "d368d70c84444415b60263b6a5c366d8"}'>
+</script>
+<!-- End Cloudflare Web Analytics -->

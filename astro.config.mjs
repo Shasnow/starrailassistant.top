@@ -94,6 +94,7 @@ export default defineConfig({
       ],
       components: {
         Sidebar: "./src/components/starlight/Sidebar.astro",
+        Head: "./src/components/starlight/Head.astro",
       },
       locales: {
         root: {
