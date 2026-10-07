@@ -1,23 +1,23 @@
 {
   "version": "2026-10",
   "versionName": "日服活动",
-  "startTime": "2026-09-09T10:00:00",
-  "endTime": "2026-10-07T10:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/9bc62ee9bd2a0555d43ad4bf5d76948f1dc510f5.webp",
+  "startTime": "2026-09-23T10:00:00",
+  "endTime": "2026-10-21T10:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/df0a642704cce1374ee21d34819d71d4e419568f.webp",
   "activities": [
-    {
-      "name": "【复刻活动】「夏日天空的约定」",
-      "description": "",
-      "startTime": "2026-09-09T10:00:00",
-      "endTime": "2026-09-23T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/9bcd4625ecbeab7724a02b1474771b5b2b8be14e.webp"
-    },
     {
       "name": "「It's our Engine! ～逃离183号班！～」",
       "description": "",
       "startTime": "2026-09-23T10:00:00",
       "endTime": "2026-10-07T10:00:59",
       "cover": "https://resource.starrailassistant.top/ba/activity/9bc62ee9bd2a0555d43ad4bf5d76948f1dc510f5.webp"
+    },
+    {
+      "name": "【复刻】「我们是神秘学研究会！ ～学院的不思议与古老的咒文～」",
+      "description": "",
+      "startTime": "2026-10-07T10:00:00",
+      "endTime": "2026-10-21T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/df0a642704cce1374ee21d34819d71d4e419568f.webp"
     }
   ]
 }

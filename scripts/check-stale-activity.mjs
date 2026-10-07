@@ -10,21 +10,25 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const gamesTs = readFileSync(join(root, "src/data/games.ts"), "utf8");
 const activityDir = join(root, "public/api/v1/activity");
 
-// 解析 games.ts 游戏条目（当前格式为一个游戏一行，逐行提取字段）
+// 解析 games.ts 游戏条目（条目为多行对象：从 id 起到下一个 id 止，从中提取字段）
 const games = [];
-for (const line of gamesTs.split("\n")) {
-  const id = line.match(/id:\s*"([^"]+)"/)?.[1];
-  if (!id) continue;
+const idMatches = [...gamesTs.matchAll(/id:\s*"([^"]+)"/g)];
+for (let i = 0; i < idMatches.length; i++) {
+  const id = idMatches[i][1];
+  const start = idMatches[i].index;
+  const end = i + 1 < idMatches.length ? idMatches[i + 1].index : gamesTs.length;
+  const block = gamesTs.slice(start, end);
+  if (!block.includes("locales:")) continue; // 不是游戏条目
   const name =
-    line.match(/name:\s*\{[^}]*?"zh-CN":\s*"([^"]+)"/)?.[1] ??
-    line.match(/name:\s*"([^"]+)"/)?.[1] ??
+    block.match(/name:\s*\{[^}]*?"zh-CN":\s*"([^"]+)"/)?.[1] ??
+    block.match(/name:\s*"([^"]+)"/)?.[1] ??
     id;
   const locales = [
-    ...(line.match(/locales:\s*\[([^\]]*)\]/)?.[1] ?? "").matchAll(
+    ...(block.match(/locales:\s*\[([^\]]*)\]/)?.[1] ?? "").matchAll(
       /"([^"]+)"/g,
     ),
   ].map((m) => m[1]);
-  const defaultLocale = line.match(/defaultLocale:\s*"([^"]+)"/)?.[1];
+  const defaultLocale = block.match(/defaultLocale:\s*"([^"]+)"/)?.[1];
   games.push({ id, name, locales, defaultLocale });
 }
 
