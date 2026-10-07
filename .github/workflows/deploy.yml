@@ -8,6 +8,7 @@ on:
     # 仅当以下文件/文件夹变化时才触发部署
     paths:
       - "src/**" # 页面、组件、文档内容、样式
+      - "!src/data/games.ts" # 数据源配置，单独改动不触发部署
       - "public/**" # 静态资源（接口 JSON、图标等）
       - "astro.config.mjs"
       - "tsconfig.json"

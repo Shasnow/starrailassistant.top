@@ -74,17 +74,12 @@ export const games: Game[] = [
     locales: ["zh-CN", "en-US"],
     defaultLocale: "zh-CN",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://mc.kurogames.com/main/news" }, 
+      all: [{ type: "script", script: "scripts/fetch-ww-news.mjs" }],
+      "zh-CN": [
         {
           type: "script",
           script: "scripts/fetch-ww-activity.mjs",
         }
-      ],
-      "en-US": [
-        {
-          type: "html",
-          url: "https://wutheringwaves.kurogames.com/en/main/news",
-        },
       ],
     },
   },
