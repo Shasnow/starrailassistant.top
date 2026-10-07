@@ -34,6 +34,13 @@
       "cover": ""
     },
     {
+      "name": "Back to Solaris",
+      "description": "Invite your former companions back and complete tasks together to receive Astrites, Shell Credits, and more! Returning Rovers who link their accounts will also receive bonus gifts!",
+      "startTime": "2026-09-30T11:00:00",
+      "endTime": "2026-11-11T23:59:59",
+      "cover": ""
+    },
+    {
       "name": "Artisan's Search",
       "description": "Featured Combat Event. Lisha, apprentice Artisan, reporting for duty!",
       "startTime": "2026-10-08T04:00:00",
@@ -46,6 +53,13 @@
       "startTime": "2026-10-15T04:00:00",
       "endTime": "2026-10-22T03:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/c748978107a473b51d8d3e5cd6e0fd9e1955897084.jpg"
+    },
+    {
+      "name": "Waking Moon Fishing",
+      "description": "The Waking Moon Festival is underway. Participate in the fishing challenge and unlock entries in the Fishing Index to win Astrites! And complete event tasks to win Advanced Sealed Tubes and more.",
+      "startTime": "2026-10-15T10:00:00",
+      "endTime": "2026-11-01T09:59:59",
+      "cover": ""
     },
     {
       "name": "Echo Erase",
