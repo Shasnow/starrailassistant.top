@@ -34,6 +34,13 @@
       "cover": ""
     },
     {
+      "name": "3.7索拉里斯回归邀约",
+      "description": "漂泊者可通过分享个人专属邀请码，邀约同服务器内的「回归漂泊者」参与回归活动（至多3名），并通过完成游戏内特定行为来获得“心狐灵签”兑换奖励。",
+      "startTime": "2026-09-30T11:00:00",
+      "endTime": "2026-11-11T23:59:59",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/e3370c63bd9c423eb62469633a08ec9e20260929.jpg"
+    },
+    {
       "name": "天工寻物",
       "description": "限时战斗活动。天工匠见习生离纱，向你报到！",
       "startTime": "2026-10-08T04:00:00",
@@ -46,6 +53,13 @@
       "startTime": "2026-10-15T04:00:00",
       "endTime": "2026-10-22T03:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/c748978107a473b51d8d3e5cd6e0fd9e1955897084.jpg"
+    },
+    {
+      "name": "朝月鱼涌",
+      "description": "活动期间，漂泊者可通过挑战活动关卡、完成活动任务，获取星声、贝币、高级密音筒等游戏内道具奖励。",
+      "startTime": "2026-10-15T10:00:00",
+      "endTime": "2026-11-01T09:59:59",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/dc5d783579a148c985a1b543f9635de220260929.jpg"
     },
     {
       "name": "无音消除",
