@@ -319,7 +319,7 @@ const main = async () => {
     console.log(`${label}: ${activities.length} 条 → ${path.relative(REPO_ROOT, file)}`)
   }
 
-  console.log('\n用法：输出已是目标格式（version/versionName 为占位值），核对后写入 public/api/v1/activity/ba-{jp|global|cn}.json。')
+  console.log('\n用法: 输出已是目标格式，已覆盖原文件，无需核对。')
 }
 
 main().catch(error => {

@@ -166,7 +166,7 @@ mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(output, null, 2), "utf8");
 console.log(`表版本 ${version.id}：已写入 ${result.length} 个活动、${pools.length} 个卡池到 ${outPath}`);
 console.log(
-  "用法：输出已是目标格式，核对后写入 public/api/v1/activity/end.json（保持 2 空格缩进，versionName / cover 沿用现有数据）；",
+  "用法: 输出已是目标格式, 仅作核对参考 (versionName / cover 沿用现有数据)",
 );
 console.log("英文版 end-en-US.json 的表在 I18nTextTable_EN，本脚本暂只出中文。");
 const ended = excluded.filter((e) => e.includes("已结束")).length;

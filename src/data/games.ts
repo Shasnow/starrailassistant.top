@@ -74,7 +74,12 @@ export const games: Game[] = [
     locales: ["zh-CN", "en-US"],
     defaultLocale: "zh-CN",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://mc.kurogames.com/main/news" }],
+      "zh-CN": [{ type: "html", url: "https://mc.kurogames.com/main/news" }, 
+        {
+          type: "script",
+          script: "scripts/fetch-ww-activity.mjs",
+        }
+      ],
       "en-US": [
         {
           type: "html",

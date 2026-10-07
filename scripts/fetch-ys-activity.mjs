@@ -23,6 +23,5 @@ fetch("https://gi.yatta.moe/assets/data/event.json", {
     mkdirSync(dirname(outPath), { recursive: true });
     writeFileSync(outPath, JSON.stringify(json, null, 2), "utf8");
     console.log(`已保存 ${Object.keys(json).length} 个事件到 ${outPath}`);
-    console.log("用法：该文件是多语言活动原始数据，仅作核对参考——用于确认活动官方名称（尤其英文名）与封面图；");
-    console.log("ys 的正式活动数据（public/api/v1/activity/ys*.json）仍按版本公告流程生成，不直接使用本文件。");
+    console.log("用法: 该文件是多语言活动原始数据，仅作核对参考——用于确认活动官方名称（尤其英文名）与封面图；");
   });

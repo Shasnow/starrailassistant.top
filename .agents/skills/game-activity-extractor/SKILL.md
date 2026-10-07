@@ -128,7 +128,6 @@ Extract or infer the following version-level fields:
 
 **Exclude** the following types of content:
 
-- 网页活动 (Web/H5 events) — explicitly labeled as web events
 - 角色卡池/祈愿/唤取/棋盘 (Character banners/gacha)
 - 武器卡池/弧盘研募 (Weapon banners/gacha)
 - 永久开放内容 (Permanently available content — story quests, new regions, permanent game modes)
