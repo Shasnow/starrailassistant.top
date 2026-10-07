@@ -1,19 +1,12 @@
 {
   "version": "2026-10",
   "versionName": "国际服活动",
-  "startTime": "2026-09-15T10:00:00",
+  "startTime": "2026-09-29T10:00:00",
   "endTime": "2026-10-13T10:00:59",
   "cover": "https://resource.starrailassistant.top/ba/activity/75daa5e9652b979771623c6e1d3e34441110e96f.webp",
   "activities": [
     {
-      "name": "特殊作战：怪谈追踪篇",
-      "description": "",
-      "startTime": "2026-09-15T10:00:00",
-      "endTime": "2026-09-29T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/e665b796db30e94130326e41c566df9142983f84.webp"
-    },
-    {
-      "name": "百中绽放的一朵  ~光明正大的水上对决~  -复刻-",
+      "name": "百中绽放的一朵﻿  ﻿~光明正大的水上对决~﻿  ﻿-复刻-",
       "description": "",
       "startTime": "2026-09-29T10:00:00",
       "endTime": "2026-10-13T10:00:59",
