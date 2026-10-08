@@ -8,6 +8,8 @@ sidebar:
 
 如果你想为本文档做出贡献，可以点击文末的 _在 GitHub 上编辑此页_。
 
+没有找到你的问题的答案？请查阅 [问题排查](/getting-started/trouble-shooting/)。
+
 ## 有关 SRA 的常见问题
 
 <details>
@@ -47,7 +49,7 @@ SRA 和三月七小助手（下文简称 M7A）是两个不同的项目，由不
 </details>
 
 <details><summary>SRA能支持Linux/MacOS/*nix吗</summary>
-对于 *Linux*、*MacOS*，可以从源码自行编译，并使用云·星穹铁道模式。
+SRA 支持 Linux、MacOS 等 *nix 系统。在这些系统上，SRA 可以通过 uv、pip、pipx 安装并运行。
 此外，[StarRailAssistant.Neo](https://github.com/EveGlowLuna/StarRailAssistant.Neo) 项目的 [后端项目 Linux 开发分支](https://github.com/EveGlowLuna/SRA-CE-Cli/tree/linux_dev) 已有雏形，可前往查看。该 fork 的效果不代表官方最终效果。
 
 </details>
@@ -74,7 +76,7 @@ SRA 仅在命名和 UI 上部分借鉴 MAA，除此之外与 MAA 并无联系。
 </details>
 
 <details><summary>会封号吗挺担心的</summary>
-从 SRA 立项到 2.14 版本更新，作者一直使用自己的账号进行测试，目前暂未封号。
+从 SRA 立项到 2.23 版本更新，作者一直使用自己的账号进行测试，目前暂未封号。
 
 SRA 依靠计算机图像识别和模拟操作运行，不会修改游戏文件，也不会读写游戏内存，因此理论上不会导致封号。
 但脚本或模拟操作仍然可能触发米哈游的封号规则之一。既然使用 SRA，就要承担相应风险。

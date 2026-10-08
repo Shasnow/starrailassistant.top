@@ -11,7 +11,7 @@ sidebar:
 
 ## 下载
 
-前往[下载页面](./download)选择渠道进行下载
+前往[下载页面](/getting-started/download/)选择渠道进行下载
 
 ## 添加信任
 
