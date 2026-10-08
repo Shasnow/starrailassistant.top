@@ -15,19 +15,19 @@ https://starrailassistant.top/api/v1
 
 ## Games
 
-| id         | game                      |
-| ---------- | ------------------------- |
-| `sr`       | Honkai: Star Rail         |
-| `ys`       | Genshin Impact            |
-| `zzz`      | Zenless Zone Zero         |
-| `ww`       | Wuthering Waves           |
-| `nte`      | NTE                       |
-| `ba-cn`    | Blue Archive (CN)         |
-| `ba-jp`    | Blue Archive (JP)         |
-| `ba-global`| Blue Archive (Global)     |
-| `ak`       | Arknights                 |
-| `end`      | Arknights: Endfield       |
-| `xtlr`     | Stella Sora               |
+| id         | game                      | 中文名             |
+| ---------- | ------------------------- | ------------------ |
+| `sr` | Honkai: Star Rail | 崩坏：星穹铁道 |
+| `ys` | Genshin Impact | 原神 |
+| `zzz` | Zenless Zone Zero | 绝区零 |
+| `ww` | Wuthering Waves | 鸣潮 |
+| `nte` | NTE | 异环 |
+| `ba-cn` | Blue Archive (CN) | 蔚蓝档案（国服） |
+| `ba-jp` | Blue Archive (JP) | 蔚蓝档案（日服） |
+| `ba-global` | Blue Archive (Global) | 蔚蓝档案（国际服） |
+| `ak` | Arknights | 明日方舟 |
+| `end` | Arknights: Endfield | 明日方舟：终末地 |
+| `xtlr` | Stella Sora | 星塔旅人 |
 
 ## Response schema
 
