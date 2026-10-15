@@ -1,104 +1,120 @@
 {
-  "version": "1.5",
-  "versionName": "Dreamscape of Wind and Snow",
-  "startTime": "2026-09-02T12:00:00",
-  "endTime": "2026-10-15T06:00:00",
-  "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg",
+  "version": "1.6",
+  "versionName": "Sanctuary of Ink",
+  "startTime": "2026-10-15T12:00:00",
+  "endTime": "2026-11-26T06:00:00",
+  "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg",
   "activities": [
-    {
-      "name": "[A Winter Dream Fogged Deep in the Woods] Narrative Event",
-      "kind": "",
-      "description": "Complete the side mission [A Winter Dream Fogged Deep in the Woods] to acquire [Oroberyl]×600, [Elementary Cognitive Carrier], and other rewards.",
-      "startTime": "2026-09-02T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Snow Over Deep Woods] Guide Event",
-      "kind": "",
-      "description": "Complete specified missions in the [Snowy Forest] area of the [Wuling] region to claim [Oroberyl]×1200 and [Mark of Perseverance].",
-      "startTime": "2026-09-02T12:00:00",
-      "endTime": "2026-09-30T12:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Trial of the Bow] Challenge Event",
-      "kind": "",
-      "description": "Complete Simulations at [Typhoeus's Archery Range] and event-related Trial Missions during the event to earn rewards including [Oroberyl]×1200, [Advanced Cognitive Carrier], [Mark of Perseverance], and [Advanced Progression Selection Crate I].",
-      "startTime": "2026-09-09T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[AIC Support: Chubby Lung Attacks] AIC Production Event",
-      "kind": "",
-      "description": "Produce support goods and submit them at the outpost to get [Fruits of Altruism Certs], exchangeable for rewards including [Oroberyl]×1600 and [Portrait: Chubby Lung Attacks]. Goods Exchange open until Oct. 7, 2026 at 04:00 (server time).",
-      "startTime": "2026-09-16T12:00:00",
-      "endTime": "2026-09-30T16:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Sanity Supply] Limited-Time Event (Round 1)",
-      "kind": "",
-      "description": "Complete specified missions every day to claim Sanity Supply rewards: [Sanity Usage Permit] and [Emergency Sanity Booster].",
-      "startTime": "2026-09-17T04:00:00",
-      "endTime": "2026-09-24T04:00:00",
-      "cover": ""
-    },
-    {
-      "name": "[Purry Big Feline! RAWR!] Giveaway Event",
-      "kind": "",
-      "description": "Log into the game and participate in various game modes to claim new 5★ operator [Purrchena], [Purrchena's Token]×5, and new 5★ weapon [Dessert Moment (Sword)]×6.",
-      "startTime": "2026-09-24T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Echoing Bell of an Old City] Guide Event",
-      "kind": "",
-      "description": "Complete specified missions in [Suiming] of the [Wuling] region to claim [Oroberyl]×1200 and [Mark of Perseverance].",
-      "startTime": "2026-09-24T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Season of Illusion] (Echoes of War)",
-      "kind": "",
-      "description": "New season [Season of Illusion] is available, featuring 3 cycles with 3 stages each. Clear all new stages on Normal difficulty to claim rewards including [Oroberyl]×300.",
-      "startTime": "2026-09-24T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": ""
-    },
-    {
-      "name": "[Ridgeline Flows of Autumn] Limited-Time Sign-In",
-      "kind": "",
-      "description": "Sign in for 7 days in total to earn rewards including [Oroberyl]×1500, [Portrait: Go Forth and Run], and [\"Rolling Chubby Lung\" Energy Drink].",
-      "startTime": "2026-10-01T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Runners' Steeplechase] Fun & Games Event",
-      "kind": "",
-      "description": "Complete the race with 3★, collect balloons, and reach the corresponding Runner's Milestones to claim rewards such as [Oroberyl]×1200 and [Portrait Frame: Champion Runner].",
-      "startTime": "2026-10-01T12:00:00",
-      "endTime": "2026-10-15T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20260901/08f343f9381e539b259d5be5adfbd22d.jpg"
-    },
-    {
-      "name": "[Sanity Supply] Limited-Time Event (Round 2)",
-      "kind": "",
-      "description": "Complete specified missions every day to claim Sanity Supply rewards: [Sanity Usage Permit] and [Emergency Sanity Booster].",
-      "startTime": "2026-10-08T04:00:00",
-      "endTime": "2026-10-15T04:00:00",
-      "cover": ""
-    },
     {
       "name": "[Monumental Etching: Shadow Marked] Limited-Time Challenge",
       "kind": "",
       "description": "Complete various [Umbral Monument] challenges in the [Marked by Dark Shadows] series to claim rewards including [Oroberyl]×1200 and [Advanced Progression Selection Crate I].",
       "startTime": "2026-10-05T12:00:00",
       "endTime": "2026-10-19T04:00:00",
+      "cover": ""
+    },
+    {
+      "name": "[Yuanyuan's Blazing Stoves] Fun & Games Event",
+      "kind": "",
+      "description": "Visit the [Si's Painting] area in [Wuling], manage [Yuanyuan Manor Inn], complete the corresponding Session Tasks, and increase your Inn Milestones to claim rewards including [Oroberyl]×1000 and [Mark of Perseverance].",
+      "startTime": "2026-10-15T12:00:00",
+      "endTime": "2026-11-26T05:59:59",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Spirit's Restoration] Sign-In Event",
+      "kind": "",
+      "description": "Sign in for a total of 7 days to earn rewards such as [Spirit's Restoration HH Permit]×5.",
+      "startTime": "2026-10-15T12:00:00",
+      "endTime": "2026-11-05T11:59:59",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[All the Inky Hues] Guide Event",
+      "kind": "",
+      "description": "Visit the [Si's Painting] area in the region of [Wuling] and complete specified missions to earn event rewards such as [Oroberyl]×1200 and [Mark of Perseverance].",
+      "startTime": "2026-10-15T12:00:00",
+      "endTime": "2026-11-05T12:00:00",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Season of Phantasia] (Echoes of War)",
+      "kind": "",
+      "description": "New season [Season of Phantasia] is available. This season features 3 cycles, each including 3 stages. [Season of Phantasia] adds 3 new stages. Clear all new stages on Normal difficulty to claim rewards including [Oroberyl]×300.",
+      "startTime": "2026-10-15T12:00:00",
+      "endTime": "2026-11-05T11:59:59",
+      "cover": ""
+    },
+    {
+      "name": "[Carly's Verdant Anthology] Camera Event",
+      "kind": "",
+      "description": "Complete camera missions to earn event rewards that include: [Oroberyl]×1500, [Portrait Frame: Carly's Verdant Anthology], [Mark of Perseverance].",
+      "startTime": "2026-10-22T12:00:00",
+      "endTime": "2026-11-05T04:00:00",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Monumental Etching: Forest of Maras] Limited-Time Challenge",
+      "kind": "",
+      "description": "Upon the release of the [Murmurs of the Deep Forest] series, the [Monumental Etching: Forest of Maras] limited-time event will begin. During the event, complete various [Umbral Monument] challenges to claim rewards including [Oroberyl]×1200 and [Advanced Progression Selection Crate II].",
+      "startTime": "2026-10-22T12:00:00",
+      "endTime": "2026-11-05T04:00:00",
+      "cover": ""
+    },
+    {
+      "name": "[Contingency Readiness] Limited-Time Event",
+      "kind": "",
+      "description": "During the event, complete specified missions every day to receive rewards including [Sanity Usage Permit], [Emergency Sanity Booster], [Wuling Artificing Catalyst], and [Coolant Gel].",
+      "startTime": "2026-10-29T04:00:00",
+      "endTime": "2026-11-05T04:00:00",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Arena of Games] Challenge Event",
+      "kind": "",
+      "description": "During the event, take on [Arena of Games] challenges to earn Arena Points. Reach every tier in [Arena Milestone] to earn rewards including [Oroberyl]×1200 and [Mark of Perseverance].",
+      "startTime": "2026-10-29T12:00:00",
+      "endTime": "2026-11-19T04:00:00",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Back to the Rustics] Narrative Event",
+      "kind": "",
+      "description": "Complete the side mission [Back to the Rustics] to earn [Oroberyl]×600, [Elementary Cognitive Carrier], and other rewards.",
+      "startTime": "2026-11-05T12:00:00",
+      "endTime": "2026-11-26T05:59:59",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[The Stars Are With Me] Sign-In Event",
+      "kind": "",
+      "description": "Sign in for a total of 7 days to earn rewards such as [The Stars Are With Me HH Permit]×5.",
+      "startTime": "2026-11-05T12:00:00",
+      "endTime": "2026-11-26T05:59:59",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Contingency Contract: Indigo Experimental Operation] Challenge Event",
+      "kind": "",
+      "description": "During the event, you can select any combination of Test Criteria for the challenge, and try to complete it. Complete event missions to earn rewards such as [Portrait: Silverblade Medal], [Portrait Frame: Contingency Respondent] and [Vitrified Indigo]. Spend [Vitrified Indigo] at the [Secret Sanctuary] to exchange for great rewards including [Oroberyl]×2000, [Sticker: Contingency Resolved], and [Advanced Progression Selection Crate II].",
+      "startTime": "2026-11-05T12:00:00",
+      "endTime": "2026-11-26T05:59:59",
+      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+    },
+    {
+      "name": "[Season of Fervor] (Echoes of War)",
+      "kind": "",
+      "description": "New season [Season of Fervor] is available. This season features 3 cycles, each including 3 stages. [Season of Fervor] adds 3 new stages. Clear all new stages on Normal difficulty to claim rewards including [Oroberyl]×300.",
+      "startTime": "2026-11-05T12:00:00",
+      "endTime": "2026-11-26T05:59:59",
+      "cover": ""
+    },
+    {
+      "name": "[Sanity Supply] Limited-Time Event",
+      "kind": "",
+      "description": "During the event, complete specified missions every day to claim Sanity Supply rewards: [Sanity Usage Permit] and [Emergency Sanity Booster].",
+      "startTime": "2026-11-19T04:00:00",
+      "endTime": "2026-11-26T04:00:00",
       "cover": ""
     }
   ]
