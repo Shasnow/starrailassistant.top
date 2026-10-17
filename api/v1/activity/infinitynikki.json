@@ -1,0 +1,49 @@
+{
+  "version": "2.10",
+  "versionName": "金羽的裁决",
+  "startTime": "2026-09-24T11:00:00",
+  "endTime": "2026-10-30T03:50:00",
+  "cover": "https://webstatic.papegames.com/5af052bffce5c899/images/bg/Pa8xDsyjOHyqTtns.jpg",
+  "activities": [
+    {
+      "name": "「给曾是孩子的你」限时联动活动",
+      "kind": "限时联动活动",
+      "description": "《无限暖暖》×《小王子》联动开启。探索联动区域收集奇想陨晶，可免费兑换联动家具设计图等奖励；完成联动风物任务与联动任务，累计免费获得联动共鸣道具【心上玫瑰】×100，并可在联动限时特别兑换中兑换名片、称号、拍照动作、动态表情等奖励。",
+      "startTime": "2026-09-24T11:00:00",
+      "endTime": "2026-11-27T03:49:59",
+      "cover": "https://webstatic.papegames.com/5af052bffce5c899/images/bg/PfpDqOmpXGmcHvVb.jpg"
+    },
+    {
+      "name": "「旧律启裁光」限时活动",
+      "kind": "限时活动",
+      "description": "活动期间，每次开放4项目标任务。完成目标任务，可获得【律光刻印】，达到指定数量即可兑换【钻石】等丰厚奖励。",
+      "startTime": "2026-10-12T11:00:00",
+      "endTime": "2026-10-30T03:49:59",
+      "cover": "https://webstatic.papegames.com/5af052bffce5c899/images/bg/qSo4Pm8Td3MnggO1.jpg"
+    },
+    {
+      "name": "「艾莉森的旅行小铺」限时活动",
+      "kind": "限时活动",
+      "description": "推进伊赞之土主线「第十章」后开启。活动期间可用寻物清单上的材料交换精选好物，寻物清单每日04:00更新，累计完成7次交换可解锁赠礼；【留声机唱片】为常驻可兑换奖励，活动结束后仍可兑换。",
+      "startTime": "2026-10-12T11:00:00",
+      "endTime": "2026-10-30T03:49:59",
+      "cover": "https://webstatic.papegames.com/5af052bffce5c899/images/bg/qSo4Pm8Td3MnggO1.jpg"
+    },
+    {
+      "name": "「星光评选赛」限时活动",
+      "kind": "限时活动",
+      "description": "活动期间，搭配师们可根据当期主题「独一的玫瑰」投稿参赛，还可以在「星绘图册」中为心仪作品投票，活动奖励包含钻石、升级包。",
+      "startTime": "2026-10-12T11:00:00",
+      "endTime": "2026-10-30T03:49:59",
+      "cover": "https://webstatic.papegames.com/5af052bffce5c899/images/bg/qSo4Pm8Td3MnggO1.jpg"
+    },
+    {
+      "name": "「灵感迸发」双倍奖励活动",
+      "kind": "双倍奖励活动",
+      "description": "推进逸事「新的指引·素材激化幻境」及心愿原野主线「第一章」或推进伊赞之土主线「第一章」后开启。活动期间，成功挑战「祝福闪光幻境」可获得双倍奖励，每日双倍兑换上限为3次。",
+      "startTime": "2026-10-17T04:00:00",
+      "endTime": "2026-10-24T03:59:59",
+      "cover": "https://webstatic.papegames.com/5af052bffce5c899/images/bg/RhHE0JO8A1nSS7r3.jpg"
+    }
+  ]
+}

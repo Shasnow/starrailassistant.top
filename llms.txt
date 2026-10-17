@@ -28,6 +28,7 @@ https://starrailassistant.top/api/v1
 | `ak` | Arknights | 明日方舟 |
 | `end` | Arknights: Endfield | 明日方舟：终末地 |
 | `xtlr` | Stella Sora | 星塔旅人 |
+| `infinitynikki` | Infinity Nikki | 无限暖暖 |
 
 ## Response schema
 
