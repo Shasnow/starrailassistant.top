@@ -55,6 +55,13 @@
       "cover": "https://i0.hdslb.com/bfs/new_dyn/c0b50e72864553f19ffe2216bb08404d3546636978489848.jpg"
     },
     {
+      "name": "Beyond the Rails: Sunset Circle",
+      "description": "Limited-time event. Explore the railway route and take on challenges along the way.",
+      "startTime": "2026-10-08T05:00:00",
+      "endTime": "2026-10-22T04:59:59",
+      "cover": ""
+    },
+    {
       "name": "Coal Lump's Treasure",
       "description": "Limited-time event. Keep those grubby little paws off Coal Lump's treasures! Take part during the event to earn the event currency \"Prism Drop\", and reach the target high scores to unlock the titles \"Sweet Benefactor\" and \"Bestie Supreme\". You can also visit the event shop to exchange for Annulith, Floe Cinema Tickets, Fons, Elite Hunter Guides, Chaotic Dye, and more.",
       "startTime": "2026-10-08T10:00:00",
@@ -66,6 +73,27 @@
       "description": "Limited-time event. During the event, spend Character Pixels in \"Houdinii's Magic Stage\", \"Houdinii's Schemes\", \"Bubble Can Factory\", and \"Rabbit Hole\" to receive double the rewards. Each day, double rewards apply to up to 120 Character Pixels spent. Unused daily allowance carries over, up to a total cap of 840 Character Pixels for the whole event.",
       "startTime": "2026-10-19T05:00:00",
       "endTime": "2026-10-26T04:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Snap! Golden Crackshot",
+      "description": "Limited-time event. Take part during the event to earn event currency, then visit the event shop to exchange it for Annulith, Fons, Floe Cinema Tickets, and more.",
+      "startTime": "2026-10-21T11:00:00",
+      "endTime": "2026-11-11T05:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Gold Crash",
+      "description": "Limited-time event. During the event, Fons earnings in \"Pink Paws Heist\" are doubled.",
+      "startTime": "2026-10-26T05:00:00",
+      "endTime": "2026-11-09T04:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Puka Lucky Flip",
+      "description": "Limited-time event. Complete daily tasks to earn flip chances, then use them to flip cards for a chance to win Annulith, Fabricated Dice, Elite Hunter Guides, Chaotic Dye, and more.",
+      "startTime": "2026-10-29T05:00:00",
+      "endTime": "2026-11-11T05:59:59",
       "cover": ""
     }
   ]
