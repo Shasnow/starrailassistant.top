@@ -1,0 +1,33 @@
+{
+  "version": "2026-09-24",
+  "versionName": "远信回响",
+  "startTime": "2026-09-24T05:00:00",
+  "endTime": "2026-11-05T05:00:00",
+  "cover": "",
+  "activities": [
+    {
+      "name": "【回路演算】活动",
+      "kind": "",
+      "description": "库街区官方活动公告",
+      "startTime": "2026-09-24T10:00:00",
+      "endTime": "2026-11-04T05:00:00",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/fccdcc08a369417f9744e39c0082d5a320260922.png"
+    },
+    {
+      "name": "【超频演算】活动",
+      "kind": "",
+      "description": "库街区官方活动公告",
+      "startTime": "2026-09-29T10:00:00",
+      "endTime": "2026-11-04T05:00:00",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/d0483c9296cd49e593ea7b6e55e5342320260928.png"
+    },
+    {
+      "name": "【忽忽破坏王】活动",
+      "kind": "",
+      "description": "库街区官方活动公告",
+      "startTime": "2026-10-08T10:00:00",
+      "endTime": "2026-11-04T05:00:00",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/bf1eebdc9b3947d7885a751804dff35f20261002.png"
+    }
+  ]
+}
