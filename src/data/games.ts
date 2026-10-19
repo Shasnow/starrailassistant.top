@@ -195,4 +195,64 @@ export const games: Game[] = [
       ],
     },
   },
+  {
+    id: "gf2",
+    name: { "zh-CN": "少女前线2：追放", en: "Girls' Frontline 2: Exilium" },
+    locales: ["zh-CN"],
+    defaultLocale: "zh-CN",
+    updateMode: "version",
+    dataSources: {
+      "zh-CN": [{ type: "pageData", url: "https://gf2-web-preregister-api.sunborngame.com/website/news_list/1?page=1&limit=999" }],
+    },
+  },
+  {
+    id: "pgr",
+    name: { "zh-CN": "战双帕弥什", en: "Punishing: Gray Raven" },
+    locales: ["zh-CN"],
+    defaultLocale: "zh-CN",
+    updateMode: "version",
+    dataSources: {
+      "zh-CN": [{ type: "html", url: "https://www.kurobbs.com/person-center?id=10001001&game=pns&valid=1" }],
+    },
+  },
+  {
+    id: "czn",
+    name: "卡厄斯梦境（国际服）",
+    locales: ["zh-CN"],
+    defaultLocale: "zh-CN",
+    updateMode: "activity",
+    dataSources: {
+      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/czn/notice" }],
+    },
+  },
+  {
+    id: "bd2",
+    name: { "zh-CN": "棕色尘埃2", en: "Brown Dust 2" },
+    locales: ["zh-CN"],
+    defaultLocale: "zh-CN",
+    updateMode: "version",
+    dataSources: {
+      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/zsca2/notice" }],
+    },
+  },
+  {
+    id: "nikke",
+    name: { "zh-CN": "NIKKE（国际服）", en: "Goddess of Victory: Nikke" },
+    locales: ["zh-CN"],
+    defaultLocale: "zh-CN",
+    updateMode: "version",
+    dataSources: {
+      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/nikke/huodong/19" }],
+    },
+  },
+  {
+    id: "hyrz",
+    name: { "zh-CN": "火影忍者", en: "Naruto Mobile" },
+    locales: ["zh-CN"],
+    defaultLocale: "zh-CN",
+    updateMode: "activity",
+    dataSources: {
+      "zh-CN": [{ type: "html", url: "https://hyrz.qq.com/web202003/newsList.html?tab=1" }],
+    },
+  },
 ];

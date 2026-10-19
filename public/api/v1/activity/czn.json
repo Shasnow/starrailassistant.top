@@ -1,0 +1,41 @@
+{
+  "version": "2026-09-30",
+  "versionName": "2026-09-30",
+  "startTime": "2026-09-30T13:00:00",
+  "endTime": "2026-10-21T13:00:00",
+  "cover": "",
+  "activities": [
+    {
+      "name": "超速驱动 – 模拟",
+      "kind": "",
+      "description": "GameKee 卡厄斯公告",
+      "startTime": "2026-09-30T13:00:00",
+      "endTime": "2026-10-21T13:00:00",
+      "cover": ""
+    },
+    {
+      "name": "9号委托秘闻",
+      "kind": "",
+      "description": "GameKee 卡厄斯公告",
+      "startTime": "2026-09-30T13:00:00",
+      "endTime": "2026-10-21T13:00:00",
+      "cover": "https://i1.hdslb.com/bfs/archive/6c2d8bb25661e968ef8a1cacd8ab0a62e75c4dac.jpg"
+    },
+    {
+      "name": "守护者的回忆录",
+      "kind": "",
+      "description": "GameKee 卡厄斯公告",
+      "startTime": "2026-09-30T13:00:00",
+      "endTime": "2026-10-21T13:00:00",
+      "cover": "https://i0.hdslb.com/bfs/archive/65f7542c10c79d04ce11153e6ec4db724a45d319.jpg"
+    },
+    {
+      "name": "白羽与假期",
+      "kind": "",
+      "description": "GameKee 卡厄斯公告",
+      "startTime": "2026-09-30T13:00:00",
+      "endTime": "2026-10-21T13:00:00",
+      "cover": "https://i0.hdslb.com/bfs/archive/c853f5eaa37345be2705ccb106065974ddb95e8f.jpg"
+    }
+  ]
+}
