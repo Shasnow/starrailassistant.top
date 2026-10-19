@@ -12,6 +12,7 @@ export interface Game {
   //   可能推出另一个新活动；应在每个活动结束时立即触发数据更新流程，及时获取
   //   新活动信息。
   updateMode?: "version" | "activity"; // 活动数据更新模式，缺省按版本号格式自动识别
+  hasPools?: boolean; // 是否包含卡池数据，缺省或 false 不包含
 }
 
 export interface GameDataSource {
@@ -161,6 +162,7 @@ export const games: Game[] = [
       ],
       "en-US": [{ type: "html", url: "https://endfield.gryphline.com/news" }],
     },
+    hasPools: true,
   },
   {
     id: "xtlr",

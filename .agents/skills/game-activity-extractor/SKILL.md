@@ -26,6 +26,7 @@ Read `src/data/games.ts` and locate the target game entry (match by `id` or `nam
 | `locales`       | All locales that must be produced                                                                  |
 | `defaultLocale` | Locale whose output omits the `-{locale}` suffix                                                   |
 | `dataSources`   | Map of locale → `GameDataSource[]` (see below), "all" key applies to all locales                   |
+| `hasPools`      | When `true`, collect pools data for this game. Absent or `false` = no require                      |
 
 **GameDataSource shape** (defined at the top of `src/data/games.ts`):
 
@@ -82,7 +83,6 @@ Do **not** browse articles one by one. A single article type usually contains ev
 | 3        | 「「活动名」活动说明」 / single-activity notices                                                                                     | Exact clock times for one activity — use only to verify individual entries                |
 | skip     | 「前瞻特别节目 情报回顾」, 专题页, 「Server Maintenance Notice」 (no version number)                                                 | Image-heavy / fragmented / no timetable — never the primary source                        |
 
-Gacha banners, shop, compensation mail, and permanent-content articles are never sources (see Step 4 exclusions).
 
 #### Fallback
 
@@ -136,7 +136,31 @@ Extract or infer the following version-level fields:
 - 版本更新公告本身 (The version update notice itself)
 - 新手活动 (New player activities, unless they are version-limited)
 
+The two gacha exclusions above apply to `activities` only — when the game's `hasPools` is `true`, banners are collected as pool data instead (see "Pool Data" below).
+
 **Preserve ongoing activities from previous versions:** When updating an existing file, read that same file's current contents first. If any activity's `endTime` is after the new version's `startTime`, that activity is still ongoing and **must be kept** in the updated JSON, even if the new version introduces a replacement activity of the same type. Check per locale — each `{id}-{locale}.json` is compared against itself.
+
+#### Pool Data (only when the game's `hasPools` is `true`)
+
+First read the game entry in `src/data/games.ts`: if `hasPools` is absent or `false`, **skip this entire subsection** — the output file contains no pool data. When it is `true`, collect gacha pools **in addition to** activities and write them into the **same output file** under a top-level `pools` array:
+
+- **Source**: the banner sections of the same version update notice (「角色活动跃迁」「限定寻访」「角色活动池」「武器池」/ "Limited Character Event Warp", …). One Priority-1 patch notes article usually states every pool's start/end time and UP characters. Banner announcement articles, which are never sources for activity data, **are** valid sources here.
+- **Include**: limited-time character and weapon pools that have an explicit end time (including rerun pools).
+- **Exclude**: permanent/standard/starter pools (no end time), already-ended pools, and pool-shop/currency-exchange items.
+- **Fields** (in the language of the locale's source):
+
+| Field          | Description                                                                                         |
+| -------------- | --------------------------------------------------------------------------------------------------- |
+| `name`         | Exact pool name from the source                                                                      |
+| `type`         | The pool category the source itself uses (e.g. `角色活动跃迁`, `武器活动跃迁`, `特许寻访`); `""` when none |
+| `startTime`    | ISO 8601, same rules as activities (Step 6) — e.g. "维护结束后开启" → maintenance completion time   |
+| `endTime`      | ISO 8601, last second of the minute                                                                  |
+| `cover`        | Best-effort banner art via Step 5 rules; `""` when nothing matches — never guess a URL               |
+| `upCharacters` | UP characters / weapons as an array of exact names; `[]` when the source does not list them          |
+
+- **Ordering**: sort pools by `startTime` ascending, like activities.
+- **Preserve ongoing pools**: apply the same preservation rule as activities — any pool already in the file whose `endTime` is after the new version's `startTime` must be kept.
+- Write `"pools": []` when `hasPools` is `true` but no qualifying pool exists; **omit the key entirely** when `hasPools` is absent/false.
 
 ### Step 5: Extract Activity-Level Fields
 
@@ -227,9 +251,21 @@ Write the result to `public/api/v1/activity/{id}.json` (default locale) or `publ
       "endTime": "YYYY-MM-DDTHH:mm:ss",
       "cover": ""
     }
+  ],
+  "pools": [
+    {
+      "name": "卡池名称",
+      "type": "卡池类型",
+      "startTime": "YYYY-MM-DDTHH:mm:ss",
+      "endTime": "YYYY-MM-DDTHH:mm:ss",
+      "cover": "",
+      "upCharacters": ["UP角色名"]
+    }
   ]
 }
 ```
+
+The `pools` key is written **only** when the game's `hasPools` is `true` (see "Pool Data"); omit it entirely otherwise.
 
 When writing, overwrite the whole file with `Write`, keeping 2-space indentation. 
 
@@ -242,6 +278,7 @@ After writing the JSON, provide a brief **说明** (explanation) section coverin
 3. **Time notes**: Explain any time assumptions or conversions made (e.g., "3.5版本更新后" was converted to 11:00 as the maintenance completion time)
 4. **Preserved activities**: Which ongoing activities were carried over from the previous version
 5. **Estimated dates**: If any dates were estimated (e.g., referencing a future version's end date), note that the actual date should be confirmed with official announcements
+6. **Pool data** (only when `hasPools` is `true`): Which pools were included/excluded and why (e.g., permanent pools skipped), plus any estimated banner times. If `hasPools` is absent/false, no mention is needed.
 
 ## Additional Rules
 
