@@ -80,6 +80,13 @@ GET /activity/{game}-{locale}.json
 | `activities[].startTime`   | string  | 活动开始时间（ISO 8601） |
 | `activities[].endTime`     | string  | 活动结束时间（ISO 8601） |
 | `activities[].cover?`      | string? | 活动封面图 URL           |
+| `pools?`                   | array   | 可选卡池列表 |
+| `pools[].name`             | string  | 卡池名称 |
+| `pools[].type`             | string  | 卡池类型名称 |
+| `pools[].startTime`        | string  | 卡池开始时间 |
+| `pools[].endTime`          | string  | 卡池结束时间（关闭时刻前一秒） |
+| `pools[].cover`            | string  | 首个 UP 角色的头像 URL|
+| `pools[].upCharacters`     | string[] | UP 角色名称列表 |
 
 ## 常见问题
 

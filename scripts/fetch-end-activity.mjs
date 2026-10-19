@@ -13,6 +13,8 @@ const outPath = join(root, "tmp", "end-activity.json");
 const DATA_BASE = "https://data.akedata.wiki";
 
 // 角色头像与活动图的资源路径（与 akedata 前端一致）
+const ACTIVITY_IMAGE_PATH =
+  "public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity";
 const CHARACTER_ICON_PATH =
   "public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/charremoteicon";
 
@@ -110,7 +112,10 @@ for (const [id, row] of Object.entries(activities)) {
     description: plainText(row.desc),
     startTime: toIso(range.openTime),
     endTime: toEndIso(range.closeTime),
-    cover: "",
+    // tabImg 是活动小图；bgImg 为大背景，不用于此处。
+    cover: typeof row.tabImg === "string" && row.tabImg.trim()
+      ? `${DATA_BASE}/${ACTIVITY_IMAGE_PATH}/${encodeURIComponent(row.tabImg.trim())}.png`
+      : "",
   });
 }
 result.sort((a, b) => a.startTime.localeCompare(b.startTime));
@@ -129,7 +134,8 @@ for (const [poolId, pool] of Object.entries(poolsTable)) {
     excludedPools.push(`${name}（无开始时间）`);
     continue;
   }
-  if (new Date(toIso(range.closeTime)).getTime() < now) {
+  // AKE 国服时间为 UTC+8，不受运行机器时区影响；关闭时刻即不再收录。
+  if (Date.parse(`${toIso(range.closeTime)}+08:00`) <= now) {
     excludedPools.push(`${name}（已结束）`);
     continue;
   }
