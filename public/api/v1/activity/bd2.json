@@ -1,9 +1,9 @@
 {
   "version": "2026-10-08",
-  "versionName": "2026-10-08",
+  "versionName": "万圣节版本",
   "startTime": "2026-10-08T11:00:00",
   "endTime": "2026-10-15T11:00:00",
-  "cover": "",
+  "cover": "https://i0.hdslb.com/bfs/archive/28b81cd37cd341656199a7c6136e1fa637a2edaf.jpg",
   "activities": [
     {
       "name": "幽灵之夜特别精炼通行证",
@@ -11,7 +11,7 @@
       "description": "幽灵之夜特别精炼通行证",
       "startTime": "2026-10-08T12:00:00",
       "endTime": "2026-10-22T06:50:00",
-      "cover": ""
+      "cover": "https://i0.hdslb.com/bfs/archive/671d1317921f22815259705e6537456a8c2bdaaa.jpg"
     },
     {
       "name": "万圣节每日钻石通行证",
@@ -19,7 +19,7 @@
       "description": "万圣节每日钻石通行证",
       "startTime": "2026-10-08T12:00:00",
       "endTime": "2026-11-05T06:50:00",
-      "cover": ""
+      "cover": "https://i1.hdslb.com/bfs/archive/225c5d4d30455c0a02e60b9d244c4dd93298899f.jpg"
     },
     {
       "name": "特别赛季通行证",
