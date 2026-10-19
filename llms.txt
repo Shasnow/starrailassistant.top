@@ -29,6 +29,12 @@ https://starrailassistant.top/api/v1
 | `end` | Arknights: Endfield | 明日方舟：终末地 |
 | `xtlr` | Stella Sora | 星塔旅人 |
 | `infinitynikki` | Infinity Nikki | 无限暖暖 |
+| `gf2` | Girls' Frontline 2: Exilium | 少女前线2：追放 |
+| `pgr` | Punishing: Gray Raven | 战双帕弥什 |
+| `czn` | 卡厄斯梦境（国际服） | 卡厄斯梦境（国际服） |
+| `bd2` | Brown Dust 2 | 棕色尘埃2 |
+| `nikke` | Goddess of Victory: Nikke | NIKKE（国际服） |
+| `hyrz` | Naruto Mobile | 火影忍者 |
 
 ## Response schema
 

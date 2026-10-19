@@ -1,0 +1,41 @@
+{
+  "version": "2026-10-08",
+  "versionName": "2026-10-08",
+  "startTime": "2026-10-08T11:00:00",
+  "endTime": "2026-10-15T11:00:00",
+  "cover": "",
+  "activities": [
+    {
+      "name": "幽灵之夜特别精炼通行证",
+      "kind": "",
+      "description": "幽灵之夜特别精炼通行证",
+      "startTime": "2026-10-08T12:00:00",
+      "endTime": "2026-10-22T06:50:00",
+      "cover": ""
+    },
+    {
+      "name": "万圣节每日钻石通行证",
+      "kind": "",
+      "description": "万圣节每日钻石通行证",
+      "startTime": "2026-10-08T12:00:00",
+      "endTime": "2026-11-05T06:50:00",
+      "cover": ""
+    },
+    {
+      "name": "特别赛季通行证",
+      "kind": "",
+      "description": "特别赛季通行证",
+      "startTime": "2026-10-08T12:00:00",
+      "endTime": "2026-11-05T06:50:00",
+      "cover": ""
+    },
+    {
+      "name": "赛季活动「Loyal Maid」更新",
+      "kind": "",
+      "description": "赛季活动「Loyal Maid」更新",
+      "startTime": "2026-10-14T23:00:00",
+      "endTime": "2026-10-21T21:59:00",
+      "cover": ""
+    }
+  ]
+}
