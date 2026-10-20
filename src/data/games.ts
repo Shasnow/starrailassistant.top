@@ -202,7 +202,9 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "version",
     dataSources: {
-      "zh-CN": [{ type: "pageData", url: "https://gf2-web-preregister-api.sunborngame.com/website/news_list/1?page=1&limit=999" }],
+      "zh-CN": [{ type: "pageData",
+        url: "https://gf2-web-preregister-api.sunborngame.com/website/news_list/1?page={page}&limit={limit}",
+         articleUrl: "https://gf2-web-preregister-api.sunborngame.com/website/news/{Id}" }],
     },
   },
   {
@@ -222,7 +224,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "activity",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/czn/notice" }],
+      "zh-CN": [{ type: "script", script: "scripts/fetch-czn-activity.mjs" }],
     },
   },
   {
@@ -232,7 +234,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "version",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/zsca2/notice" }],
+      "zh-CN": [{ type: "script", script: "scripts/fetch-bd2-activity.mjs" }],
     },
   },
   {
@@ -242,7 +244,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "version",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/nikke/huodong/19" }],
+      all: [{ type: "script", script: "scripts/gen-nikke-activity.mjs" }],
     },
   },
   {
@@ -252,7 +254,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "activity",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://hyrz.qq.com/web202003/newsList.html?tab=1" }],
+      "zh-CN": [{ type: "script", script: "scripts/fetch-hyrz-activity.mjs" }],
     },
   },
 ];
