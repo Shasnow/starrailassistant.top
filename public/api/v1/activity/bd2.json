@@ -2,7 +2,7 @@
   "version": "2026-10-08",
   "versionName": "万圣节版本",
   "startTime": "2026-10-08T11:00:00",
-  "endTime": "2026-10-15T11:00:00",
+  "endTime": "2026-10-22T06:50:00",
   "cover": "https://i0.hdslb.com/bfs/archive/28b81cd37cd341656199a7c6136e1fa637a2edaf.jpg",
   "activities": [
     {
@@ -34,6 +34,14 @@
       "kind": "",
       "description": "赛季活动「Loyal Maid」更新",
       "startTime": "2026-10-14T23:00:00",
+      "endTime": "2026-10-21T21:59:00",
+      "cover": ""
+    },
+    {
+      "name": "魔兽追踪者「深渊魔姬卡（水）」",
+      "kind": "挑战活动",
+      "description": "复刻魔兽追踪者深渊魔姬卡以水属性登场，狩猎期 10 月 15 日至 10 月 21 日。",
+      "startTime": "2026-10-15T07:00:00",
       "endTime": "2026-10-21T21:59:00",
       "cover": ""
     }
