@@ -32,18 +32,7 @@ export const games: Game[] = [
     locales: ["zh-CN", "en-US"],
     defaultLocale: "zh-CN",
     dataSources: {
-      "zh-CN": [
-        {
-          type: "html",
-          url: "https://sr.mihoyo.com/news?nav=news&type=notice",
-        },
-      ],
-      "en-US": [
-        {
-          type: "html",
-          url: "https://hsr.hoyoverse.com/en-us/news?type=notice",
-        },
-      ],
+      all: [{ type: "script", script: "scripts/fetch-sr-activity.mjs" }],
     },
   },
   {
