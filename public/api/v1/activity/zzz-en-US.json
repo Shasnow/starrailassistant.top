@@ -1,24 +1,10 @@
 {
-  "version": "3.2",
-  "versionName": "Their Secret Histories",
-  "startTime": "2026-09-09T06:00:00",
-  "endTime": "2026-10-21T06:00:00",
-  "cover": "https://i0.hdslb.com/bfs/new_dyn/f3bf4f3ba3f4ae4ca66b8fa03b70d4ea1636034895.png",
+  "version": "3.3",
+  "versionName": "Journey to the Sky",
+  "startTime": "2026-10-21T06:00:00",
+  "endTime": "2026-12-02T06:00:00",
+  "cover": "",
   "activities": [
-    {
-      "name": "Ding-Dong! Delivery Training in Progress",
-      "description": "Starlight adorns the letters, miracles entwine with wishes... The Wish Post Office is currently delivering dreams. First come, first served!",
-      "startTime": "2026-08-28T10:00:00",
-      "endTime": "2026-09-14T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/4f1fcad2687f399e6e346fb3b6a511051636034895.jpg"
-    },
-    {
-      "name": "All-New Program",
-      "description": "During the event, log in for a total of 7 days to obtain Encrypted Master Tape ×10!",
-      "startTime": "2026-09-09T11:00:00",
-      "endTime": "2026-10-20T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/7f0e984fd9e2fecae3f7d3e8244203db1636034895.jpg"
-    },
     {
       "name": "Angels Support Operation",
       "description": "Next stop: the live venue to make all Delulus' hearts skip a beat! Participate in the version event to get the Angels of Delusion's limited outfits!",
@@ -27,66 +13,10 @@
       "cover": "https://i0.hdslb.com/bfs/new_dyn/4fc81e3958bba8fd02a1706912b79ec11636034895.jpg"
     },
     {
-      "name": "Potential Hypothesis: Reforged in Fire",
-      "description": "\"Long time no see, Proxy! What've you been busy with lately?\" \"Belobog Industries has been doing our best to chase your footsteps while you've been away!\"",
-      "startTime": "2026-09-09T11:00:00",
-      "endTime": "2026-10-21T06:00:00",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/783902d6da24abc09d829b7f9dcaba291636034895.jpg"
-    },
-    {
-      "name": "Clink, Clank, Pinball Knight!",
-      "description": "In this barren world, the Pinball Knights fight destiny in their search for the essence of beauty!",
-      "startTime": "2026-09-10T10:00:00",
-      "endTime": "2026-10-19T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/ea9fe25be4181034ca91143efd2d6f5c1636034895.jpg"
-    },
-    {
-      "name": "Shadow Chase Showdown",
-      "description": "The most important part of becoming a Legendary Gamer is... Being able to create a miracle no matter what sort of virtual battle you're faced with.",
-      "startTime": "2026-09-16T10:00:00",
-      "endTime": "2026-10-05T03:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Advanced Bounty: Area Patrol",
-      "description": "During the event, Area Patrol rewards will be doubled. \"Battle is almost upon us! Rest assured, the Defense Force will show you who we truly are.\"",
-      "startTime": "2026-09-23T04:00:00",
-      "endTime": "2026-09-28T03:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Surprise Screening Plan",
-      "description": "Check in to earn rewards, including an Angels of Delusion outfit of your choice, avatar, Polychromes, and more.",
-      "startTime": "2026-09-23T10:00:00",
-      "endTime": "2026-10-20T03:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Diary of an Orbie Parent",
-      "description": "Press a button to feed it, and max out your bond! Orbie is growing well today, too!",
-      "startTime": "2026-09-30T10:00:00",
-      "endTime": "2026-10-19T03:59:59",
-      "cover": ""
-    },
-    {
-      "name": "\"En-Nah\" Into Your Lap",
-      "description": "Log in for a total of 7 days to obtain Boopon ×10!",
-      "startTime": "2026-09-30T10:00:00",
-      "endTime": "2026-10-20T03:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Chronicles of the Hobbling Crow",
-      "description": "When you eliminate the impossible, whatever remains, however improbable, must be the truth... right?",
-      "startTime": "2026-10-03T10:00:00",
-      "endTime": "2026-10-19T03:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Data Bounty: Combat Simulation",
-      "description": "During the event, Combat Simulation rewards will be doubled. \"There are many things that require your assistance, but you'll be well compensated~\"",
-      "startTime": "2026-10-14T04:00:00",
-      "endTime": "2026-10-19T03:59:59",
+      "name": "Spooky Funhouse Tales",
+      "description": "During Spooky Funhouse Tales, players can operate different Trickmobiles to drive away unwanted guests. Event rewards include an Angels of Delusion outfit, a new A-Rank W-Engine, and Proxy accessories.",
+      "startTime": "2026-10-22T10:00:00",
+      "endTime": "2026-11-30T03:59:59",
       "cover": ""
     }
   ]
