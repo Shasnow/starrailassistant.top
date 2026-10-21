@@ -1,16 +1,16 @@
 {
   "version": "2026-10",
   "versionName": "日服活动",
-  "startTime": "2026-10-07T10:00:00",
-  "endTime": "2026-10-21T10:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/df0a642704cce1374ee21d34819d71d4e419568f.webp",
+  "startTime": "2026-10-21T10:00:00",
+  "endTime": "2026-10-28T10:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/5fc1d422a523f6143d0f69df16b66004db296a33.webp",
   "activities": [
     {
-      "name": "【复刻】「我们是神秘学研究会！ ～学院的不思议与古老的咒文～」",
+      "name": "特殊作战「洛亚追迹」篇",
       "description": "",
-      "startTime": "2026-10-07T10:00:00",
-      "endTime": "2026-10-21T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/df0a642704cce1374ee21d34819d71d4e419568f.webp"
+      "startTime": "2026-10-21T10:00:00",
+      "endTime": "2026-10-28T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/5fc1d422a523f6143d0f69df16b66004db296a33.webp"
     }
   ]
 }
