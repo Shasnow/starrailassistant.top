@@ -3,7 +3,7 @@
   "versionName": "Journey to the Sky",
   "startTime": "2026-10-21T06:00:00",
   "endTime": "2026-12-02T06:00:00",
-  "cover": "",
+  "cover": "https://fastcdn.hoyoverse.com/content-v2/nap/166963/37a154a8f356e778fd7a95a790aa5467_6747244478962798640.png",
   "activities": [
     {
       "name": "Angels Support Operation",
@@ -13,9 +13,58 @@
       "cover": "https://i0.hdslb.com/bfs/new_dyn/4fc81e3958bba8fd02a1706912b79ec11636034895.jpg"
     },
     {
+      "name": "All-New Program",
+      "description": "During the event, log in for a total of 7 days to obtain Encrypted Master Tape ×10!",
+      "startTime": "2026-10-21T11:00:00",
+      "endTime": "2026-12-01T03:59:59",
+      "cover": "https://fastcdn.hoyoverse.com/content-v2/nap/166945/018eecf86bbf908609417b81d0dd0e7c_5469658766886784182.png"
+    },
+    {
       "name": "Spooky Funhouse Tales",
-      "description": "During Spooky Funhouse Tales, players can operate different Trickmobiles to drive away unwanted guests. Event rewards include an Angels of Delusion outfit, a new A-Rank W-Engine, and Proxy accessories.",
+      "description": "When the Trickmobile enters the Funhouse, our spooky adventure begins... \"We create the spookies? Things will surely get interesting~\" Complete all Mission Mode stages to get a limited-time Angels of Delusion outfit from the Angels Support Operation rewards event!",
       "startTime": "2026-10-22T10:00:00",
+      "endTime": "2026-11-30T03:59:59",
+      "cover": "https://fastcdn.hoyoverse.com/content-v2/nap/166946/91965d79167e7dfd1519188257833f76_3820961842892721840.png"
+    },
+    {
+      "name": "Cyber Miracle Healer, on Duty!",
+      "description": "Are there things even the maintenance shop owner can't handle? The Bangboo savior is here! We'll surely heal them too!",
+      "startTime": "2026-10-28T10:00:00",
+      "endTime": "2026-11-16T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Advanced Bounty: Area Patrol",
+      "description": "During the event, Area Patrol rewards will be doubled. \"Battle is almost upon us! Rest assured, the Defense Force will show you who we truly are.\"",
+      "startTime": "2026-11-04T04:00:00",
+      "endTime": "2026-11-09T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "\"En-Nah\" Into Your Lap",
+      "description": "Log in for a total of 7 days to earn Boopon ×10!",
+      "startTime": "2026-11-11T10:00:00",
+      "endTime": "2026-12-01T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Trails of the Hobbling Crow",
+      "description": "Nightfall, poison, and an unsuspecting victim. All the pieces are in place! It's time for the detectives to make their move... Wait, what? The victim is our great detective?",
+      "startTime": "2026-11-11T10:00:00",
+      "endTime": "2026-11-30T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Repair! Drifting Art",
+      "description": "A little art collection drifting away, a big shock dashing a Bangboo's hopes today... Only a super-skilled repair person can help restore the art collection.",
+      "startTime": "2026-11-16T10:00:00",
+      "endTime": "2026-11-30T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Data Bounty: Combat Simulation",
+      "description": "During the event, Combat Simulation rewards will be doubled. \"There are many things that require your assistance, but you'll be well compensated~\"",
+      "startTime": "2026-11-25T04:00:00",
       "endTime": "2026-11-30T03:59:59",
       "cover": ""
     }

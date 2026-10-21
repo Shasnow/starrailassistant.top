@@ -63,10 +63,7 @@ export const games: Game[] = [
     locales: ["zh-CN", "en-US"],
     defaultLocale: "zh-CN",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://zzz.mihoyo.com/news" }],
-      "en-US": [
-        { type: "html", url: "https://zenless.hoyoverse.com/en-us/news" },
-      ],
+      "all": [{ type: "script", script: "scripts/fetch-zzz-activity.mjs" }],
     },
   },
   {
@@ -234,7 +231,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "version",
     dataSources: {
-      "zh-CN": [{ type: "script", script: "scripts/fetch-bd2-activity.mjs" }],
+      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/zsca2/notice" }],
     },
   },
   {
@@ -244,7 +241,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "version",
     dataSources: {
-      all: [{ type: "script", script: "scripts/gen-nikke-activity.mjs" }],
+      "zh-CN": [{ type: "html", url: "https://www.gamekee.com/nikke/huodong/19" }],
     },
   },
   {
@@ -254,7 +251,7 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "activity",
     dataSources: {
-      "zh-CN": [{ type: "script", script: "scripts/fetch-hyrz-activity.mjs" }],
+      "zh-CN": [{ type: "html", url: "https://hyrz.qq.com/web202003/newsList.html?tab=1" }],
     },
   },
 ];
