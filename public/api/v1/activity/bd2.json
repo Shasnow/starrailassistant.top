@@ -1,24 +1,40 @@
 {
-  "version": "2026-10-08",
-  "versionName": "万圣节版本",
-  "startTime": "2026-10-08T11:00:00",
-  "endTime": "2026-10-22T06:50:00",
-  "cover": "https://i0.hdslb.com/bfs/archive/28b81cd37cd341656199a7c6136e1fa637a2edaf.jpg",
+  "version": "2026-10-22",
+  "versionName": "Broken Bonds",
+  "startTime": "2026-10-22T11:00:00",
+  "endTime": "2026-11-05T07:50:00",
+  "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/50118/images/w_1600/h_720/497891/2026/9/20/42496549mvgen4pm.png",
   "activities": [
     {
-      "name": "幽灵之夜特别精炼通行证",
+      "name": "赛季活动「Broken Bonds」",
       "kind": "",
-      "description": "幽灵之夜特别精炼通行证",
-      "startTime": "2026-10-08T12:00:00",
-      "endTime": "2026-10-22T06:50:00",
-      "cover": "https://i0.hdslb.com/bfs/archive/671d1317921f22815259705e6537456a8c2bdaaa.jpg"
+      "description": "Pick Up角色阿奇拉个人故事第6话，含活动故事、战斗、任务与活动商店，GameKee 公告",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-11-05T07:50:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/50118/images/w_1600/h_720/497891/2026/9/20/42496549mvgen4pm.png"
+    },
+    {
+      "name": "魔物追踪者「怪诞淑女」准备期",
+      "kind": "挑战活动",
+      "description": "巨型魔物怪诞淑女狩猎准备期，GameKee 公告",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-10-29T07:59:00",
+      "cover": ""
+    },
+    {
+      "name": "魔物追踪者「怪诞淑女」狩猎期",
+      "kind": "挑战活动",
+      "description": "巨型魔物怪诞淑女狩猎期，GameKee 公告",
+      "startTime": "2026-10-29T08:00:00",
+      "endTime": "2026-11-04T22:59:00",
+      "cover": ""
     },
     {
       "name": "万圣节每日钻石通行证",
       "kind": "",
       "description": "万圣节每日钻石通行证",
       "startTime": "2026-10-08T12:00:00",
-      "endTime": "2026-11-05T06:50:00",
+      "endTime": "2026-11-05T07:50:00",
       "cover": "https://i1.hdslb.com/bfs/archive/225c5d4d30455c0a02e60b9d244c4dd93298899f.jpg"
     },
     {
@@ -26,23 +42,7 @@
       "kind": "",
       "description": "特别赛季通行证",
       "startTime": "2026-10-08T12:00:00",
-      "endTime": "2026-11-05T06:50:00",
-      "cover": ""
-    },
-    {
-      "name": "赛季活动「Loyal Maid」更新",
-      "kind": "",
-      "description": "赛季活动「Loyal Maid」更新",
-      "startTime": "2026-10-14T23:00:00",
-      "endTime": "2026-10-21T21:59:00",
-      "cover": ""
-    },
-    {
-      "name": "魔兽追踪者「深渊魔姬卡（水）」",
-      "kind": "挑战活动",
-      "description": "复刻魔兽追踪者深渊魔姬卡以水属性登场，狩猎期 10 月 15 日至 10 月 21 日。",
-      "startTime": "2026-10-15T07:00:00",
-      "endTime": "2026-10-21T21:59:00",
+      "endTime": "2026-11-05T07:50:00",
       "cover": ""
     }
   ]
