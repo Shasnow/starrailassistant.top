@@ -60,6 +60,43 @@
       "startTime": "2026-09-28T00:00:00",
       "endTime": "2026-11-04T05:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/c499d7f590120aec86c5e21c3f5a453e401742377.png"
+    },
+    {
+      "name": "深渊·深境螺旋",
+      "description": "原神深渊玩法「深境螺旋」：每月 16 日 04:00 刷新一期",
+      "startTime": "2026-10-16T04:00:00",
+      "endTime": "2026-11-16T03:59:59",
+      "cover": "https://i0.hdslb.com/bfs/archive/22ef77d9a205ea974ecd3fb8827edf4825154420.jpg",
+      "schedule": {
+        "type": "monthly",
+        "days": [
+          16
+        ],
+        "hour": 4,
+        "minute": 0
+      }
+    },
+    {
+      "name": "深渊·幻想真境剧诗",
+      "description": "原神玩法「幻想真境剧诗」：每月 1 日 04:00 刷新一期",
+      "startTime": "2026-10-01T04:00:00",
+      "endTime": "2026-11-01T03:59:59",
+      "cover": "https://i0.hdslb.com/bfs/article/7f8384054eb856ab67039a586308779740603955.jpg",
+      "schedule": {
+        "type": "monthly",
+        "days": [
+          1
+        ],
+        "hour": 4,
+        "minute": 0
+      }
+    },
+    {
+      "name": "深渊·幽境危战",
+      "description": "原神限时挑战活动「幽境危战」：按版本周期开放，每期由官方「活动说明」公告给出确切档期",
+      "startTime": "2026-09-30T10:00:00",
+      "endTime": "2026-11-03T03:59:59",
+      "cover": "https://act-upload.mihoyo.com/wiki-user-upload/2025/12/02/50494840/bff537db342def1616343d79824bd0ba_8437317252379583639.png"
     }
   ]
 }

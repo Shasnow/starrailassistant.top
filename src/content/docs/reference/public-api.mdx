@@ -80,6 +80,7 @@ GET /activity/{game}-{locale}.json
 | `activities[].startTime`   | string  | 活动开始时间（ISO 8601） |
 | `activities[].endTime`     | string  | 活动结束时间（ISO 8601） |
 | `activities[].cover?`      | string? | 活动封面图 URL           |
+| `activities[].schedule?`  | object? | 周期玩法的刷新规则（仅深渊 / 轮换玩法有，其余活动无此字段） |
 | `pools?`                   | array   | 可选卡池列表 |
 | `pools[].name`             | string  | 卡池名称 |
 | `pools[].type`             | string  | 卡池类型名称 |
@@ -87,6 +88,14 @@ GET /activity/{game}-{locale}.json
 | `pools[].endTime`          | string  | 卡池结束时间（关闭时刻前一秒） |
 | `pools[].cover`            | string  | 首个 UP 角色的头像 URL|
 | `pools[].upCharacters`     | string[] | UP 角色名称列表 |
+
+`activities[].schedule?` 描述周期玩法的刷新规则，仅深渊 / 轮换玩法会出现，三种形态：
+
+- `{"type":"monthly", "days":[16], "hour":4, "minute":0}` —— 每月固定几号几点刷新
+- `{"type":"interval", "days":14, "anchor":"2026-07-24 04:00"}` —— 从 `anchor` 起每 `days` 天一期
+- `{"type":"version", "anchor":"2026-09-23 00:00", "period":42, "start_day":7, "start_hour":10, "start_minute":0, "end_day":41, "end_hour":3, "end_minute":59}` —— 从 `anchor` 起每 `period` 天算一个版本周期，期内第 `start_day` 天 `start_hour:start_minute` 开启、第 `end_day` 天 `end_hour:end_minute` 关闭
+
+`startTime` / `endTime` 表示**当期**的起止；需要任意一期时按 `schedule` 自行推算。
 
 ## 常见问题
 

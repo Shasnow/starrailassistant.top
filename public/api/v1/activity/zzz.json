@@ -88,6 +88,30 @@
       "startTime": "2026-10-14T04:00:00",
       "endTime": "2026-10-19T03:59:59",
       "cover": ""
+    },
+    {
+      "name": "深渊·式舆防卫战",
+      "description": "绝区零深渊玩法「式舆防卫战」：每 14 天刷新一期（周五 04:00）",
+      "startTime": "2026-10-16T04:00:00",
+      "endTime": "2026-10-30T03:59:59",
+      "cover": "https://i1.hdslb.com/bfs/article/5dd2338983737ab8e7c9697b9c70a5cb28662074.jpg",
+      "schedule": {
+        "type": "interval",
+        "days": 14,
+        "anchor": "2026-07-24 04:00"
+      }
+    },
+    {
+      "name": "深渊·危局强袭战",
+      "description": "绝区零玩法「危局强袭战」：每 14 天刷新一期（与式舆防卫战错开一周）",
+      "startTime": "2026-10-23T04:00:00",
+      "endTime": "2026-11-06T03:59:59",
+      "cover": "https://i1.hdslb.com/bfs/new_dyn/b05355005d661e80e4461250d23367f71584296906.png",
+      "schedule": {
+        "type": "interval",
+        "days": 14,
+        "anchor": "2026-07-31 04:00"
+      }
     }
   ]
 }
