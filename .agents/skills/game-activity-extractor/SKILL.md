@@ -174,6 +174,7 @@ For each included activity, extract:
 | `startTime`   | Activity start time (ISO 8601) | See "Time Format Rules" below                                                                                             |
 | `endTime`     | Activity end time (ISO 8601)   | See "Time Format Rules" below                                                                                             |
 | `cover`       | Activity cover image URL       | Make a best-effort extraction attempt (see below); use the fixed cover for recurring activities; otherwise leave `""` |
+| `schedule`     | Recurrence rule (optional)     | Only for periodic modes (abyss / rotating challenges). **Omit the key entirely** for normal activities — see "Periodic Modes" below |
 
 #### Best-Effort Cover Extraction
 
@@ -201,6 +202,30 @@ These are the fixed covers for recurring activities:
 | 砺行修远        | `https://i0.hdslb.com/bfs/new_dyn/c05ee2327918f3e4271db3ff66ce2026401742377.jpg`  |
 | 声弦涤荡        | `https://i0.hdslb.com/bfs/new_dyn/d28121ede1d524963a69bd0687731d3a1955897084.jpg` |
 | 回音盈域        | `https://i0.hdslb.com/bfs/new_dyn/c748978107a473b51d8d3e5cd6e0fd9e1955897084.jpg` |
+
+#### Periodic Modes (abyss / rotating challenges)
+
+These modes rotate on a fixed cadence, and the official announcement only states the rule
+(e.g. 「每月第十六日」), not each period's exact dates. Keep `startTime` / `endTime` as the
+**current** period and add a `schedule` object:
+
+| Game | Activity name | schedule |
+| --- | --- | --- |
+| 原神 | 深渊·深境螺旋 | `{"type":"monthly","days":[16],"hour":4,"minute":0}` |
+| 原神 | 深渊·幻想真境剧诗 | `{"type":"monthly","days":[1],"hour":4,"minute":0}` |
+| 绝区零 | 深渊·式舆防卫战 | `{"type":"interval","days":14,"anchor":"2026-07-24T04:00:00"}` |
+| 绝区零 | 深渊·危局强袭战 | `{"type":"interval","days":14,"anchor":"2026-07-31T04:00:00"}` |
+| 鸣潮 | 深渊·逆境深塔 | `{"type":"interval","days":28,"anchor":"2026-07-20T04:00:00"}` |
+| 鸣潮 | 深渊·冥歌海墟 | `{"type":"interval","days":28,"anchor":"2026-07-06T04:00:00"}` |
+
+When updating an existing file, recompute `startTime` / `endTime` from `schedule` so they cover
+"now", and keep the `schedule` object unchanged unless the game changes its cadence.
+In 崩坏：星穹铁道 the three abyss modes are **not** schedule cases — they come from the version
+announcement with explicit dates, so do not add `schedule` there.
+
+原神的「幽境危战」is also **not** a schedule case: each period has its own official
+「幽境危战」活动说明 announcement with exact start/end times, so extract it as a normal
+activity — this is the one exception to "single-activity notices are only for verification".
 
 ### Step 6: Time Format Rules
 

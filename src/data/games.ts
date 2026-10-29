@@ -200,7 +200,10 @@ export const games: Game[] = [
     defaultLocale: "zh-CN",
     updateMode: "version",
     dataSources: {
-      "zh-CN": [{ type: "html", url: "https://www.kurobbs.com/person-center?id=10001001&game=pns&valid=1" }],
+      // 库街区 person-center 是 SPA，HTML 里没有帖子数据（实测只有 5KB 空壳，
+      // 正文是 JS 运行时才拉取的），数据实际在 api.kurobbs.com 的
+      // /forum/getMinePost + /forum/getPostDetail 后面，必须走脚本。
+      "zh-CN": [{ type: "script", script: "scripts/fetch-pgr-activity.mjs" }],
     },
   },
   {
