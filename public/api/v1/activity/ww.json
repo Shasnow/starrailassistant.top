@@ -104,8 +104,8 @@
     {
       "name": "深渊·冥歌海墟",
       "description": "鸣潮玩法「冥歌海墟」：每 28 天刷新一期（与逆境深塔错开两周）",
-      "startTime": "2026-09-28T04:00:00",
-      "endTime": "2026-10-26T03:59:59",
+      "startTime": "2026-10-26T04:00:00",
+      "endTime": "2026-11-23T03:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/e40a57a2461de7174449cbb21a5a08a1412888621.jpg",
       "schedule": {
         "type": "interval",
