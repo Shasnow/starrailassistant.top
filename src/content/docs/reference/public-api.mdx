@@ -92,8 +92,8 @@ GET /activity/{game}-{locale}.json
 `activities[].schedule?` 描述周期玩法的刷新规则，仅深渊 / 轮换玩法会出现，三种形态：
 
 - `{"type":"monthly", "days":[16], "hour":4, "minute":0}` —— 每月固定几号几点刷新
-- `{"type":"interval", "days":14, "anchor":"2026-07-24 04:00"}` —— 从 `anchor` 起每 `days` 天一期
-- `{"type":"version", "anchor":"2026-09-23 00:00", "period":42, "start_day":7, "start_hour":10, "start_minute":0, "end_day":41, "end_hour":3, "end_minute":59}` —— 从 `anchor` 起每 `period` 天算一个版本周期，期内第 `start_day` 天 `start_hour:start_minute` 开启、第 `end_day` 天 `end_hour:end_minute` 关闭
+- `{"type":"interval", "days":14, "anchor":"2026-07-24T04:00:00"}` —— 从 `anchor` 起每 `days` 天一期
+- `{"type":"version", "anchor":"2026-09-23T00:00:00", "period":42, "start_day":7, "start_hour":10, "start_minute":0, "end_day":41, "end_hour":3, "end_minute":59}` —— 从 `anchor` 起每 `period` 天算一个版本周期，期内第 `start_day` 天 `start_hour:start_minute` 开启、第 `end_day` 天 `end_hour:end_minute` 关闭
 
 `startTime` / `endTime` 表示**当期**的起止；需要任意一期时按 `schedule` 自行推算。
 

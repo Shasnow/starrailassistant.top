@@ -86,8 +86,8 @@ GET /activity/{game}-{locale}.json
 `activities[].schedule?` describes how a periodic mode rotates. Three shapes:
 
 - `{"type":"monthly", "days":[16], "hour":4, "minute":0}` — fixed day(s) of each month
-- `{"type":"interval", "days":14, "anchor":"2026-07-24 04:00"}` — one period every `days` days from `anchor`
-- `{"type":"version", "anchor":"2026-09-23 00:00", "period":42, "start_day":7, "start_hour":10, "start_minute":0, "end_day":41, "end_hour":3, "end_minute":59}` — a `period`-day version cycle from `anchor`; opens on day `start_day` at `start_hour:start_minute`, closes on day `end_day` at `end_hour:end_minute`
+- `{"type":"interval", "days":14, "anchor":"2026-07-24T04:00:00"}` — one period every `days` days from `anchor`
+- `{"type":"version", "anchor":"2026-09-23T00:00:00", "period":42, "start_day":7, "start_hour":10, "start_minute":0, "end_day":41, "end_hour":3, "end_minute":59}` — a `period`-day version cycle from `anchor`; opens on day `start_day` at `start_hour:start_minute`, closes on day `end_day` at `end_hour:end_minute`
 
 `startTime` / `endTime` describe the **current** period; compute any other period from `schedule`.
 

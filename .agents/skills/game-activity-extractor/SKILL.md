@@ -213,10 +213,10 @@ These modes rotate on a fixed cadence, and the official announcement only states
 | --- | --- | --- |
 | 原神 | 深渊·深境螺旋 | `{"type":"monthly","days":[16],"hour":4,"minute":0}` |
 | 原神 | 深渊·幻想真境剧诗 | `{"type":"monthly","days":[1],"hour":4,"minute":0}` |
-| 绝区零 | 深渊·式舆防卫战 | `{"type":"interval","days":14,"anchor":"2026-07-24 04:00"}` |
-| 绝区零 | 深渊·危局强袭战 | `{"type":"interval","days":14,"anchor":"2026-07-31 04:00"}` |
-| 鸣潮 | 深渊·逆境深塔 | `{"type":"interval","days":28,"anchor":"2026-07-20 04:00"}` |
-| 鸣潮 | 深渊·冥歌海墟 | `{"type":"interval","days":28,"anchor":"2026-07-06 04:00"}` |
+| 绝区零 | 深渊·式舆防卫战 | `{"type":"interval","days":14,"anchor":"2026-07-24T04:00:00"}` |
+| 绝区零 | 深渊·危局强袭战 | `{"type":"interval","days":14,"anchor":"2026-07-31T04:00:00"}` |
+| 鸣潮 | 深渊·逆境深塔 | `{"type":"interval","days":28,"anchor":"2026-07-20T04:00:00"}` |
+| 鸣潮 | 深渊·冥歌海墟 | `{"type":"interval","days":28,"anchor":"2026-07-06T04:00:00"}` |
 
 When updating an existing file, recompute `startTime` / `endTime` from `schedule` so they cover
 "now", and keep the `schedule` object unchanged unless the game changes its cadence.

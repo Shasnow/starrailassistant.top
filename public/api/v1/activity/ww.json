@@ -98,7 +98,7 @@
       "schedule": {
         "type": "interval",
         "days": 28,
-        "anchor": "2026-07-20 04:00"
+        "anchor": "2026-07-20T04:00:00"
       }
     },
     {
@@ -110,7 +110,7 @@
       "schedule": {
         "type": "interval",
         "days": 28,
-        "anchor": "2026-07-06 04:00"
+        "anchor": "2026-07-06T04:00:00"
       }
     }
   ]
