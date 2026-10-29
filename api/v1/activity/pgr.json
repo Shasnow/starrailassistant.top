@@ -28,6 +28,14 @@
       "startTime": "2026-10-08T10:00:00",
       "endTime": "2026-11-04T05:00:00",
       "cover": "https://prod-alicdn-community.kurobbs.com/forum/bf1eebdc9b3947d7885a751804dff35f20261002.png"
+    },
+    {
+      "name": "【宇宙奇趣】活动",
+      "kind": "",
+      "description": "库街区官方活动公告",
+      "startTime": "2026-10-26T05:00:00",
+      "endTime": "2026-11-04T05:00:00",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/7ecd629baddb42e3a85f10db9116e00020261023.png"
     }
   ]
 }
