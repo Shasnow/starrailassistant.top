@@ -1,16 +1,16 @@
 {
   "version": "2026-10",
   "versionName": "国际服活动",
-  "startTime": "2026-10-13T10:00:00",
-  "endTime": "2026-10-27T10:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/0873b8daf6b21c847c87208e66dab2887253e0f5.webp",
+  "startTime": "2026-10-27T10:00:00",
+  "endTime": "2026-11-10T10:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/db90cff9d59fe53b9f78aa33120f065c1adb4146.webp",
   "activities": [
     {
-      "name": "[活动剧情] 岚过天晴",
+      "name": "高地人铁道暴走事件﻿  ﻿~于是列车消失了~﻿  ﻿-复刻-",
       "description": "",
-      "startTime": "2026-10-13T10:00:00",
-      "endTime": "2026-10-27T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/0873b8daf6b21c847c87208e66dab2887253e0f5.webp"
+      "startTime": "2026-10-27T10:00:00",
+      "endTime": "2026-11-10T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/db90cff9d59fe53b9f78aa33120f065c1adb4146.webp"
     }
   ]
 }

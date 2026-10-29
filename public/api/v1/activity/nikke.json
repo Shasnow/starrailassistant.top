@@ -1,0 +1,57 @@
+{
+  "version": "2026-10-08",
+  "versionName": "2026-10-08",
+  "startTime": "2026-10-08T00:00:00",
+  "endTime": "2026-12-03T00:00:00",
+  "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_490/h_162/4408/2026/9/8/69022535muza8j8o.jpg",
+  "activities": [
+    {
+      "name": "【剧情】MOST BEAUTIFUL MAID",
+      "kind": "",
+      "description": "结束噬屿之旅准备返程时， 灰姑娘对行李中发现的女仆装产生了兴趣。 在王子殿下的指导下，她开始学习「女仆该有的样子」……",
+      "startTime": "2026-10-08T00:00:00",
+      "endTime": "2026-10-28T22:59:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_490/h_162/4408/2026/9/8/69022535muza8j8o.jpg"
+    },
+    {
+      "name": "【支线】LITTLE WITCH TRICK",
+      "kind": "剧情支线",
+      "description": "为了尽情享受万圣节庆典，贝洛塔干劲十足地着手准备。 就在她兴致勃勃地恶作剧、享受庆典没多久， 不知从何时起，奇怪的传闻开始四处流传⋯⋯",
+      "startTime": "2026-10-08T00:00:00",
+      "endTime": "2026-10-28T23:59:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_488/h_162/4408/2026/9/8/92087378muza9q1f.jpg"
+    },
+    {
+      "name": "【上线即领】Cinderella Special",
+      "kind": "",
+      "description": "活动期间内登入游戏，即可获得人气投票第1名的灰姑娘限定时装【水晶女仆】、主题曲【Beautiful Me】和人气投票Top 5的【灰姑娘、莉贝雷利奥、小美人鱼、阿尔卡娜：命运伴侣、白雪公主：重型武装】限定边框。",
+      "startTime": "2026-10-08T00:00:00",
+      "endTime": "2026-12-03T00:00:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_486/h_162/4408/2026/9/8/89513992muzagq20.jpg"
+    },
+    {
+      "name": "【签到】DAILY TRICK（14日）",
+      "kind": "",
+      "description": "活动期间内的任14天中，每日登入即可获得奖励，累计登入14天即可获得高级招募券、养成材料在内的全部奖励！",
+      "startTime": "2026-10-08T00:00:00",
+      "endTime": "2026-10-28T00:00:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_493/h_163/4408/2026/9/8/73687495muzahov2.jpg"
+    },
+    {
+      "name": "【活动PASS】OCCULTIST PASS（蕾贝儿）",
+      "kind": "",
+      "description": "含全语音的【蕾贝儿- 神秘学者】可在OCCULTIST PASS中获得。",
+      "startTime": "2026-10-08T00:00:00",
+      "endTime": "2026-10-28T00:00:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_494/h_159/4408/2026/9/8/36897348muza84uo.jpg"
+    },
+    {
+      "name": "四周年情报站",
+      "kind": "",
+      "description": "分享即可获得蓝票*1",
+      "startTime": "2026-10-09T00:00:00",
+      "endTime": "2026-11-18T00:00:00",
+      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/1253/images/w_935/h_293/4408/2026/9/9/77004576mv0sgi5z.jpg"
+    }
+  ]
+}

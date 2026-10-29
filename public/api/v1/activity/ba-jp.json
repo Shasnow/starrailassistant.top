@@ -1,16 +1,23 @@
 {
   "version": "2026-10",
   "versionName": "日服活动",
-  "startTime": "2026-10-07T10:00:00",
-  "endTime": "2026-10-21T10:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/df0a642704cce1374ee21d34819d71d4e419568f.webp",
+  "startTime": "2026-10-28T10:00:00",
+  "endTime": "2026-11-18T04:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/23fb7a4779943f5c1ed6941b035c84ebc69e3c98.webp",
   "activities": [
     {
-      "name": "【复刻】「我们是神秘学研究会！ ～学院的不思议与古老的咒文～」",
+      "name": "「Start Your Engines！ ～183号永存！～」",
       "description": "",
-      "startTime": "2026-10-07T10:00:00",
-      "endTime": "2026-10-21T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/df0a642704cce1374ee21d34819d71d4e419568f.webp"
+      "startTime": "2026-10-28T10:00:00",
+      "endTime": "2026-11-11T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/b801d0aee9d11773f64917db5a2c5616648ec6f4.webp"
+    },
+    {
+      "name": "课程表·交流会2倍",
+      "description": "",
+      "startTime": "2026-11-11T04:00:00",
+      "endTime": "2026-11-18T04:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/23fb7a4779943f5c1ed6941b035c84ebc69e3c98.webp"
     }
   ]
 }
