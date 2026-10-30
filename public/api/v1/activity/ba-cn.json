@@ -1,17 +1,10 @@
 {
   "version": "2026-10",
   "versionName": "国服活动",
-  "startTime": "2026-10-22T14:00:00",
+  "startTime": "2026-10-29T14:00:00",
   "endTime": "2026-12-17T14:00:59",
   "cover": "https://resource.starrailassistant.top/ba/activity/9166afb38aaebf5080ef5a7d35f2991bf14e7795.webp",
   "activities": [
-    {
-      "name": "限时复刻活动【Say-Bing!】",
-      "description": "",
-      "startTime": "2026-10-22T14:00:00",
-      "endTime": "2026-10-29T14:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/23967dbaae221c68c889dca541a123b878a8842b.webp"
-    },
     {
       "name": "我等乃神秘学研究会！~学院之谜与古老咒文~",
       "description": "",
