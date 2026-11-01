@@ -8,7 +8,7 @@ sidebar:
 
 ## Windows
 
-### 通过 Mirror 酱下载
+### 通过 Mirror 酱下载（推荐）
 
 下载链接：[**Mirror酱**](https://mirrorchyan.com/zh/projects?rid=StarRailAssistant&source=sra-webside)
 
@@ -86,7 +86,6 @@ SRA-cli 已发布到 PyPI，提供更方便的使用方式。
 先决条件：
 
 - Python 3.12
-- ASP.NET Core 10.0 (可选，用于运行SRA-server)
 
 ### uv 安装(推荐)
 
@@ -137,13 +136,7 @@ cd starrailassistant
 sra-cli init
 ```
 
-这将为你下载 [SRA-server](/server/simple-usage/) 以便访问 [WebUI](/server/webui/)，同时会下载必要的核心资源，并创建必要的配置文件。
-
-启动应用：
-
-```bash
-sra-cli
-```
+这将为你下载 [WebUI](/server/webui/)，以便访问可视化管理界面。同时会下载必要的核心资源，并创建必要的配置文件。
 
 启动SRA-server：
 
@@ -166,3 +159,30 @@ pipx upgrade starrailassistant
 ```
 
 更新后可能需要重新运行`init`命令以应用新配置。
+
+## Docker 部署
+
+SRA 镜像已发布到 GitHub Container Registry（公开，无需登录）。它只打包了 **SRA-server**：WebUI、HTTP API 与 MCP；
+WebUI、任务、扩展、图片资源与 Chromium 均已内置。
+
+```bash
+docker run -d --name sra-server -p 5073:5073 \
+  -e SRA_ACCESS_TOKEN=<你的令牌> \
+  -v sra-data:/root/.config/SRA \
+  -v sra-log:/app/log \
+  ghcr.io/shasnow/starrailassistant:beta
+```
+
+浏览器打开 `http://localhost:5073`，填入令牌即可使用。
+
+:::warning
+容器内只能用云游戏，要求你有云游戏时长或畅玩卡。
+云游戏设置会在首次启动时自动写入，账号密码在 WebUI 的配置里填一次即可。
+:::
+
+:::note
+当前版本处于 beta 通道，所以镜像标签是 `beta`；正式版发布后可用 `:latest`。
+:::
+
+完整的部署说明（Compose 用法、镜像标签、环境变量、数据与卷、镜像更新、公网暴露注意事项）见
+[用 Docker 部署 SRA-server](/guides/docker/)。
