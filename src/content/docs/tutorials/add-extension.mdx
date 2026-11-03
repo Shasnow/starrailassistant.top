@@ -14,11 +14,11 @@ SRA 的扩展系统是一套"泛型声明 + 装饰器注册 + 动态发现"的�
 
 2. **装饰器注册**：`@extension` 装饰器在模块导入时自动将扩展类及其配置模型注册到全局 `ExtensionRegistry`。扩展标识（ID）、展示名称和描述都可在此声明。
 
-3. **动态发现**：SRA 启动时调用 `load_extensions()`，扫描 `extensions/` 目录下所有 `.py` 文件并逐一导入，触发各模块顶层的 `@extension` 装饰器完成注册。这与 `tasks/` 目录的动态导入机制完全一致。
+3. **动态发现**：SRA 启动时调用 `load_extensions()`，扫描 `extensions/` 下每个包含 `__init__.py` 的一级目录（目录包）并导入，触发模块顶层的 `@extension` 装饰器完成注册。遗留的单文件 `extensions/xxx.py` 只会记录 warning 后被忽略。
 
 4. **运行与配置**：`ExtensionRunner` 负责实例化扩展并注入 `IOperator`，扩展可通过 `self.operator` 执行截图、点击、OCR 等实际操作。`ExtensionConfigManager` 负责从 `extensions.json` 加载和保存各扩展的配置。
 
-简单来说：**在 `extensions/` 目录下创建一个 Python 文件，定义配置模型并继承 `BaseExtension[Config]`，用 `@extension` 装饰器注册，SRA 启动时就会自动发现并注册你的扩展。**
+简单来说：**在 `extensions/` 下创建一个包含 `__init__.py` 的扩展目录，定义配置模型并继承 `BaseExtension[Config]`，用 `@extension` 装饰器注册，SRA 启动时就会自动发现并注册你的扩展。**
 
 ### 扩展 vs 任务 vs 命令
 
@@ -55,7 +55,9 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
 1. 打开 SRA 的安装目录或源码目录，找到 `extensions` 文件夹。
    这里存放了所有的扩展脚本。
 
-2. 创建一个新的 Python 文件，例如 `MyExtension.py`。
+2. 新建扩展目录 `MyExtension/`，并在其中创建 `__init__.py`；只有包含 `__init__.py` 的目录包才会被加载，
+   单文件 `MyExtension.py` 会被忽略。配置模型、扩展类与可选的 `locales/`（见下文「扩展的本地化」）
+   都放在这个目录里。
 
 3. 定义配置模型。配置模型是一个继承自 `pydantic.BaseModel` 的类，使用 `Field` 声明每个配置项的默认值、描述和约束：
 
@@ -152,7 +154,7 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
 
 7. 运行 SRA 测试你的扩展。
 
-   确保你的文件已保存到 `extensions/` 目录下。运行 SRA-cli：
+   确保你的扩展目录已放在 `extensions/` 下。运行 SRA-cli：
 
    ```text
    sra> extension list
@@ -180,7 +182,7 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
 
 8. 恭喜！
    你已经学会了如何在 SRA 中添加扩展。回顾一下关键点：
-   - 文件放在 `extensions/` 目录下
+   - 扩展目录放在 `extensions/` 下（含 `__init__.py`）
    - 定义 Pydantic `BaseModel` 作为配置模型，用 `Field` 声明默认值和约束
    - 继承 `BaseExtension[YourConfig]` 并实现 `run()` 方法
    - 用 `@extension` 装饰器注册，可附带 `name` 和 `description`
@@ -218,6 +220,88 @@ class HelloExtension(BaseExtension):
 
 :::note
 `@extension` 装饰器会自动检测泛型参数：有则提取配置类，无则注册为无配置扩展，两种写法的注册方式完全一致。
+:::
+
+## 扩展的本地化
+
+扩展的展示名、字段说明与枚举标签都可以跟随界面语言切换，资源放在扩展目录的 `locales/` 下：
+
+```text
+extensions/MyExtension/
+├── __init__.py
+└── locales/
+    ├── zh-CN.json
+    ├── en-US.json
+    └── ru-RU.json
+```
+
+键就是配置模型里的字段键名（字段声明了 `alias` 时用 `alias`）：
+
+| 键 | 作用 |
+|---|---|
+| `name` / `description` | 扩展的展示名与说明，覆盖 `@extension(name=..., description=...)` 的取值 |
+| `<字段>.title` | 字段标题，覆盖 `Field(title=...)`（未声明时是字段名） |
+| `<字段>.description` | 字段说明，覆盖 `Field(description=...)` |
+| `<字段>.labels` | 枚举标签数组，顺序与 `Literal` / `enum` 的声明顺序一致 |
+
+以第 3 步的 `MyConfig`（`target`、`count`、`verbose`）为例：
+
+```json
+// locales/zh-CN.json
+{
+  "name": "我的扩展",
+  "description": "这是一个自定义扩展",
+  "target.title": "目标",
+  "target.description": "目标名称",
+  "count.title": "执行次数",
+  "count.description": "执行次数（1-100）",
+  "verbose.description": "是否输出详细日志"
+}
+```
+
+```json
+// locales/en-US.json
+{
+  "name": "My Extension",
+  "description": "A custom extension",
+  "target.title": "Target",
+  "target.description": "Target name",
+  "count.title": "Repeat count",
+  "count.description": "How many times to run (1-100)",
+  "verbose.description": "Print detailed logs"
+}
+```
+
+枚举字段的标签按声明顺序对齐：
+
+```python
+difficulty: Literal["lowest", "highest", "current"] = "current"
+```
+
+```json
+{
+  "difficulty.labels": ["Lowest difficulty", "Highest difficulty", "Current difficulty"]
+}
+```
+
+行为说明：
+
+1. **语言来源** — 取 `settings.json` 中 `Display.Language` 对应的界面语言，CLI 与服务端一致；切换语言后重新获取 schema 即可生效。
+2. **后端合成单语** — `get_schema()` 会把 `title` / `description` 替换为当前语言的单语文本，枚举标签写入 `x-enum-labels`；
+   `extension list` 中的展示名与说明也来自 `locales`（没有时回退装饰器里的值）。
+3. **回退规则** — 当前语言缺少的键回退中文；`locales/` 不存在或 JSON 非法只记录 warning，不影响扩展加载。
+4. **只改展示文本** — 字段键名、类型、默认值与枚举值不变，已有配置仍然有效。
+
+:::note
+`locales/` 下的文件名使用 BCP-47（`zh-CN.json`、`en-US.json`、`ru-RU.json`），与后端 `resources.toml` 的小写语言键
+（`zh-cn`、`en-us`、`ru-ru`）不同。要新增一门语言，还需要放开 `SRACore/extension/locales.py` 的
+`SUPPORTED_LANGS`，完整步骤见 [添加界面语言](/tutorials/add-localization)。
+:::
+
+:::caution
+只翻译字段而不提供 `name` / `description` 时，扩展列表仍显示装饰器里的中文名称；反之只翻译名称不翻译字段时，
+配置弹窗会出现中英混排。建议三份 JSON 的键集完全一致，`python -m pytest tests/test_russian_localization.py`
+会校验俄语模式下扩展展示名与 schema 中没有残留中文。
 :::
 
 ## 后台扩展
@@ -380,7 +464,7 @@ class EventWatcher(BaseExtension[WatcherConfig]):
 
 ## 在扩展中使用热键监听
 
-SRA 内置了全局键盘监听器，扩展可以注册热键，让用户在扩展运行期间通过按键控制行为（如暂停/继续、重置等）。内置的"自动演奏"扩展（`extensions/auto_player.py`）就是一个典型的热键使用范例。
+SRA 内置了全局键盘监听器，扩展可以注册热键，让用户在扩展运行期间通过按键控制行为（如暂停/继续、重置等）。内置的"自动演奏"扩展（`extensions/auto_player/`）就是一个典型的热键使用范例。
 
 ### 工作原理
 

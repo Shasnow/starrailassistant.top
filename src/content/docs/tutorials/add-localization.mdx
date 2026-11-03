@@ -1,0 +1,163 @@
+---
+title: 添加界面语言
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+SRA 目前提供简体中文、English、Русский 三种界面语言。本教程以新增西班牙语（资源后缀 `es-es`，BCP-47 标识
+`es-ES`）为例，说明后端、桌面端与 WebUI 分别需要改动的位置，以及新增语言后如何校验。
+
+## 语言资源分布
+
+| 端 | 位置 | 语言标识 |
+|---|---|---|
+| Python 后端与 CLI | `SRACore/localization/resources.toml` | `zh-cn`、`en-us`、`ru-ru` |
+| OpenAPI 字段说明 | `SRACore/localization/terms.<lang>.json` | `zh-cn`、`en-us`、`ru-ru` |
+| .NET 桌面端 | `SRAFrontend/SRAFrontend/Localization/Resources*.resx` | 中性（英文）、`zh`、`ru-RU` |
+| Vue WebUI | `SRAFrontend/srafrontend-webui/src/locales/langs/*.json` | `zh-CN`、`en-US`、`ru-RU` |
+| 扩展 | `extensions/<扩展>/locales/*.json` | `zh-CN`、`en-US`、`ru-RU` |
+| 开拓力副本与关卡名 | `tasks/config/trailblaze_power.*.json` | `en-US`、`ru-RU` |
+
+后端与 CLI 按 `settings.json` 的 `Display.Language`（`UiLanguage` 枚举，0/1/2）选择资源：CLI 启动时读取该值并
+调用 `Resources.set_language`，服务端共用同一份设置。WebUI 的界面语言单独保存在浏览器的
+`localStorage.sra_locale` 中，与设置项无关。
+
+:::note
+Python 侧的语言下标就是枚举值：`Resources.set_language(int)` 直接取 `available_languages[值]`，
+所以 `resources.toml` 中语言列的顺序必须与 `UiLanguage` 的枚举顺序一致，新增语言统一追加到末尾。
+:::
+
+## 先决条件
+
+- 已能从源码运行 SRA（见 [从源码运行 SRA CLI](/tutorials/run-cli-from-src) 与 [从源代码运行 SRA 图形化界面](/tutorials/run-gui-from-src)）
+- 已安装 .NET 10 SDK 与 Node.js（改桌面端与 WebUI 时需要）
+
+## 分步教程
+
+<Steps>
+
+1. **补齐后端资源**。在 `SRACore/localization/resources.toml` 里为每个键补一行新语言；`zh-cn` 是基准，
+   占位符 `{name}` 必须与其他语言完全一致：
+
+   ```toml
+   [cli.intro]
+   zh-cn = "SRA-cli {version} ({core})\n输入 'help' 或 '?' 来查看命令列表。"
+   en-us = "SRA-cli {version} ({core})\nType 'help' or '?' to list commands."
+   ru-ru = "SRA-cli {version} ({core})\nВведите 'help' или '?' для списка команд."
+   es-es = "SRA-cli {version} ({core})\nEscriba 'help' o '?' para listar los comandos."
+   ```
+
+2. **重新生成资源**：
+
+   ```bash
+   npm run pyl10nc
+   ```
+
+   会写出 `SRACore/localization/resources_es-es.json`，并把新语言加入生成类 `resources.py` 的
+   `available_languages`。生成物不要手改；代码里照旧使用 `Resources.cli_intro` 这样的属性，
+   带占位符的键会生成方法（如 `Resources.cli_invalidArguments(command)`）。
+
+3. **翻译术语表**。OpenAPI 组件里的字段说明来自 `x-i18n`，源文件是 `SRACore/localization/terms.<lang>.json`：
+
+   - 复制 `terms.zh-cn.json` 为 `terms.es-es.json`，按相同结构翻译；
+   - 在 `SRACore/localization/terms.py` 的 `_LANG_FILES` 里补 `"es-es": "es-ES"`；
+   - 在 `scripts/i18n_check.py` 的 `LANGS` 里补 `es-es`，否则 `npm run i18n:check` 不会检查它。
+
+4. **放开扩展本地化语言**。在 `SRACore/extension/locales.py` 的 `SUPPORTED_LANGS` 与 `_LANG_TAGS` 各加一项，
+   再给各扩展目录的 `locales/` 补上新语言文件（键约定见 [添加扩展](/tutorials/add-extension)）。
+
+5. **桌面端加语言**
+
+   1. 在 `SRAFrontend/SRAFrontend/Models/AppSettings.cs` 的 `UiLanguage` 里追加枚举值（顺序与 TOML 一致），
+      `[Description]` 写该语言的母语名，然后执行 `npm run modelgen` 同步 `SRACore/models/app_settings.py`；
+   2. 新增卫星资源 `SRAFrontend/SRAFrontend/Localization/Resources.es-ES.resx`，键集与 `Resources.resx`
+      完全一致，并重新生成 `Resources.Designer.cs`；
+   3. 在 `SRAFrontend/SRAFrontend.Desktop/App.axaml.cs` 的 `CultureFor` 里增加分支：
+
+      ```csharp
+      public static CultureInfo CultureFor(UiLanguage language) => language switch
+      {
+          UiLanguage.Chinese => new CultureInfo("zh-CN"),
+          UiLanguage.Russian => new CultureInfo("ru-RU"),
+          UiLanguage.Spanish => new CultureInfo("es-ES"), // 新增
+          _ => new CultureInfo("en-US")
+      };
+      ```
+
+   4. 在 `SRAFrontend/SRAFrontend.Desktop/Views/SettingsPageView.axaml` 的语言下拉框里追加一项
+      `ComboBoxItem`，顺序与枚举一致（`SelectedIndex` 直接绑定 `LanguageIndex`），语言名取自 resx。
+
+   :::note
+   桌面端的界面语言在启动时由 `App.ConfigureCulture` 写入 `CurrentCulture` / `Resources.Culture`，
+   切换语言需要重启应用才生效；重启提示会按新选择的语言显示。
+   :::
+
+6. **WebUI 加语言**
+
+   1. 新增 `SRAFrontend/srafrontend-webui/src/locales/langs/es-ES.json`，键结构照抄 `zh-CN.json`；
+   2. 在 `src/locales/index.ts` 的 `Locale` 联合类型与 `LOCALE_LABELS` 各加一项，`SUPPORTED_LOCALES` 会自动派生：
+
+      ```ts
+      export type Locale = 'zh-CN' | 'en-US' | 'ru-RU' | 'es-ES'
+
+      const LOCALE_LABELS: Record<Locale, string> = {
+        'zh-CN': '简体中文',
+        'en-US': 'English',
+        'ru-RU': 'Русский',
+        'es-ES': 'Español', // 新增
+      }
+      ```
+
+7. **（可选）开拓力副本与关卡名**。`tasks/config/trailblaze_power.toml` 保持中文原样（识别逻辑仍按中文匹配），
+   另提供译文文件 `tasks/config/trailblaze_power.es-ES.json`，按「子任务 → 关卡 id」覆盖 `name` 与 `result`：
+
+   ```json
+   {
+     "subtasks": {
+       "calyx_golden": {
+         "name": "Calyx (Golden)",
+         "levels": { "1": { "name": "Bud of Memories", "result": "Traveler's Guide" } }
+       }
+     }
+   }
+   ```
+
+   并在 `tasks/taskcli.py` 的 `_LEVEL_LANG_FILES` 里加上 `"es-es": "es-ES"`；缺失的条目会回退中文。
+
+8. **校验**（见下一节）。
+
+</Steps>
+
+## 校验
+
+```bash
+npm run pyl10nc && npm run i18n:check
+python -m pytest tests/test_russian_localization.py tests/test_standard_io_utf8.py
+dotnet test -c Release tests/localization/SRALocalizationChecks.csproj
+cd SRAFrontend/srafrontend-webui && pnpm test
+```
+
+- `npm run i18n:check` 校验各语言术语表的键集与占位符一致；
+- `tests/test_russian_localization.py` 校验 TOML 与生成物一致、代码里出现的 `Resources.<attr>` 都已生成、
+  扩展的展示名与 schema 里没有残留中文；
+- `tests/localization` 用无头 Avalonia 渲染每种语言 × 明暗主题 × 800/1024 两档宽度的页面并输出截图；
+- WebUI 的 `localization.spec.ts` 校验语言持久化与 `setLocale`。
+
+:::caution
+测试里的语言列表是写死的，新增语言后要同步扩展用例：`tests/test_russian_localization.py`、
+`tests/localization/*.cs` 与 WebUI 的 `localization.spec.ts`。
+:::
+
+## 边界
+
+日志是排查和定位问题的重要工具，本地化日志会导致日志内容变动，难以定位代码，因此不对日志进行本地化。
+
+## 常见问题
+
+:::caution
+- **只加了 TOML 列**：`resources_es-es.json` 会生成，但 `UiLanguage` 没有对应值就选不到它；反过来只改枚举
+  不改 TOML 会让下标整体错位（`set_language` 直接按索引取值）。
+- **resx 漏键**：`ResourceManager` 会回退到中性资源（英文），界面会出现中英或俄英混排；
+  提 PR 前跑一遍 `tests/localization` 的键集检查。
+- **`R.message` 不本地化**：CLI / HTTP 的 `R` 信封里 `message` 固定英文，需要展示给用户的本地化文本放在 `data`。
+:::
