@@ -6,6 +6,13 @@
   "cover": "",
   "activities": [
     {
+      "name": "砺行修远（第六期）",
+      "description": "纪行/成长系统第六期，含养成材料及奖励与自选五星命座馈赠。",
+      "startTime": "2026-11-02T04:00:00",
+      "endTime": "2027-01-25T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/03/04/9e61fb52eb6c278d1c0c354a4cc12047_5706720538292727403_transformed.png"
+    },
+    {
       "name": "魔神任务「坏灭肇始之时」限时奖励",
       "description": "时限内完成魔神任务，可获得原石*560、角色突破素材等奖励。",
       "startTime": "2026-11-04T11:00:00",
@@ -24,7 +31,7 @@
       "description": "参与驰援行动削减「圣土化」威胁，可自选邀请一名4星角色，还可获取原石、智识之冕等奖励。",
       "startTime": "2026-11-04T11:00:00",
       "endTime": "2026-12-16T05:59:59",
-      "cover": ""
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/09/24/405a55b86e5074691d97521dc6c0d5e5_6814700333827861367_transformed.png"
     },
     {
       "name": "「相遇·悠久旅途之暇」千音雅集更新",
