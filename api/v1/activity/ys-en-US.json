@@ -1,65 +1,44 @@
 {
-  "version": "7.1",
-  "versionName": "A Rekviem for the Underworld",
-  "startTime": "2026-09-23T06:00:00",
-  "endTime": "2026-11-04T06:00:00",
-  "cover": "https://i0.hdslb.com/bfs/new_dyn/b422b41acb65e5f3f38a25d2756c12d7401742377.png",
+  "version": "7.2",
+  "versionName": "Hour of Ruin",
+  "startTime": "2026-11-04T06:00:00",
+  "endTime": "2026-12-16T06:00:00",
+  "cover": "",
   "activities": [
     {
-      "name": "To Temper Thyself and Journey Far",
-      "description": "Fifth edition of the Battle Pass growth system, containing character development materials and rewards.",
-      "startTime": "2026-08-10T04:00:00",
-      "endTime": "2026-11-02T03:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/05/28/f77abe8a6f4104f1229db987e2c4280a_4266689564815357750_transformed.png"
+      "name": "Archon Quest \"Hour of Ruin\" Limited-Time Rewards",
+      "description": "Complete the Archon Quest within the time limit to obtain Primogems x560, character enhancement materials, and more.",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2026-12-15T14:59:59",
+      "cover": ""
     },
     {
-      "name": "The Godforsaken Frostlands",
-      "description": "Complete exploration missions for the new Snezhnaya areas within the specified duration to obtain an additional Primogems ×400.",
-      "startTime": "2026-08-12T06:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/08/04/9a32fbe7642e27040872c702ff760c13_5512793208175518014_transformed.jpg"
+      "name": "\"A Forest of Crystals\" Area Exploration Limited-Time Rewards",
+      "description": "After the version update, new Snezhnaya areas will be unlocked. Complete exploration quests within the time limit for an additional reward of Primogems x400.",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2027-01-26T14:59:59",
+      "cover": ""
     },
     {
-      "name": "Tabletop Troupe: A Gathering on Adventure's Eve",
-      "description": "Choose a limited 5-star character (Tartaglia, Nilou, Baizhu, Chiori, Clorinde, or Varesa) to join your party.",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/09/14/def098880dbaaff9a37a118be5e2aa7c_6270530679197833402_transformed.jpg"
+      "name": "Realmwide Defense: Retribution of Penance",
+      "description": "Join the relief efforts to reduce the Withering threat, choose to invite a 4-star character, and earn Primogems, Crowns of Insight, and more.",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2026-12-16T05:59:59",
+      "cover": ""
     },
     {
-      "name": "Across the Frozen Wilds, Honing One's Edge",
-      "description": "Choose a permanent 5-star character from the Standard Wish to join your party.",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/09/11/d353f2681a2b4a56d9db56c863201430_5948218306514774688_transformed.jpg"
+      "name": "A Meeting on a Long Journey - New Album in \"Melodies of a Thousand Harmonies\"",
+      "description": "A new album \"A Meeting on a Long Journey\" is available in the music event. Complete the performance quests within the time limit to earn additional Primogems.",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2026-12-15T14:59:59",
+      "cover": ""
     },
     {
-      "name": "Raiment Collection: Warmth of a Sunny Day",
-      "description": "Complete event tasks to accumulate progress; once enough progress is earned, claim the selectable \"Afternoon Nectar\" outfit set (4-Star).",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-04T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/de34efb3379442545367d2a5172bdf59401742377.png"
-    },
-    {
-      "name": "A Rekviem for the Underworld",
-      "description": "Complete Archon Quests Chapter VII: Acts III and IV and the subsequent interlude quests within the specified duration to obtain Primogems, Character Ascension Materials, Character Level-Up Materials, and other rewards.",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/09/11/b434c127f3396db3759a37da24b4d4c8_3067875660919907928_transformed.jpg"
-    },
-    {
-      "name": "Silverwing in Pursuit of the Moon",
-      "description": "Version event: complete challenges to obtain the event-exclusive weapon \"Silver Light,\" Primogems, Crowns of Insight, and more.",
-      "startTime": "2026-09-24T10:00:00",
-      "endTime": "2026-10-12T03:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/09/11/22f2f523e19349f439b81b1c8e7a18f4_8177819633981078287_transformed.jpg"
-    },
-    {
-      "name": "Rainbow's End: Resplendent Starlight",
-      "description": "Login reward event featuring mail-in gifts and cumulative login bonuses, awarding up to 1600 Primogems, 10 Intertwined Fates, and more.",
-      "startTime": "2026-09-28T00:00:00",
-      "endTime": "2026-11-04T05:59:59",
-      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/09/11/13731601c5ec188f8221e2179960f25d_8966757839271822351_transformed.jpg"
+      "name": "Perilous Realm Trials",
+      "description": "Form three teams to face powerful foes. Complete challenges of different difficulties to earn Primogems, Sanctifying Elixir, and more.",
+      "startTime": "2026-11-11T10:00:00",
+      "endTime": "2026-12-15T03:59:59",
+      "cover": ""
     }
   ]
 }
