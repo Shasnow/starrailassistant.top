@@ -1,65 +1,44 @@
 {
-  "version": "7.1",
-  "versionName": "往冥府的安魂歌",
-  "startTime": "2026-09-23T06:00:00",
-  "endTime": "2026-11-04T06:00:00",
-  "cover": "https://i0.hdslb.com/bfs/new_dyn/b422b41acb65e5f3f38a25d2756c12d7401742377.png",
+  "version": "7.2",
+  "versionName": "坏灭肇始之时",
+  "startTime": "2026-11-04T06:00:00",
+  "endTime": "2026-12-16T06:00:00",
+  "cover": "",
   "activities": [
     {
-      "name": "砺行修远（第五期）",
-      "description": "纪行/成长系统第五期，含养成材料及奖励。",
-      "startTime": "2026-08-10T04:00:00",
-      "endTime": "2026-11-02T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/c05ee2327918f3e4271db3ff66ce2026401742377.jpg"
+      "name": "魔神任务「坏灭肇始之时」限时奖励",
+      "description": "时限内完成魔神任务，可获得原石*560、角色突破素材等奖励。",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2026-12-15T14:59:59",
+      "cover": ""
     },
     {
-      "name": "无神怜爱的冻土",
-      "description": "时限内完成探索任务，可额外获得原石*400奖励",
-      "startTime": "2026-08-12T06:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/299a8faf70962ccc22f21e7592e2183d401742377.jpg"
+      "name": "「晶石如林生长之地」区域探索限时奖励",
+      "description": "版本更新后开启全新至冬区域：新基捷城、如翼之峰，时限内完成探索任务可获得额外奖励：原石*400。",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2027-01-26T14:59:59",
+      "cover": ""
     },
     {
-      "name": "桌上剧团·冒险的前夜会",
-      "description": "自选邀请限定5星角色活动，可从达达利亚、妮露、白术、千织、克洛琳德、瓦雷莎中自选一名加入队伍。",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/a8477e96f61505a72990c0d91034ad3c401742377.jpg"
+      "name": "全域镇卫·逆捍谬罚",
+      "description": "参与驰援行动削减「圣土化」威胁，可自选邀请一名4星角色，还可获取原石、智识之冕等奖励。",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2026-12-16T05:59:59",
+      "cover": ""
     },
     {
-      "name": "巡历雪境，凝铸锋锐",
-      "description": "自选邀请「奔行世间」常驻祈愿5星角色活动，自选一名常驻5星角色加入队伍。",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/5e0bb0eea63cedadb92b3b397addda1f401742377.png"
+      "name": "「相遇·悠久旅途之暇」千音雅集更新",
+      "description": "千音雅集新增专辑「相遇·悠久旅途之暇」，在时限内完成相应演奏任务，可获得额外原石奖励。",
+      "startTime": "2026-11-04T11:00:00",
+      "endTime": "2026-12-15T14:59:59",
+      "cover": ""
     },
     {
-      "name": "绮衣珍赏·晴暖",
-      "description": "完成珍赏任务获得「珍赏见闻」与重现晶簇，「珍赏见闻」总值累计到特定值后即可领取自选奇偶装扮套装「午后蜜果」一套。",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-04T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/de34efb3379442545367d2a5172bdf59401742377.png"
-    },
-    {
-      "name": "往冥府的安魂歌",
-      "description": "时限内完成魔神任务第七章·第三幕、第四幕及系列尾声任务，可获得原石、角色突破素材、角色培养素材等奖励。",
-      "startTime": "2026-09-23T11:00:00",
-      "endTime": "2026-11-03T14:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/77ea6038f12122492df3dedba462eb12401742377.png"
-    },
-    {
-      "name": "银翎溯月，玄鸟结璘",
-      "description": "逐月节版本活动，完成玩法任务可获取活动专属武器「单手剑·银釭」、原石、智识之冕等奖励。",
-      "startTime": "2026-09-24T10:00:00",
-      "endTime": "2026-10-12T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/928aca829606c87e2fc80bb98b6ec8a8401742377.png"
-    },
-    {
-      "name": "虹旅藏金·耀星烁熠",
-      "description": "登录福利活动，含佳礼来信邮件签到与耀星烁熠累计登录，可获取原石×1600、纠缠之缘×10等奖励。",
-      "startTime": "2026-09-28T00:00:00",
-      "endTime": "2026-11-04T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/c499d7f590120aec86c5e21c3f5a453e401742377.png"
+      "name": "幽境危战",
+      "description": "组建三支队伍直面强敌，完成不同难度的挑战可获得原石、圣遗物道具「启圣之尘」等奖励。",
+      "startTime": "2026-11-11T10:00:00",
+      "endTime": "2026-12-15T03:59:59",
+      "cover": ""
     }
   ]
 }
