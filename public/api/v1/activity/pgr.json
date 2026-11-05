@@ -1,41 +1,57 @@
 {
-  "version": "2026-09-24",
-  "versionName": "远信回响",
-  "startTime": "2026-09-24T05:00:00",
-  "endTime": "2026-11-05T05:00:00",
-  "cover": "https://i0.hdslb.com/bfs/archive/429cebd64765df5f00e65cb07937f9bb98934786.jpg",
+  "version": "2026-11-05",
+  "versionName": "流光抛诸寰宇",
+  "startTime": "2026-11-05T11:00:00",
+  "endTime": "2026-12-17T05:00:00",
+  "cover": "https://i.17173cdn.com/2fhnvk/YWxqaGBf/cms3/PkGyFcbugdgskae.jpg",
   "activities": [
     {
-      "name": "【回路演算】活动",
+      "name": "尽心者尽美-角色试玩关",
       "kind": "",
-      "description": "库街区官方活动公告",
-      "startTime": "2026-09-24T10:00:00",
-      "endTime": "2026-11-04T05:00:00",
-      "cover": "https://prod-alicdn-community.kurobbs.com/forum/fccdcc08a369417f9744e39c0082d5a320260922.png"
+      "description": "「莱亚·祈星」角色试玩关卡，完成挑战可领取收藏品及培养材料，官方版本更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-12-17T05:00:00",
+      "cover": ""
     },
     {
-      "name": "【超频演算】活动",
+      "name": "7日登录签到奖励",
       "kind": "",
-      "description": "库街区官方活动公告",
-      "startTime": "2026-09-29T10:00:00",
-      "endTime": "2026-11-04T05:00:00",
-      "cover": "https://prod-alicdn-community.kurobbs.com/forum/d0483c9296cd49e593ea7b6e55e5342320260928.png"
+      "description": "活动期间累计签到7天，可领取基准角色研发券等奖励，官方版本更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-12-16T05:00:00",
+      "cover": ""
     },
     {
-      "name": "【忽忽破坏王】活动",
+      "name": "筑梦大亨",
       "kind": "",
-      "description": "库街区官方活动公告",
-      "startTime": "2026-10-08T10:00:00",
-      "endTime": "2026-11-04T05:00:00",
-      "cover": "https://prod-alicdn-community.kurobbs.com/forum/bf1eebdc9b3947d7885a751804dff35f20261002.png"
+      "description": "经营库洛洛大楼获得筑梦资金并完成建设订单，总计可得活动角色研发券*2000，官方版本更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-12-16T05:00:00",
+      "cover": ""
     },
     {
-      "name": "【宇宙奇趣】活动",
+      "name": "诸星迷寂-BOSS挑战",
       "kind": "",
-      "description": "库街区官方活动公告",
-      "startTime": "2026-10-26T05:00:00",
-      "endTime": "2026-11-04T05:00:00",
-      "cover": "https://prod-alicdn-community.kurobbs.com/forum/7ecd629baddb42e3a85f10db9116e00020261023.png"
+      "description": "挑战Boss「极化枢蛉后」，共5个难度，累计15星领取全部收藏品奖励，官方版本更新公告",
+      "startTime": "2026-11-06T10:00:00",
+      "endTime": "2026-11-30T05:00:00",
+      "cover": ""
+    },
+    {
+      "name": "魇愿失衡",
+      "kind": "",
+      "description": "探索莱亚精神世界完成质量配平，共11个关卡，总计可得活动角色研发券*500，官方版本更新公告",
+      "startTime": "2026-11-12T10:00:00",
+      "endTime": "2026-12-16T05:00:00",
+      "cover": ""
+    },
+    {
+      "name": "像素嚼嚼乐",
+      "kind": "",
+      "description": "操控莱亚躲避病毒收集像素豆的9关玩法，总计可得活动角色研发券*500，官方版本更新公告",
+      "startTime": "2026-11-19T10:00:00",
+      "endTime": "2026-12-16T05:00:00",
+      "cover": ""
     }
   ]
 }

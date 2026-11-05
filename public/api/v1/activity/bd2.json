@@ -1,48 +1,64 @@
 {
-  "version": "2026-10-22",
-  "versionName": "Broken Bonds",
-  "startTime": "2026-10-22T11:00:00",
-  "endTime": "2026-11-05T07:50:00",
-  "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/50118/images/w_1600/h_720/497891/2026/9/20/42496549mvgen4pm.png",
+  "version": "2026-11-05",
+  "versionName": "Blood Royale",
+  "startTime": "2026-11-05T11:00:00",
+  "endTime": "2026-11-19T07:50:00",
+  "cover": "",
   "activities": [
     {
-      "name": "赛季活动「Broken Bonds」",
+      "name": "赛季活动「Blood Royale」",
       "kind": "",
-      "description": "Pick Up角色阿奇拉个人故事第6话，含活动故事、战斗、任务与活动商店，GameKee 公告",
-      "startTime": "2026-10-22T11:00:00",
-      "endTime": "2026-11-05T07:50:00",
-      "cover": "https://cdnimg-v2.gamekee.com/wiki2.0/pro/50118/images/w_1600/h_720/497891/2026/9/20/42496549mvgen4pm.png"
-    },
-    {
-      "name": "魔物追踪者「怪诞淑女」准备期",
-      "kind": "挑战活动",
-      "description": "巨型魔物怪诞淑女狩猎准备期，GameKee 公告",
-      "startTime": "2026-10-22T11:00:00",
-      "endTime": "2026-10-29T07:59:00",
+      "description": "Pick Up角色斐杰个人故事共6话，含故事、战斗、魔兽追踪者、任务与活动商店，官方更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-11-19T07:50:00",
       "cover": ""
     },
     {
-      "name": "魔物追踪者「怪诞淑女」狩猎期",
-      "kind": "挑战活动",
-      "description": "巨型魔物怪诞淑女狩猎期，GameKee 公告",
-      "startTime": "2026-10-29T08:00:00",
-      "endTime": "2026-11-04T22:59:00",
+      "name": "魔物追踪者「心魔（光）」准备期",
+      "kind": "",
+      "description": "巨大魔兽心魔（光）狩猎准备期间，官方更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-11-12T07:59:00",
       "cover": ""
     },
     {
-      "name": "万圣节每日钻石通行证",
+      "name": "Blood Royale 赛季通行证",
       "kind": "",
-      "description": "万圣节每日钻石通行证",
-      "startTime": "2026-10-08T12:00:00",
-      "endTime": "2026-11-05T07:50:00",
-      "cover": "https://i1.hdslb.com/bfs/archive/225c5d4d30455c0a02e60b9d244c4dd93298899f.jpg"
+      "description": "完成任务即可获得通行证经验值及各种奖励，官方更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-12-03T07:50:00",
+      "cover": ""
     },
     {
-      "name": "特别赛季通行证",
+      "name": "最后一手特别赛季通行证",
       "kind": "",
-      "description": "特别赛季通行证",
-      "startTime": "2026-10-08T12:00:00",
-      "endTime": "2026-11-05T07:50:00",
+      "description": "店长游戏卡带3主题特别赛季通行证商品，官方更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-12-03T07:50:00",
+      "cover": ""
+    },
+    {
+      "name": "背叛之夜斐杰 Pick up 活动任务",
+      "kind": "",
+      "description": "参与赛季活动并完成任务获取奖励，官方更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-11-19T07:50:00",
+      "cover": ""
+    },
+    {
+      "name": "【复刻】女仆代号 R 莉亚特里斯 Pick up 活动任务",
+      "kind": "",
+      "description": "复刻服装莉亚特里斯相关活动任务，官方更新公告",
+      "startTime": "2026-11-05T11:00:00",
+      "endTime": "2026-12-03T07:50:00",
+      "cover": ""
+    },
+    {
+      "name": "魔物追踪者「心魔（光）」狩猎期",
+      "kind": "",
+      "description": "正式狩猎期，挑战巨大魔兽心魔（光），官方更新公告",
+      "startTime": "2026-11-12T08:00:00",
+      "endTime": "2026-11-18T22:59:00",
       "cover": ""
     }
   ]
