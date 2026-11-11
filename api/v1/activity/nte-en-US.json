@@ -1,99 +1,78 @@
 {
-  "version": "1.4",
-  "versionName": "For Whom the Verses Mourn",
-  "startTime": "2026-09-30T06:00:00",
-  "endTime": "2026-11-11T05:59:59",
-  "cover": "https://i0.hdslb.com/bfs/new_dyn/73087a64422f3480c7b2aad2b55c3b923546636978489848.jpg",
+  "version": "1.5",
+  "versionName": "Once Upon a Glitched Call",
+  "startTime": "2026-11-11T11:00:00",
+  "endTime": "2026-12-23T05:59:59",
+  "cover": "",
   "activities": [
     {
       "name": "Circle Gifts",
       "description": "Login event. Log in for a total of 7 days to earn Solid Dice x10.",
-      "startTime": "2026-09-30T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/54c7486bd043bdb18bca12d737dc50c53546636978489848.jpg"
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
+      "cover": ""
     },
     {
-      "name": "Pukaland Travelogue",
-      "description": "Limited-time event. Welcome to Pukaland, where your magical journey begins! Collect Wonder Stamps and unlock your exclusive park memories. During the event, complete limited-time encounters to earn Annulith, Fabricated Dice, Floe Cinema Tickets, Elite Hunter Guides, Chaotic Dye, and more.",
-      "startTime": "2026-09-30T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/9f175f1dff8990f8358d4aae88d04d943546636978489848.jpg"
+      "name": "City Logistics",
+      "description": "Limited-time event. Complete limited-time quests to earn the event currency \"Kool\" tokens, and finish all limited-time quests to claim the namecard \"Big Dreams\". Spend Kool tokens in the Event Shop to redeem the vehicle \"C001\", the title \"Hethereau Delivery King\", the phone case \"Five-Star Reviews\", the avatar \"Kool\", Fabricated Dice, and more. Raise your Reputation Level to earn additional rewards.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
+      "cover": ""
     },
     {
-      "name": "Born to Race",
-      "description": "Limited-time Mystery Box event (NTE × Porsche collab). Spend Fons or Annulith to open \"Born to Race\" Mystery Boxes, with 15 boxes in total, and opening all of them unlocks every reward in the pool. Mystery Box contents include the Porsche collab vehicles \"Porsche Taycan Turbo GT with Weissach Package\" and \"Porsche 911 Turbo (930)\", Fabricated Dice, A Handwritten Letter, Fons, the limited avatar frame \"Redline Rush\", the exclusive namecard \"Roar Recharged\", and more.",
-      "startTime": "2026-09-30T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/74d1aa687b9d34d1d14ca9bfaf7706683546636978489848.jpg"
+      "name": "Hunter's Crucible: Breakthrough",
+      "description": "Limited-time event. During the event, clear challenge stages to earn rewards, including the event title \"Hunter's Crucible - Blade Honed\", Annulith, Fabricated Dice, Fons, Elite Hunter Guides, and Chaotic Dye.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
+      "cover": ""
     },
     {
-      "name": "Everdriving",
-      "description": "Limited-time Mystery Box return event (NTE × Porsche collab). Spend Fons or Annulith to open \"Everdriving\" Mystery Boxes, with 15 boxes in total, and opening all of them unlocks every reward in the pool. Mystery Box contents include the Porsche collab vehicle \"Porsche 918 Spyder\", Esper Zero's limited collab outfit \"Perfect Partners\", Fabricated Dice x10, A Handwritten Letter x3, Fons x500,000, the limited avatar frame \"Heartbeat Moment\", the exclusive namecard \"Trackside Shadow\", and more. Previous Mystery Box progress carries over.",
-      "startTime": "2026-09-30T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/74d1aa687b9d34d1d14ca9bfaf7706683546636978489848.jpg"
-    },
-    {
-      "name": "Terminal Depths",
-      "description": "Limited-time event. Dear passengers, we are now approaching ** Station. Clear stages during the event to earn the title \"Off-Rail Operator\", Annulith, Fons, Elite Hunter Guides, Chaotic Dye, and more.",
-      "startTime": "2026-09-30T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Fortune's Bounty",
+      "description": "Limited-time event. Take part to earn \"Fortune Coins\" and reach progress milestones to claim rewards including the open-world interactable item \"Pop-Up Divination House\", the accessory \"Tiny Friend\", the tire tracks \"Hyperflame\", Solid Dice, Fabricated Dice, and more.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
       "cover": ""
     },
     {
       "name": "Circle Bounty",
-      "description": "Version 1.4 Circle Bounty. During the event, complete Circle Quests to earn Experience Points and raise your Circle Bounty Rank, unlocking Fabricated Dice, Gold Carrota, De-noise Solution, A Handwritten Letter, Eternal Shell Song, Development EXP Selection Box I, Expansion Core, and more.",
-      "startTime": "2026-09-30T11:00:00",
-      "endTime": "2026-11-10T23:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/6b56c51c136f86be04f85ceca77ede023546636978489848.jpg"
-    },
-    {
-      "name": "Stamina Recharge",
-      "description": "Limited-time event. During the event, spend City Stamina at 2x efficiency in \"Hethereau Hobbies\" activities.",
-      "startTime": "2026-10-05T05:00:00",
-      "endTime": "2026-10-19T04:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/c0b50e72864553f19ffe2216bb08404d3546636978489848.jpg"
-    },
-    {
-      "name": "Beyond the Rails: Sunset Circle",
-      "description": "Limited-time event. Explore the railway route and take on challenges along the way.",
-      "startTime": "2026-10-08T05:00:00",
-      "endTime": "2026-10-22T04:59:59",
+      "description": "Version 1.5 Circle Bounty. During the event, complete Circle Quests to earn Experience Points and raise your Circle Bounty Rank, unlocking Fabricated Dice, Gold Carrota, De-noise Solution, A Handwritten Letter, Eternal Shell Song, Development EXP Selection Box I, Expansion Core, and more.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-22T23:59:59",
       "cover": ""
     },
     {
-      "name": "Coal Lump's Treasure",
-      "description": "Limited-time event. Keep those grubby little paws off Coal Lump's treasures! Take part during the event to earn the event currency \"Prism Drop\", and reach the target high scores to unlock the titles \"Sweet Benefactor\" and \"Bestie Supreme\". You can also visit the event shop to exchange for Annulith, Floe Cinema Tickets, Fons, Elite Hunter Guides, Chaotic Dye, and more.",
-      "startTime": "2026-10-08T10:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Open Roads Ahead",
+      "description": "Limited-time Mystery Box event. Spend Fons or Annulith to open \"Open Roads Ahead\" Mystery Boxes, with 15 boxes in total, and opening all of them unlocks every reward in the pool. Contents include the vehicles \"Iron Ogre\" and \"Prototype Land Overlord 001\", the livery \"Caution: Graffiti!\", the avatar frame \"Wayfinder\", the namecard \"The Open Road\", Fabricated Dice, and more.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
       "cover": ""
     },
     {
       "name": "Pixel Surge",
       "description": "Limited-time event. During the event, spend Character Pixels in \"Houdinii's Magic Stage\", \"Houdinii's Schemes\", \"Bubble Can Factory\", and \"Rabbit Hole\" to receive double the rewards. Each day, double rewards apply to up to 120 Character Pixels spent. Unused daily allowance carries over, up to a total cap of 840 Character Pixels for the whole event.",
-      "startTime": "2026-10-19T05:00:00",
-      "endTime": "2026-10-26T04:59:59",
+      "startTime": "2026-11-16T05:00:00",
+      "endTime": "2026-11-23T04:59:59",
       "cover": ""
     },
     {
-      "name": "Snap! Golden Crackshot",
-      "description": "Limited-time event. Take part during the event to earn event currency, then visit the event shop to exchange it for Annulith, Fons, Floe Cinema Tickets, and more.",
-      "startTime": "2026-10-21T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Full Tank Ahead",
+      "description": "Limited-time event. A special launch event for the TerraX \"Iron Ogre\". Take the wheel and fight to be king of the hill! Earn the event currency \"TX Token\" and redeem it in the Event Shop for Annulith, Floe Cinema Ticket, Fons, Elite Hunter Guides, Chaotic Dye, and more.",
+      "startTime": "2026-11-19T10:00:00",
+      "endTime": "2026-12-23T05:59:59",
       "cover": ""
     },
     {
-      "name": "Gold Crash",
-      "description": "Limited-time event. During the event, Fons earnings in \"Pink Paws Heist\" are doubled.",
-      "startTime": "2026-10-26T05:00:00",
-      "endTime": "2026-11-09T04:59:59",
+      "name": "Fishing Frenzy",
+      "description": "Limited-time event. Head to the \"Sea Angler\" fishing spot at Nacupeda Park and raise your fishing level for rewards including Annulith, Floe Cinema Tickets, Elite Hunter Guides, Chaotic Dye, and more.",
+      "startTime": "2026-11-23T05:00:00",
+      "endTime": "2026-12-23T05:59:59",
       "cover": ""
     },
     {
-      "name": "Puka Lucky Flip",
-      "description": "Limited-time event. Complete daily tasks to earn flip chances, then use them to flip cards for a chance to win Annulith, Fabricated Dice, Elite Hunter Guides, Chaotic Dye, and more.",
-      "startTime": "2026-10-29T05:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Gold Clash",
+      "description": "Limited-time event. During the event, earn Fons at 2x efficiency in \"Pink Paws Heist\".",
+      "startTime": "2026-11-23T05:00:00",
+      "endTime": "2026-12-07T04:59:59",
       "cover": ""
     }
   ]

@@ -1,113 +1,85 @@
 {
-  "version": "4.6",
-  "versionName": "Dance With the Beast Before Moonrise",
-  "startTime": "2026-09-28T11:00:00",
-  "endTime": "2026-11-11T06:00:00",
-  "cover": "https://i0.hdslb.com/bfs/new_dyn/31af0eb88c8c6dcfab5b7cbc72d67c781340190821.jpg",
+  "version": "4.7",
+  "versionName": "Now, Lay Laughter to All Stars",
+  "startTime": "2026-11-11T11:00:00",
+  "endTime": "2026-12-23T06:00:00",
+  "cover": "",
   "activities": [
     {
-      "name": "Fate Contract: Renewal",
-      "description": "During the event, log in to the game to claim the limited 5-star collaboration character Gilgamesh (Destruction: Lightning) ×1 or Archer (The Hunt: Quantum) ×1 and materials to build him to Lv. 60.",
-      "startTime": "2026-07-24T12:00:00",
-      "endTime": "2026-11-11T06:00:00",
+      "name": "Grab Your Opening Gifts",
+      "description": "Let the show begin! Aha brought a ton of great gifts! \"Affinitive Starveil\" lets you pick one Affinitive Eidolon for Acheron, Dan Heng • Imbibitor Lunae, or Jing Yuan; \"Magic Invitation\" grants one of those characters plus upgrade materials to instantly reach Lv. 60; \"Stellar Companions\" grants Golden Companion Spirit ×1; \"Aha Reckons You Need This\" offers Star Rail Special Pass ×20 through cumulative check-in; plus the outfit \"Yellow-Purple Style,\" headwear \"Elation Proxy,\" and the custom Relic item \"Asat Pramad's Gift.\" Requirement: Trailblaze Level ≥ 4.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
       "cover": ""
     },
     {
-      "name": "Apocalyptic Shadow: Celestial Lupine",
-      "description": "When an enemy unit with 'Steadfast Safeguard' is Weakness Broken, dispel control debuffs for all allies and activate their Ultimates. Increases Skill DMG taken by all enemy targets by 25% and increases Elation Skill DMG by 15%.",
-      "startTime": "2026-08-31T04:00:00",
-      "endTime": "2026-10-05T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/article/839c3f2ba8ffc2b63b4cd209f8f989041340190821.jpg"
-    },
-    {
-      "name": "Pure Fiction: Domain Genesis",
-      "description": "Each time Punchline is gained, allies will additionally accumulate 2 Grit Value.",
-      "startTime": "2026-09-14T04:00:00",
-      "endTime": "2026-10-19T03:59:59",
-      "cover": "https://i0.hdslb.com/bfs/new_dyn/13e21e998566cef8e41f4ae287c17fc11340190821.jpg"
-    },
-    {
-      "name": "Love, Ghosts & Robots",
-      "description": "A decommissioned mechatron pipeline, retrofitted by ghost Skott, has somehow become a production line for \"Lyndon™ EmbodiMech,\" capable of giving ghosts physical form! But the one time this old friend decides to do something good, he gets tangled up with the out-of-nowhere arrival of Rakshmi. You and your companions decide to lend a hand, help him pass the assessment, and get him out from under his \"rumored girlfriend\"'s thumb! Rewards include the Trailblaze Fashion headwear \"Lone Wolf Shades.\"",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T03:59:59",
+      "name": "The Fluffy Movie: Overheated",
+      "description": "Leave Fluffy Across the Blue unfinished? Sorry, but the greatest and most responsible comic artist, Blurry_QR_Colt, could never do such a thing. In fact, she's even going to draw a gourmet story version! She has left behind an inheritance waiting to be claimed. To get your hands on it, you'll have to first finish this masterpiece. However, \"drawing\" comics isn't as simple as you think... Requirement: Trailblaze Level ≥ 21.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T03:59:59",
       "cover": ""
     },
     {
-      "name": "Wishpower UP! Down with Voracity!",
-      "description": "The ancient Aeon, the Voracity, is gradually awakening. THEIR power is steadily encroaching outward, spurring an uncontrollable, ravenous impulse within living beings... But I heard Aha's here to help!? Defeat enemies corroded by the Voracity and accumulate Wishpower to unlock Trendible Voucher ×18, Stellar Jade ×500, and a commemorative medal! You can even gain buffs when fighting against Voracity Corrosion!",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Interastral Peace Gala: Road to Fame",
+      "description": "Want to become the star of the show? Step onto the stage, take down your rivals, and win cheers and applause with your brilliance! Requirement: Trailblaze Level ≥ 21.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T03:59:59",
       "cover": ""
     },
     {
-      "name": "Astral Slammers Squad!",
-      "description": "To celebrate the grand opening of the Imagea Park, the IPC is hosting an \"Astral Slammers\" event! Hurry up, team up with your friends, and complete the challenge together!",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Relic Recon",
+      "description": "A mysterious collection vault in the Herta Space Station has opened its doors to you, filled with countless chests containing wondrous items. If you could get your hands on a special access card... Requirement: Trailblaze Level ≥ 21.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T03:59:59",
       "cover": ""
     },
     {
-      "name": "Astral Imagea Park: Astral Trendible",
-      "description": "Imageas available in this period's \"Astral Trendible\" Imagea draw event include: Collector's Edition Kitty Furb, Collector's Edition Chimera, Classic Edition Kitty Furb, and Classic Edition Chimera.",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Astral Imagea Park: Park Souvenir",
-      "description": "During the event, log in to the game to claim Trendible Voucher ×6. Trendible Vouchers can be used to draw for Astral Imageas.",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Gift of Odyssey",
-      "description": "Log in every day during the event to obtain check-in rewards. Trailblazers can claim Star Rail Special Pass ×10 after checking in for 7 days!",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
-      "cover": ""
-    },
-    {
-      "name": "Anomaly Arbitration: Return to Roots",
-      "description": "High-difficulty challenge mode where players can earn rewards including Lone Stardust, Interference Keys, Self-Modeling Resin, and limited-time avatar frames.",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-11T05:59:59",
+      "name": "Anomaly Arbitration: Hidden Stage",
+      "description": "High-difficulty challenge gameplay updated with the version, rewarding Lone Stardust, Interference Keys, Self-Modeling Resin, and limited-time avatar frames.",
+      "startTime": "2026-11-11T11:00:00",
+      "endTime": "2026-12-23T05:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/0869ac215b041b4bbab8197c9c44cef71340190821.jpg"
     },
     {
-      "name": "Memory of Chaos: Crossing the Afterlife",
-      "description": "The character in position 1 of the ally lineup gains the Elation Skill \"Euphoric Maelstrom,\" dealing 100% Elation DMG of the character's Type to all enemies. When each Cycle begins, Aha immediately gains 1 extra turn with a fixed amount of 20 Punchlines taken into account. This turn does not consume Punchlines.",
-      "startTime": "2026-09-28T11:00:00",
-      "endTime": "2026-11-02T03:59:59",
-      "cover": ""
-    },
-    {
       "name": "Apocalyptic Shadow: Dominance of Oblivion",
-      "description": "When an enemy target with \"Steadfast Safeguard\" is Weakness Broken, all ally targets are dispelled of control debuffs, their actions are advanced, and Aha immediately gains an extra turn (this turn takes a fixed 10 Punchlines into account). Increases Ultimate DMG taken by all enemy targets by 25% and increases Elation DMG by 15%.",
+      "description": "When an enemy target with \"Steadfast Safeguard\" is Weakness Broken, dispel control debuffs for all ally targets, advance their actions, and make Aha immediately gain an extra turn (this turn counts as a fixed 10 Punchline). Increases Ultimate DMG taken by all enemy targets by 25% and Elation DMG by 15%.",
       "startTime": "2026-10-05T04:00:00",
       "endTime": "2026-11-16T03:59:59",
       "cover": "https://i0.hdslb.com/bfs/article/839c3f2ba8ffc2b63b4cd209f8f989041340190821.jpg"
     },
     {
+      "name": "Apocalyptic Shadow: Navigator's Netherveil",
+      "description": "When an enemy target with \"Steadfast Safeguard\" is Weakness Broken, dispel control debuffs for all ally targets and activate their Ultimates. Increases Skill DMG taken by all enemy targets by 25% and increases Elation DMG by 15%.",
+      "startTime": "2026-11-16T04:00:00",
+      "endTime": "2026-12-28T03:59:59",
+      "cover": "https://i0.hdslb.com/bfs/article/839c3f2ba8ffc2b63b4cd209f8f989041340190821.jpg"
+    },
+    {
       "name": "Pure Fiction: Imagined Words",
-      "description": "When an ally target inflicts a debuff on an enemy target, allies additionally accumulate 1 Grit Value. This effect can be triggered up to 10 times per enemy target.",
+      "description": "When an ally target applies a debuff to an enemy target, allies additionally accumulate 1 Grit Value. This effect can trigger up to 10 times per enemy target.",
       "startTime": "2026-10-19T04:00:00",
       "endTime": "2026-11-30T03:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/13e21e998566cef8e41f4ae287c17fc11340190821.jpg"
     },
     {
-      "name": "Interastral Peace Gala: One Take",
-      "description": "Interastral Peace Entertainment's blockbuster reality show, Interastral Peace Gala: One Take, has officially started filming. Audition now, show off your combat skills, and the next action superstar could be you!",
-      "startTime": "2026-10-21T12:00:00",
-      "endTime": "2026-11-11T03:59:59",
-      "cover": ""
+      "name": "Pure Fiction: Fiction Made Truth",
+      "description": "Each time Punchline is gained, allies will additionally accumulate 2 Grit Value.",
+      "startTime": "2026-11-30T04:00:00",
+      "endTime": "2027-01-11T03:59:59",
+      "cover": "https://i0.hdslb.com/bfs/new_dyn/13e21e998566cef8e41f4ae287c17fc11340190821.jpg"
     },
     {
       "name": "Memory of Chaos: Survival of the Fittest",
-      "description": "When an ally target uses their Ultimate, gains 5 Punchlines. When each Cycle begins, Aha immediately gains 1 extra turn with a fixed amount of 20 Punchlines taken into account. This turn does not consume Punchlines.",
+      "description": "Allies gain 5 Punchline when using their Ultimate. At the start of each Cycle, make Aha immediately gain an extra turn that counts as a fixed 20 Punchline and does not consume Punchline.",
       "startTime": "2026-11-02T04:00:00",
       "endTime": "2026-12-14T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Memory of Chaos: Echo of Darkness",
+      "description": "Increases Basic ATK DMG dealt by all ally targets by 50%. After an ally character uses their Basic ATK, adds 1 Hit Per Action to \"Memory Turbulence,\" up to a maximum of 15 hits. At the start of each Cycle, \"Memory Turbulence\" deals 1 instance of True DMG to a random enemy target with each Hit Per Action.",
+      "startTime": "2026-12-14T04:00:00",
+      "endTime": "2027-01-25T03:59:59",
       "cover": ""
     }
   ]

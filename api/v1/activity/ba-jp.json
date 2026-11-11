@@ -1,23 +1,23 @@
 {
   "version": "2026-11",
   "versionName": "日服活动",
-  "startTime": "2026-10-28T10:00:00",
-  "endTime": "2026-11-18T04:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/23fb7a4779943f5c1ed6941b035c84ebc69e3c98.webp",
+  "startTime": "2026-11-11T04:00:00",
+  "endTime": "2026-11-25T10:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/9b238079c9ec8063526164908fc3e46478f78f26.webp",
   "activities": [
-    {
-      "name": "「Start Your Engines！ ～183号永存！～」",
-      "description": "",
-      "startTime": "2026-10-28T10:00:00",
-      "endTime": "2026-11-11T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/b801d0aee9d11773f64917db5a2c5616648ec6f4.webp"
-    },
     {
       "name": "课程表·交流会2倍",
       "description": "",
       "startTime": "2026-11-11T04:00:00",
       "endTime": "2026-11-18T04:00:59",
       "cover": "https://resource.starrailassistant.top/ba/activity/23fb7a4779943f5c1ed6941b035c84ebc69e3c98.webp"
+    },
+    {
+      "name": "「谁的艺术～伪饰之画与美学的去向～」",
+      "description": "",
+      "startTime": "2026-11-11T10:00:00",
+      "endTime": "2026-11-25T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/9b238079c9ec8063526164908fc3e46478f78f26.webp"
     }
   ]
 }
