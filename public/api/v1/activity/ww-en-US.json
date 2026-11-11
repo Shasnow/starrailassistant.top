@@ -8,26 +8,26 @@
     {
       "name": "Second Solaris: Dreams Untold",
       "kind": "Leisure Event",
-      "description": "Leisure event. Take part to obtain the Event Sigil \"Second Solaris Graduation Season\" and the Event Avatar \"Class Break\".",
+      "description": "Leisure event. Live a campus life in the Second Solaris: plan each week's schedule, take classes, do extracurricular work and part-time jobs to raise your stats, spend weekends with companions to unlock their stories, and choose a student council or club union path. Different choices lead to different story and companion endings.",
       "startTime": "2026-11-12T11:00:00",
-      "endTime": "2026-12-21T03:59:59",
-      "cover": ""
+      "endTime": "2026-12-21T11:59:59",
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/43b0d7169ece4880836058eebdf7c1a220261111.png"
     },
     {
       "name": "Lament of the Past",
       "kind": "Login Event",
-      "description": "7-Day Login Event. During the event, log in daily to claim the login rewards for each day from the event page.",
+      "description": "Log in and check in during the event to claim the login rewards.",
       "startTime": "2026-11-12T11:00:00",
       "endTime": "2026-12-21T03:59:59",
-      "cover": ""
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/d03c6285c8aa45499c09d47c9f046ade20261111.png"
     },
     {
       "name": "Laelaro Cubes: Reverse",
       "kind": "Leisure Event",
-      "description": "Leisure event. A new round of the Laelaro Cubes gameplay, complete the objectives to earn event rewards.",
-      "startTime": "2026-11-26T04:00:00",
+      "description": "Drag blocks onto the play area and fill rows or columns to clear them and earn points. Each stage group has Easy and Hard difficulties. A block rotation feature is newly added during the event.",
+      "startTime": "2026-11-19T04:00:00",
       "endTime": "2026-12-03T03:59:59",
-      "cover": ""
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/62995ca9ba924711a50ecca62c56568320261111.png"
     },
     {
       "name": "Echoing Realm",
@@ -40,24 +40,24 @@
     {
       "name": "Dreamscape Odyssey",
       "kind": "Combat Event",
-      "description": "Combat event. Participate in the challenges to earn the Event Title \"Journey Beyond the Dreamwild\" and Astrite rewards.",
-      "startTime": "2026-12-03T04:00:00",
+      "description": "Pick one main character and two support characters for consecutive challenges split into Boundary Stones and Nodes, choosing dream sediment at the start of each Boundary Stone. Remaining time keeps draining as the challenge goes on; defeating enemies and certain combat actions grant more time, and the more time left at the end, the higher the rating.",
+      "startTime": "2026-12-03T10:00:00",
       "endTime": "2026-12-21T03:59:59",
-      "cover": ""
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/f550a9e4d98644668744ab616d1eb8cd20261111.png"
     },
     {
       "name": "Wuthering Exploration: Maintenance",
       "kind": "Limited-Time Commission Event",
-      "description": "Limited-time commission event. Complete commissions during the event to claim the corresponding rewards.",
-      "startTime": "2026-12-03T04:00:00",
+      "description": "During the event, complete daily objectives to earn WuWu Mail Coins; spend one coin to randomly receive a special delivery.",
+      "startTime": "2026-12-03T10:00:00",
       "endTime": "2026-12-17T03:59:59",
-      "cover": ""
+      "cover": "https://prod-alicdn-community.kurobbs.com/forum/e18f8cafaab7430383a60b1e90162a4a20261111.png"
     },
     {
       "name": "Where the Wind Leads",
       "kind": "Login Event",
       "description": "Limited-Time Login Event. Log in after 04:00 (server time) each day during the event to accumulate login days and claim the rewards for the required total days.",
-      "startTime": "2026-12-03T04:00:00",
+      "startTime": "2026-12-03T10:00:00",
       "endTime": "2026-12-21T03:59:59",
       "cover": ""
     },
@@ -65,7 +65,7 @@
       "name": "Chord Cleansing",
       "kind": "",
       "description": "During the event, consume Waveplates in Tacet Suppression to claim double rewards.",
-      "startTime": "2026-12-03T04:00:00",
+      "startTime": "2026-12-14T04:00:00",
       "endTime": "2026-12-21T03:59:59",
       "cover": "https://i0.hdslb.com/bfs/new_dyn/d28121ede1d524963a69bd0687731d3a1955897084.jpg"
     }
