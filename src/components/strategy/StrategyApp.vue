@@ -45,6 +45,8 @@ const strategies = ref<StrategyMeta[]>([]);
 const allLoaded = ref(false);
 const myStrategies = ref<StrategyMeta[]>([]);
 const mineLoaded = ref(false);
+/** 刷新按钮的进行中状态 */
+const refreshing = ref(false);
 
 const view = ref<"all" | "mine">("all");
 const myPage = ref(1);
@@ -126,6 +128,22 @@ async function loadMine(page = 1): Promise<void> {
   } finally {
     mineLoaded.value = true;
     setLoading(false);
+  }
+}
+
+/** 刷新当前视图的攻略列表，避免整页重载 */
+async function refreshList(): Promise<void> {
+  if (refreshing.value) return;
+  refreshing.value = true;
+  refreshAuth();
+  try {
+    if (view.value === "mine" && user.value?.email) {
+      await loadMine(myPage.value);
+    } else {
+      await loadAll();
+    }
+  } finally {
+    refreshing.value = false;
   }
 }
 
@@ -485,6 +503,9 @@ onMounted(async () => {
     <button type="button" class="btn" @click="requestUpload">上传攻略</button>
     <button type="button" class="btn" @click="openConvertDialog">一键转换</button>
     <button v-if="authenticated" type="button" class="btn" @click="openMine">我的攻略</button>
+    <button type="button" class="btn" :disabled="refreshing" @click="refreshList">
+      {{ refreshing ? "刷新中..." : "刷新" }}
+    </button>
   </div>
 
   <section v-show="view === 'mine'">
