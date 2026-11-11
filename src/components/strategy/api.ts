@@ -26,8 +26,8 @@ export interface StrategyMeta {
   isPublic: boolean;
 }
 
-export interface StrategyDetail {
-  id: number | string | null;
+/** SRA 攻略数据，与 tasks/currency_wars/strategies/template.json 一致 */
+export interface SraStrategy {
   title: string;
   description: string;
   author: string;
@@ -36,8 +36,12 @@ export interface StrategyDetail {
   min_coins: number;
   min_level: number;
   mid_level: number;
-  on_field: string;
-  off_field: string;
+  on_field: Record<string, number>;
+  off_field: Record<string, number>;
+}
+
+export interface StrategyDetail extends SraStrategy {
+  id: number | string | null;
   [key: string]: unknown;
 }
 

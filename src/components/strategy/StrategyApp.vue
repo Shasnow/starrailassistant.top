@@ -7,7 +7,7 @@ import {
   getStrategiesByUploader,
   getStrategyDetail,
 } from "@/components/strategy/api";
-import type { StrategyDetail, StrategyMeta } from "@/components/strategy/api";
+import type { SraStrategy, StrategyDetail, StrategyMeta } from "@/components/strategy/api";
 import {
   getCurrentUser,
   handleOAuthCallback,
@@ -15,24 +15,14 @@ import {
   login,
   logout,
 } from "@/components/strategy/auth";
+import { draftToStrategy, strategyToDraft } from "@/components/strategy/draft";
+import type { StrategyDraft } from "@/components/strategy/draft";
+import { fetchOfficialLineup, OfficialApiError, toSraStrategy } from "@/components/strategy/official";
+import StrategyForm from "@/components/strategy/StrategyForm.vue";
 import { confirmDialog, formatTime, setLoading, showToast } from "@/components/strategy/ui";
 
 /** “我的攻略”每页条数 */
 const MY_PAGE_SIZE = 10;
-
-/** 详情弹窗展示的字段与顺序 */
-const DETAIL_FIELDS = [
-  { label: "title", key: "title" },
-  { label: "description", key: "description" },
-  { label: "author", key: "author" },
-  { label: "uploader", key: "uploader" },
-  { label: "share_code", key: "share_code" },
-  { label: "min_coins", key: "min_coins" },
-  { label: "min_level", key: "min_level" },
-  { label: "mid_level", key: "mid_level" },
-  { label: "on_field", key: "on_field" },
-  { label: "off_field", key: "off_field" },
-];
 
 const ICON_INFO =
   "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z";
@@ -54,9 +44,14 @@ const myTotal = ref(0);
 const detail = ref<StrategyDetail | null>(null);
 const uploadFileName = ref("");
 const isDragover = ref(false);
+const shareLink = ref("");
+const converting = ref(false);
+const draft = ref<StrategyDraft | null>(null);
 
 const detailDialog = ref<HTMLDialogElement | null>(null);
 const uploadDialog = ref<HTMLDialogElement | null>(null);
+const convertDialog = ref<HTMLDialogElement | null>(null);
+const editDialog = ref<HTMLDialogElement | null>(null);
 const uploadInput = ref<HTMLInputElement | null>(null);
 const userMenu = ref<HTMLDetailsElement | null>(null);
 
@@ -64,9 +59,11 @@ const userMenu = ref<HTMLDetailsElement | null>(null);
 const list = computed(() => (view.value === "all" ? strategies.value : myStrategies.value));
 const listLoaded = computed(() => (view.value === "all" ? allLoaded.value : mineLoaded.value));
 const totalPages = computed(() => Math.max(1, Math.ceil(myTotal.value / MY_PAGE_SIZE)));
+/** 详情弹窗复用的只读表单数据 */
+const detailDraft = computed(() => (detail.value ? strategyToDraft(detail.value) : null));
 
 function errorMessage(err: unknown, fallback: string): string {
-  if (err instanceof ApiError) return err.message;
+  if (err instanceof ApiError || err instanceof OfficialApiError) return err.message;
   if (err instanceof DOMException && err.name === "AbortError") return "请求超时，请稍后重试";
   if (err instanceof TypeError) return "网络请求失败，请检查网络后重试";
   return fallback;
@@ -75,11 +72,6 @@ function errorMessage(err: unknown, fallback: string): string {
 function refreshAuth(): void {
   user.value = getCurrentUser();
   authenticated.value = isAuthenticated();
-}
-
-function fieldValue(key: string): string {
-  const value = detail.value?.[key];
-  return value == null ? "" : String(value);
 }
 
 async function loadAll(): Promise<void> {
@@ -213,6 +205,103 @@ async function requestUpload(): Promise<void> {
   uploadDialog.value?.showModal();
 }
 
+function openConvertDialog(): void {
+  shareLink.value = "";
+  convertDialog.value?.showModal();
+}
+
+function closeConvertDialog(): void {
+  if (converting.value) return;
+  convertDialog.value?.close();
+  shareLink.value = "";
+}
+
+/** 一键把官方攻略链接转换为 SRA 攻略，然后弹出编辑表单 */
+async function convertOfficialStrategy(): Promise<void> {
+  if (converting.value) return;
+  converting.value = true;
+  setLoading(true, "正在获取官方攻略...");
+  try {
+    const lineup = await fetchOfficialLineup(shareLink.value);
+    const uploader = user.value?.name || user.value?.login || "";
+    const strategy = toSraStrategy(lineup, uploader);
+    convertDialog.value?.close();
+    shareLink.value = "";
+    openEditDialog(strategy);
+    showToast("转换成功，请确认攻略内容", "success");
+  } catch (err) {
+    console.error("Failed to convert official strategy:", err);
+    showToast(errorMessage(err, "攻略转换失败"), "error");
+  } finally {
+    converting.value = false;
+    setLoading(false);
+  }
+}
+
+/** 打开转换结果的编辑表单，作者字段只读 */
+function openEditDialog(strategy: SraStrategy): void {
+  draft.value = strategyToDraft(strategy);
+  editDialog.value?.showModal();
+}
+
+function closeEditDialog(): void {
+  editDialog.value?.close();
+  draft.value = null;
+}
+
+/** 校验编辑结果，返回可下载/上传的 SRA 攻略数据 */
+function buildStrategy(): SraStrategy | null {
+  if (!draft.value) return null;
+  try {
+    return draftToStrategy(draft.value);
+  } catch (err) {
+    console.error("Invalid strategy draft:", err);
+    showToast(errorMessage(err, "攻略数据格式不正确"), "error");
+    return null;
+  }
+}
+
+/** 下载编辑后的 SRA 攻略 JSON */
+function confirmDownload(): void {
+  const strategy = buildStrategy();
+  if (!strategy) return;
+  downloadJsonFile(strategy, `SRAstrategy_${strategy.title}.json`);
+  showToast("攻略文件已下载", "success");
+  closeEditDialog();
+}
+
+/** 上传编辑后的 SRA 攻略 */
+async function confirmUpload(): Promise<void> {
+  if (!authenticated.value) {
+    const confirmed = await confirmDialog("上传攻略需要 GitHub 登录授权，是否前往登录？", {
+      title: "需要登录",
+      confirmText: "GitHub 登录",
+    });
+    if (!confirmed) return;
+    const message = login();
+    if (message) showToast(message, "error");
+    return;
+  }
+
+  const strategy = buildStrategy();
+  if (!strategy) return;
+  // 上传者与当前登录账号保持一致，便于「我的攻略」筛选
+  strategy.uploader = user.value?.name || user.value?.login || strategy.uploader;
+
+  setLoading(true, "正在上传...");
+  try {
+    await createStrategy(strategy as unknown as Record<string, unknown>);
+    showToast("上传成功", "success");
+    closeEditDialog();
+    if (view.value === "mine") await loadMine(1);
+  } catch (err) {
+    console.error("Failed to upload edited strategy:", err);
+    showToast(errorMessage(err, "上传失败"), "error");
+  } finally {
+    setLoading(false);
+  }
+}
+
 function onLogin(): void {
   const message = login();
   if (message) showToast(message, "error");
@@ -259,6 +348,7 @@ onMounted(async () => {
       </div>
     </details>
     <button type="button" class="btn" @click="requestUpload">上传攻略</button>
+    <button type="button" class="btn" @click="openConvertDialog">一键转换</button>
     <button v-if="authenticated" type="button" class="btn" @click="openMine">我的攻略</button>
   </div>
 
@@ -342,12 +432,7 @@ onMounted(async () => {
 
   <dialog ref="detailDialog" class="strategy-dialog">
     <h2 class="strategy-dialog__title">攻略详情</h2>
-    <div v-if="detail">
-      <div v-for="field in DETAIL_FIELDS" :key="field.key" class="detail-row">
-        <span class="detail-label">{{ field.label }}</span>
-        <span class="detail-value">{{ fieldValue(field.key) }}</span>
-      </div>
-    </div>
+    <StrategyForm v-if="detailDraft" :model-value="detailDraft" readonly />
     <div class="strategy-dialog__footer">
       <button type="button" class="btn" @click="detailDialog?.close()">关闭</button>
       <button type="button" class="btn btn--primary" @click="download(detail?.id ?? null)">
@@ -379,6 +464,46 @@ onMounted(async () => {
     <p class="upload-hint">{{ uploadFileName }}</p>
     <div class="strategy-dialog__footer">
       <button type="button" class="btn" @click="closeUploadDialog">取消</button>
+    </div>
+  </dialog>
+
+  <dialog ref="convertDialog" class="strategy-dialog">
+    <h2 class="strategy-dialog__title">一键转换官方攻略</h2>
+    <p class="strategy-dialog__message">
+      粘贴米游社货币战争攻略的分享链接，将自动转换为 SRA 攻略格式，随后可预览并修改字段。链接形如：<br />
+      <code>https://act.miyoushe.com/sr/event/currency-wars/index.html?gt__lineup_id=...</code>
+    </p>
+    <input
+      v-model="shareLink"
+      class="strategy-input"
+      type="url"
+      autocomplete="off"
+      placeholder="粘贴攻略分享链接"
+      @keydown.enter.prevent="convertOfficialStrategy"
+    />
+    <div class="strategy-dialog__footer">
+      <button type="button" class="btn" :disabled="converting" @click="closeConvertDialog">取消</button>
+      <button
+        type="button"
+        class="btn btn--primary"
+        :disabled="!shareLink.trim() || converting"
+        @click="convertOfficialStrategy"
+      >
+        转换并预览
+      </button>
+    </div>
+  </dialog>
+
+  <dialog ref="editDialog" class="strategy-dialog">
+    <h2 class="strategy-dialog__title">预览并编辑攻略</h2>
+    <p class="strategy-dialog__message">
+      确认以下字段后可下载 JSON 或直接上传到攻略站。角色列表每行一个，格式为「角色名 星级（1-3）」。
+    </p>
+    <StrategyForm v-if="draft" v-model="draft" />
+    <div class="strategy-dialog__footer">
+      <button type="button" class="btn" @click="closeEditDialog">取消</button>
+      <button type="button" class="btn" @click="confirmDownload">下载</button>
+      <button type="button" class="btn btn--primary" @click="confirmUpload">上传</button>
     </div>
   </dialog>
 </template>
