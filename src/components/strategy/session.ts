@@ -1,7 +1,8 @@
-import type { GithubUser } from "@/components/strategy/api";
+import type { AccountUser } from "@/components/strategy/api";
 
-const TOKEN_KEY = "github_token";
-const USER_KEY = "github_user";
+const TOKEN_KEY = "sra_access_token";
+const REFRESH_KEY = "sra_refresh_token";
+const USER_KEY = "sra_user";
 const STATE_KEY = "github_oauth_state";
 
 /** OAuth state 的有效期（10 分钟） */
@@ -16,18 +17,31 @@ export function getToken(): string | null {
   return sessionStorage.getItem(TOKEN_KEY);
 }
 
-export function getUser(): GithubUser | null {
+export function getRefreshToken(): string | null {
+  return sessionStorage.getItem(REFRESH_KEY);
+}
+
+export function getUser(): AccountUser | null {
   const raw = sessionStorage.getItem(USER_KEY);
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as GithubUser;
+    return JSON.parse(raw) as AccountUser;
   } catch {
     return null;
   }
 }
 
-export function saveSession(token: string, user: GithubUser | null): void {
-  sessionStorage.setItem(TOKEN_KEY, token);
+export function saveSession(
+  accessToken: string,
+  refreshToken: string | null,
+  user: AccountUser | null
+): void {
+  sessionStorage.setItem(TOKEN_KEY, accessToken);
+  if (refreshToken) {
+    sessionStorage.setItem(REFRESH_KEY, refreshToken);
+  } else {
+    sessionStorage.removeItem(REFRESH_KEY);
+  }
   if (user) {
     sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   } else {
@@ -37,6 +51,7 @@ export function saveSession(token: string, user: GithubUser | null): void {
 
 export function clearSession(): void {
   sessionStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(REFRESH_KEY);
   sessionStorage.removeItem(USER_KEY);
 }
 

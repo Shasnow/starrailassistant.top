@@ -7,13 +7,22 @@ import {
   getStrategiesByUploader,
   getStrategyDetail,
 } from "@/components/strategy/api";
-import type { SraStrategy, StrategyDetail, StrategyMeta } from "@/components/strategy/api";
+import type {
+  AccountUser,
+  SraStrategy,
+  StrategyDetail,
+  StrategyMeta,
+} from "@/components/strategy/api";
 import {
+  confirmEmailByLink,
   getCurrentUser,
   handleOAuthCallback,
   isAuthenticated,
-  login,
+  loginWithAccount,
+  loginWithGitHub,
   logout,
+  registerWithAccount,
+  resendConfirmation,
 } from "@/components/strategy/auth";
 import { draftToStrategy, strategyToDraft } from "@/components/strategy/draft";
 import type { StrategyDraft } from "@/components/strategy/draft";
@@ -29,7 +38,7 @@ const ICON_INFO =
 const ICON_DOWNLOAD =
   "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z";
 
-const user = ref(getCurrentUser());
+const user = ref<AccountUser | null>(getCurrentUser());
 const authenticated = ref(isAuthenticated());
 
 const strategies = ref<StrategyMeta[]>([]);
@@ -54,6 +63,17 @@ const convertDialog = ref<HTMLDialogElement | null>(null);
 const editDialog = ref<HTMLDialogElement | null>(null);
 const uploadInput = ref<HTMLInputElement | null>(null);
 const userMenu = ref<HTMLDetailsElement | null>(null);
+const authDialog = ref<HTMLDialogElement | null>(null);
+
+/** 登录/注册弹窗状态 */
+const authMode = ref<"login" | "register">("login");
+const authEmail = ref("");
+const authPassword = ref("");
+const authPassword2 = ref("");
+const authError = ref("");
+const authSubmitting = ref(false);
+/** 注册成功后提示去邮箱完成验证 */
+const authNeedsConfirm = ref(false);
 
 /** 当前视图对应的列表，两个视图共用同一套卡片渲染 */
 const list = computed(() => (view.value === "all" ? strategies.value : myStrategies.value));
@@ -88,7 +108,7 @@ async function loadAll(): Promise<void> {
 }
 
 async function loadMine(page = 1): Promise<void> {
-  const uploader = user.value?.name || user.value?.login || "";
+  const uploader = user.value?.email ?? "";
   if (!uploader) return;
 
   setLoading(true, "正在加载我的攻略...");
@@ -153,7 +173,7 @@ function closeUploadDialog(): void {
 
 async function handleUploadFile(file: File): Promise<void> {
   if (!authenticated.value) {
-    showToast("请先完成 GitHub 登录后再上传", "error");
+    showToast("请先登录后再上传", "error");
     closeUploadDialog();
     return;
   }
@@ -166,8 +186,9 @@ async function handleUploadFile(file: File): Promise<void> {
   uploadFileName.value = `已选择：${file.name}`;
   setLoading(true, "正在上传...");
   try {
+    // 上传者由服务端按登录账号写入，这里无需传值
     const parsed = JSON.parse(await file.text()) as Record<string, unknown>;
-    parsed.uploader = user.value?.name || user.value?.login || "";
+    delete parsed.uploader;
     await createStrategy(parsed);
     showToast("上传成功", "success");
     closeUploadDialog();
@@ -193,13 +214,12 @@ function onDrop(event: DragEvent): void {
 
 async function requestUpload(): Promise<void> {
   if (!authenticated.value) {
-    const confirmed = await confirmDialog("上传攻略需要 GitHub 登录授权，是否前往登录？", {
+    const confirmed = await confirmDialog("上传攻略需要登录账号，是否前往登录？", {
       title: "需要登录",
-      confirmText: "GitHub 登录",
+      confirmText: "去登录",
     });
     if (!confirmed) return;
-    const message = login();
-    if (message) showToast(message, "error");
+    openAuthDialog("login");
     return;
   }
   uploadDialog.value?.showModal();
@@ -223,7 +243,7 @@ async function convertOfficialStrategy(): Promise<void> {
   setLoading(true, "正在获取官方攻略...");
   try {
     const lineup = await fetchOfficialLineup(shareLink.value);
-    const uploader = user.value?.name || user.value?.login || "";
+    const uploader = user.value?.email ?? "";
     const strategy = toSraStrategy(lineup, uploader);
     convertDialog.value?.close();
     shareLink.value = "";
@@ -273,20 +293,17 @@ function confirmDownload(): void {
 /** 上传编辑后的 SRA 攻略 */
 async function confirmUpload(): Promise<void> {
   if (!authenticated.value) {
-    const confirmed = await confirmDialog("上传攻略需要 GitHub 登录授权，是否前往登录？", {
+    const confirmed = await confirmDialog("上传攻略需要登录账号，是否前往登录？", {
       title: "需要登录",
-      confirmText: "GitHub 登录",
+      confirmText: "去登录",
     });
     if (!confirmed) return;
-    const message = login();
-    if (message) showToast(message, "error");
+    openAuthDialog("login");
     return;
   }
 
   const strategy = buildStrategy();
   if (!strategy) return;
-  // 上传者与当前登录账号保持一致，便于「我的攻略」筛选
-  strategy.uploader = user.value?.name || user.value?.login || strategy.uploader;
 
   setLoading(true, "正在上传...");
   try {
@@ -302,8 +319,94 @@ async function confirmUpload(): Promise<void> {
   }
 }
 
-function onLogin(): void {
-  const message = login();
+function openAuthDialog(mode: "login" | "register" = "login"): void {
+  authMode.value = mode;
+  authError.value = "";
+  authNeedsConfirm.value = false;
+  authDialog.value?.showModal();
+}
+
+function closeAuthDialog(): void {
+  if (authSubmitting.value) return;
+  authDialog.value?.close();
+  authEmail.value = "";
+  authPassword.value = "";
+  authPassword2.value = "";
+  authError.value = "";
+  authNeedsConfirm.value = false;
+}
+
+function switchAuthMode(mode: "login" | "register"): void {
+  authMode.value = mode;
+  authError.value = "";
+  authNeedsConfirm.value = false;
+}
+
+async function submitAuth(): Promise<void> {
+  if (authSubmitting.value) return;
+  const email = authEmail.value.trim();
+  if (!email || !authPassword.value) {
+    authError.value = "请填写邮箱和密码";
+    return;
+  }
+  if (authMode.value === "register") {
+    if (authPassword.value.length < 8) {
+      authError.value = "密码至少需要 8 位，且包含字母和数字";
+      return;
+    }
+    if (authPassword.value !== authPassword2.value) {
+      authError.value = "两次输入的密码不一致";
+      return;
+    }
+  }
+
+  authSubmitting.value = true;
+  authError.value = "";
+  try {
+    if (authMode.value === "login") {
+      await loginWithAccount(email, authPassword.value);
+      refreshAuth();
+      authDialog.value?.close();
+      authEmail.value = "";
+      authPassword.value = "";
+      showToast("登录成功", "success");
+    } else {
+      await registerWithAccount(email, authPassword.value);
+      authNeedsConfirm.value = true;
+      authPassword.value = "";
+      authPassword2.value = "";
+      showToast("注册成功，请查收确认邮件", "success");
+    }
+  } catch (err) {
+    console.error("Auth failed:", err);
+    if (err instanceof ApiError && err.status === 401) {
+      authError.value = "邮箱或密码错误；若刚刚注册，请先点击邮件中的确认链接";
+    } else {
+      authError.value = errorMessage(err, "操作失败，请稍后重试");
+    }
+  } finally {
+    authSubmitting.value = false;
+  }
+}
+
+/** 重新发送邮箱确认邮件 */
+async function resendConfirmEmail(): Promise<void> {
+  const email = authEmail.value.trim();
+  if (!email) {
+    authError.value = "请先填写邮箱";
+    return;
+  }
+  try {
+    await resendConfirmation(email);
+    showToast("确认邮件已重新发送", "success");
+  } catch (err) {
+    console.error("Failed to resend confirmation email:", err);
+    authError.value = errorMessage(err, "发送确认邮件失败");
+  }
+}
+
+function onGithubLogin(): void {
+  const message = loginWithGitHub();
   if (message) showToast(message, "error");
 }
 
@@ -320,8 +423,36 @@ function openMine(): void {
   void loadMine(1);
 }
 
+/** 取出并清理邮件确认链接上的参数 */
+function takeConfirmParams(): { userId: string; code: string } | null {
+  const query = new URLSearchParams(window.location.search);
+  const userId = query.get("confirmUserId");
+  const code = query.get("confirmCode");
+  if (!userId || !code) return null;
+
+  const url = new URL(window.location.href);
+  url.search = "";
+  window.history.replaceState(window.history.state, "", url.toString());
+  return { userId, code };
+}
+
 onMounted(async () => {
-  setLoading(true, "正在完成 GitHub 登录...");
+  const confirmParams = takeConfirmParams();
+  if (confirmParams) {
+    setLoading(true, "正在确认邮箱...");
+    try {
+      await confirmEmailByLink(confirmParams.userId, confirmParams.code);
+      showToast("邮箱确认成功，请登录", "success");
+      openAuthDialog("login");
+    } catch (err) {
+      console.error("Failed to confirm email:", err);
+      showToast(errorMessage(err, "邮箱确认失败，请尝试重新发送确认邮件"), "error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  setLoading(true, "正在完成登录...");
   const callback = await handleOAuthCallback();
   setLoading(false);
   if (callback) {
@@ -335,13 +466,17 @@ onMounted(async () => {
 
 <template>
   <div class="strategy-toolbar">
-    <button v-if="!authenticated" type="button" class="btn btn--primary" @click="onLogin">
-      GitHub 登录
+    <button
+      v-if="!authenticated"
+      type="button"
+      class="btn btn--primary"
+      @click="openAuthDialog('login')"
+    >
+      登录 / 注册
     </button>
     <details v-else ref="userMenu" class="user-menu">
       <summary>
-        <img class="user-menu__avatar" :src="user?.avatar_url" alt="" />
-        <span class="user-menu__name">{{ user?.name || user?.login }}</span>
+        <span class="user-menu__name">{{ user?.email }}</span>
       </summary>
       <div class="user-menu__list">
         <button type="button" class="user-menu__item" @click="onLogout">退出登录</button>
@@ -429,6 +564,84 @@ onMounted(async () => {
       下一页
     </button>
   </div>
+
+  <dialog ref="authDialog" class="strategy-dialog strategy-dialog--auth">
+    <h2 class="strategy-dialog__title">{{ authMode === "login" ? "登录" : "注册账号" }}</h2>
+    <div class="auth-tabs">
+      <button
+        type="button"
+        class="auth-tab"
+        :class="{ 'is-active': authMode === 'login' }"
+        @click="switchAuthMode('login')"
+      >
+        登录
+      </button>
+      <button
+        type="button"
+        class="auth-tab"
+        :class="{ 'is-active': authMode === 'register' }"
+        @click="switchAuthMode('register')"
+      >
+        注册
+      </button>
+    </div>
+
+    <form class="strategy-form" @submit.prevent="submitAuth">
+      <label class="form-row">
+        <span class="form-label">邮箱</span>
+        <input
+          v-model="authEmail"
+          class="strategy-input"
+          type="email"
+          autocomplete="email"
+          placeholder="用于接收确认邮件"
+          required
+        />
+      </label>
+      <label class="form-row">
+        <span class="form-label">密码</span>
+        <input
+          v-model="authPassword"
+          class="strategy-input"
+          type="password"
+          :autocomplete="authMode === 'login' ? 'current-password' : 'new-password'"
+          placeholder="至少 8 位，含字母和数字"
+          required
+        />
+      </label>
+      <label v-if="authMode === 'register'" class="form-row">
+        <span class="form-label">确认密码</span>
+        <input
+          v-model="authPassword2"
+          class="strategy-input"
+          type="password"
+          autocomplete="new-password"
+          required
+        />
+      </label>
+
+      <p v-if="authNeedsConfirm" class="auth-hint">
+        注册成功，请前往邮箱点击确认链接后再登录。
+        <button type="button" class="auth-link" @click="resendConfirmEmail">重新发送确认邮件</button>
+      </p>
+      <p v-else-if="authMode === 'register'" class="auth-hint">
+        注册后需点击邮件中的确认链接才能登录，确认链接会跳回本页面。
+      </p>
+      <p v-if="authError" class="auth-error">{{ authError }}</p>
+
+      <div class="strategy-dialog__footer">
+        <button type="button" class="btn auth-spacer" :disabled="authSubmitting" @click="onGithubLogin">
+          GitHub 登录
+        </button>
+        <button type="button" class="btn" :disabled="authSubmitting" @click="closeAuthDialog">
+          取消
+        </button>
+        <button type="submit" class="btn btn--primary" :disabled="authSubmitting">
+          {{ authSubmitting ? "处理中..." : authMode === "login" ? "登录" : "注册" }}
+        </button>
+      </div>
+    </form>
+  </dialog>
 
   <dialog ref="detailDialog" class="strategy-dialog">
     <h2 class="strategy-dialog__title">攻略详情</h2>

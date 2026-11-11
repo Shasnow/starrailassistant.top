@@ -1,5 +1,12 @@
-import type { GithubUser } from "@/components/strategy/api";
-import { exchangeGithubToken, fetchGithubUser } from "@/components/strategy/api";
+import type { AccountUser, TokenResponse } from "@/components/strategy/api";
+import {
+  confirmEmail,
+  exchangeGithubCode,
+  getAccountInfo,
+  loginAccount,
+  registerAccount,
+  resendConfirmationEmail,
+} from "@/components/strategy/api";
 import { GITHUB_CLIENT_ID, REDIRECT_PATH } from "@/components/strategy/config";
 import {
   clearSession,
@@ -25,8 +32,49 @@ export function isAuthenticated(): boolean {
   return Boolean(getToken());
 }
 
-export function getCurrentUser(): GithubUser | null {
+export function getCurrentUser(): AccountUser | null {
   return getUser();
+}
+
+/** 保存令牌，并用服务端返回的账号信息校正本地用户 */
+async function storeTokens(tokens: TokenResponse, fallbackEmail: string): Promise<AccountUser> {
+  let user: AccountUser = { email: fallbackEmail };
+  saveSession(tokens.accessToken, tokens.refreshToken, user);
+  try {
+    const info = await getAccountInfo();
+    if (info?.email) {
+      user = { email: info.email };
+      saveSession(tokens.accessToken, tokens.refreshToken, user);
+    }
+  } catch (err) {
+    // 取不到账号信息时保留兜底邮箱，不影响后续上传
+    console.error("Failed to fetch account info:", err);
+  }
+  return user;
+}
+
+/** 邮箱 + 密码登录本站账号 */
+export async function loginWithAccount(email: string, password: string): Promise<AccountUser> {
+  const tokens = await loginAccount(email.trim(), password);
+  return storeTokens(tokens, email.trim());
+}
+
+/** 注册本站账号；注册后需点击邮件中的确认链接才能登录 */
+export function registerWithAccount(email: string, password: string): Promise<void> {
+  return registerAccount(email.trim(), password);
+}
+
+export function resendConfirmation(email: string): Promise<void> {
+  return resendConfirmationEmail(email.trim());
+}
+
+/** 处理邮件中的确认链接（/strategy/?confirmUserId=..&confirmCode=..） */
+export function confirmEmailByLink(userId: string, code: string): Promise<void> {
+  return confirmEmail(userId, code);
+}
+
+export function logout(): void {
+  clearSession();
 }
 
 /** 生成 URL-safe 的随机 state（CSRF 防护） */
@@ -65,7 +113,7 @@ function cleanCallbackUrl(): void {
 }
 
 /** 跳转到 GitHub 授权页面；未配置 Client ID 时返回错误文案 */
-export function login(): string | null {
+export function loginWithGitHub(): string | null {
   if (!GITHUB_CLIENT_ID) {
     return "未配置 GitHub Client ID，无法登录";
   }
@@ -75,12 +123,8 @@ export function login(): string | null {
   return null;
 }
 
-export function logout(): void {
-  clearSession();
-}
-
 /**
- * 处理 GitHub 授权回调：校验 state -> 后端换取令牌 -> 获取用户信息 -> 保存会话。
+ * 处理 GitHub 授权回调：校验 state -> 后端换取本站令牌 -> 保存会话。
  * 当前地址不带 code/state/error 时返回 null（表示不是回调）。
  */
 export async function handleOAuthCallback(): Promise<OAuthCallbackResult | null> {
@@ -108,21 +152,14 @@ export async function handleOAuthCallback(): Promise<OAuthCallbackResult | null>
   }
 
   try {
-    const { access_token: accessToken } = await exchangeGithubToken(code);
-    if (!accessToken) {
+    const tokens = await exchangeGithubCode(code);
+    if (!tokens?.accessToken) {
       return { ok: false, message: "登录服务未返回访问令牌" };
     }
-    let userInfo: GithubUser | null = null;
-    try {
-      userInfo = await fetchGithubUser(accessToken);
-    } catch (err) {
-      console.error("Failed to fetch GitHub user info:", err);
-      return { ok: false, message: "获取用户信息失败，请稍后重试" };
-    }
-    saveSession(accessToken, userInfo);
+    await storeTokens(tokens, "");
     return { ok: true };
   } catch (err) {
     console.error("GitHub OAuth token exchange failed:", err);
-    return { ok: false, message: "登录失败，请稍后重试" };
+    return { ok: false, message: "GitHub 登录失败，请稍后重试或使用邮箱登录" };
   }
 }

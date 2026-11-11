@@ -73,12 +73,6 @@
   background-color: var(--sl-color-gray-6);
 }
 
-.user-menu__avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 9999px;
-}
-
 .user-menu__name {
   font-size: var(--sl-text-sm);
 }
@@ -392,6 +386,71 @@ textarea.strategy-input {
 
 .strategy-dialog__message code {
   word-break: break-all;
+}
+
+/* ---------- 登录 / 注册弹窗 ---------- */
+.strategy-dialog--auth {
+  width: min(520px, 92vw);
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.25rem;
+  background-color: var(--sl-color-bg-sidebar);
+  border-radius: 8px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.4rem 0.75rem;
+  font-family: inherit;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-2);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.auth-tab.is-active {
+  color: var(--sl-color-text);
+  background-color: var(--sl-color-bg);
+}
+
+.auth-hint {
+  margin: 0;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-2);
+}
+
+.auth-error {
+  margin: 0;
+  font-size: var(--sl-text-sm);
+  color: #e03131;
+}
+
+html[data-theme='dark'] .auth-error {
+  color: #ff8787;
+}
+
+.auth-link {
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--sl-color-text-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth-spacer {
+  margin-right: auto;
 }
 
 /* ---------- 消息提示 ---------- */
