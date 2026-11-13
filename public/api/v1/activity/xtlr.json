@@ -1,26 +1,10 @@
 {
-    "version": "2026-11-10",
-    "versionName": "执笔展卷，勾勒未名之境（限时活动版本）",
-    "startTime": "2026-11-10T11:00:00",
+    "version": "2026-11-13",
+    "versionName": "执笔展卷，勾勒未名之境",
+    "startTime": "2026-11-13T17:00:00",
     "endTime": "2026-12-04T10:59:59",
     "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/09/sgus1yfz.jpg",
     "activities": [
-        {
-            "name": "「心危盛典」",
-            "kind": "挑战活动",
-            "description": "接受两位神使的邀请，挑战擂台试炼获得奖励。活动期间，心危擂台全属性擂台开放挑战！活动开放时间延长至 2026/11/13 10:59。参与条件：权限等级≥4",
-            "startTime": "2026-10-20T17:00:00",
-            "endTime": "2026-11-13T10:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/4gBOfP-U.jpg"
-        },
-        {
-            "name": "「乘光而起的星之砂」复刻纪念活动",
-            "kind": "限时活动",
-            "description": "光属性五星旅人「火垂」限时复刻期间，完成复刻纪念系列任务，可获得[圣洁之滴]、[星章抛光剂]、[真格挑战礼盒]等奖励。参与条件：权限等级≥5",
-            "startTime": "2026-10-27T12:00:00",
-            "endTime": "2026-11-17T10:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/10/23/dApx6FGO.jpg"
-        },
         {
             "name": "「星途一载·特别致谢」登录活动",
             "kind": "登录活动",
@@ -30,12 +14,36 @@
             "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/TF84F7um.jpg"
         },
         {
-            "name": "「紧急悬赏」",
+            "name": "「执笔展卷，勾勒未名之境」",
+            "kind": "区域探索活动",
+            "description": "沉寂海上突现神秘岛屿，收到地理协会邀请的你加入了以优叶为首的考察队，参与考察神秘岛屿，完成活动任务可获得五星秘纹[紧急救援]、称号[执笔展卷，勾勒未名之境]、[星之砂]、[青空礼券]、[圣洁之滴]、[星章抛光剂]、旅人与秘纹提升材料等奖励！活动商店与奖励兑换时间至 2026/12/04 10:59。参与条件：权限等级≥5",
+            "startTime": "2026-11-13T17:00:00",
+            "endTime": "2026-11-27T03:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/09/sgus1yfz.jpg"
+        },
+        {
+            "name": "「沁凉补给站」",
+            "kind": "限时活动",
+            "description": "秋日，海滩，甜品！按照顾客们的订单制作美味的冰淇淋吧！完成活动关卡获得[星之砂]、[新手旅人晋升礼盒]等奖励。参与条件：权限等级≥5",
+            "startTime": "2026-11-13T17:00:00",
+            "endTime": "2026-11-27T03:59:59",
+            "cover": ""
+        },
+        {
+            "name": "「灾变防线」",
             "kind": "挑战活动",
-            "description": "地理协会发出了紧急悬赏令，活动期间参与「技巧试炼」或「纹章试炼」可获得额外奖励，每天一共可享受8次额外奖励掉落！消耗干劲完成任务可获得[朵拉]、[技巧棋子]等奖励。参与条件：权限等级≥3",
-            "startTime": "2026-11-10T11:00:00",
-            "endTime": "2026-11-13T03:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/aWHvo3a_.jpg"
+            "description": "参与防卫作战，消灭敌人抵达指定分数完成任务可获得[星之砂]、[保卫者奖章]奖励；灾变难度随版本更新轮换，通关灾变难度并抵达指定分数可额外获得[保卫者奖章]。[保卫者奖章]可在灾变防线商店兑换专属五星秘纹等奖励。参与条件：权限等级≥11",
+            "startTime": "2026-11-13T17:00:00",
+            "endTime": "2026-12-04T10:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/11/4KlhQ-Je.jpg"
+        },
+        {
+            "name": "「划破黑暗的银枪」复刻纪念活动",
+            "kind": "限时活动",
+            "description": "风属性五星旅人「风影」限时复刻期间，完成复刻招募纪念任务可获得[圣洁之滴]、[星章抛光剂]、[真格挑战礼盒]、[股权证明]等奖励。参与条件：权限等级≥5",
+            "startTime": "2026-11-17T12:00:00",
+            "endTime": "2026-12-01T10:59:59",
+            "cover": ""
         },
         {
             "name": "「攻略纪录大征集」",
@@ -46,12 +54,36 @@
             "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/pDCnz7VL.jpg"
         },
         {
-            "name": "「执笔展卷，勾勒未名之境」",
-            "kind": "区域探索活动",
-            "description": "参与考察神秘岛屿，完成任务可获得五星秘纹[紧急救援]、称号[执笔展卷，勾勒未名之境]、[星之砂]、[青空礼券]、[星章抛光剂]、[圣洁之滴]、旅人与秘纹提升材料等奖励！任务与商店奖励兑换时间：2026/11/13 维护结束后 ~ 2026/12/04 10:59。参与条件：权限等级≥5",
-            "startTime": "2026-11-13T11:00:00",
-            "endTime": "2026-11-27T03:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/09/sgus1yfz.jpg"
+            "name": "「乘光而起的星之砂」复刻纪念活动",
+            "kind": "限时活动",
+            "description": "光属性五星旅人「火垂」限时复刻期间，完成复刻纪念系列任务，可获得[圣洁之滴]、[星章抛光剂]、[真格挑战礼盒]等奖励。参与条件：权限等级≥5",
+            "startTime": "2026-10-27T12:00:00",
+            "endTime": "2026-11-17T10:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/10/23/dApx6FGO.jpg"
+        },
+        {
+            "name": "「紧急悬赏」",
+            "kind": "挑战活动",
+            "description": "地理协会发出了紧急悬赏令，活动期间参与「晋升试炼」或「纹章试炼」可获得额外奖励，每天一共可享受8次额外奖励掉落！消耗干劲完成任务可获得[朵拉]、[技巧棋子]等奖励。参与条件：权限等级≥3",
+            "startTime": "2026-11-27T04:00:00",
+            "endTime": "2026-12-04T03:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/aWHvo3a_.jpg"
+        },
+        {
+            "name": "「终焉绝响」",
+            "kind": "战斗活动",
+            "description": "参与联合作战，累积伤害，登上排行榜！参与作战可获得[星之砂]、[真格挑战礼盒]、[臻藏之酿]、[万籁之音]等奖励。参与条件：权限等级≥10",
+            "startTime": "2026-11-27T12:00:00",
+            "endTime": "2026-12-03T22:59:59",
+            "cover": ""
+        },
+        {
+            "name": "「攻略纪录大征集」（新一期）",
+            "kind": "限时活动",
+            "description": "根据征集目标保存纪录并提交即可领取奖励！魔王大人可查看每条征集所需的纪录要求，根据要求提供符合的纪录完成征集！参与条件：权限等级≥10",
+            "startTime": "2026-11-27T12:00:00",
+            "endTime": "2026-12-04T10:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/pDCnz7VL.jpg"
         }
     ]
 }
