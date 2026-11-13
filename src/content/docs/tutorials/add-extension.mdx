@@ -12,13 +12,17 @@ SRA 的扩展系统是一套"泛型声明 + 装饰器注册 + 动态发现"的�
 
 1. **配置泛型**：每个扩展通过继承 `BaseExtension[YourConfig]` 声明自己的配置类型，`YourConfig` 是一个 Pydantic `BaseModel`。泛型参数让框架在编译期就知道扩展需要哪些配置，并能自动生成 JSON Schema 供前端渲染配置表单。
 
-2. **装饰器注册**：`@extension` 装饰器在模块导入时自动将扩展类及其配置模型注册到全局 `ExtensionRegistry`。扩展标识（ID）、展示名称和描述都可在此声明。
+2. **装饰器注册**：`@extension` 装饰器在模块导入时自动将扩展类及其配置模型注册到全局 `ExtensionRegistry`。扩展标识（ID，默认由类名去掉 `Extension` 后缀生成）、展示名称、描述、是否后台扩展（`background`）、是否包含执行逻辑（`executable`）都可在此声明。
 
 3. **动态发现**：SRA 启动时调用 `load_extensions()`，扫描 `extensions/` 下每个包含 `__init__.py` 的一级目录（目录包）并导入，触发模块顶层的 `@extension` 装饰器完成注册。遗留的单文件 `extensions/xxx.py` 只会记录 warning 后被忽略。
 
 4. **运行与配置**：`ExtensionRunner` 负责实例化扩展并注入 `IOperator`，扩展可通过 `self.operator` 执行截图、点击、OCR 等实际操作。`ExtensionConfigManager` 负责从 `extensions.json` 加载和保存各扩展的配置。
 
-简单来说：**在 `extensions/` 下创建一个包含 `__init__.py` 的扩展目录，定义配置模型并继承 `BaseExtension[Config]`，用 `@extension` 装饰器注册，SRA 启动时就会自动发现并注册你的扩展。**
+5. **执行形态**：默认 `executable=True`，扩展实现 `run()`，通过 `extension run <id>` 运行；声明 `executable=False` 时扩展没有运行入口，只提供配置与启用/禁用，适合“修改现有行为”的扩展。
+
+6. **任务注册后钩子**：任何扩展都可重写类方法 `on_tasks_registered`，在应用启动、任务/扩展热重载以及自身配置变更后读写任务类，从而在不改任务代码的前提下接管或包装任务行为。
+
+简单来说：**在 `extensions/` 下创建一个包含 `__init__.py` 的扩展目录，定义配置模型并继承 `BaseExtension[Config]`，用 `@extension` 装饰器注册，SRA 启动时就会自动发现并注册你的扩展；如果需要修改现有任务的行为，用 `executable=False` + `on_tasks_registered` 声明式接入。**
 
 ### 扩展 vs 任务 vs 命令
 
@@ -31,10 +35,11 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
 | 注册方式 | `@extension` 装饰器，泛型声明配置类 | `@task` 装饰器 | `cmd2` 自动发现 |
 | 用途 | 可独立运行的功能模块（截图、OCR 等） | 自动化任务流水线中的一个步骤 | CLI 命令 |
 | 配置 | Pydantic BaseModel，自动生成 Schema，前端可渲染配置表单 | 通过 `self.settings` 读取全局设置，无独立配置模型 | 无内置配置系统 |
-| 运行方式 | `extension run <id>` / `extension run-all` | `task single <index>` / `task single <ClassName>` | CLI 命令直接调用 |
+| 运行方式 | 可执行：`extension run <id>`；无执行逻辑：`extension enable/disable <id>` | `task single <index>` / `task single <ClassName>` | CLI 命令直接调用 |
 | 执行顺序 | 无固定顺序，按 ID 独立调用 | 按文件名排序决定索引，`task run` 依次执行 | 无固定顺序 |
 | IOperator | 自动注入，可执行游戏内操作 | 自动注入，可执行游戏内操作 | 不可用 |
-| 生命周期回调 | `on_start` / `on_completed` / `on_failed` | 由 `TaskManager` 管理，任务失败会停止后续任务 | 无 |
+| 生命周期回调 | `on_start` / `on_completed` / `on_failed`（仅可执行扩展） | 由 `TaskManager` 管理，任务失败会停止后续任务 | 无 |
+| 任务注册后钩子 | `on_tasks_registered`（可选） | 无（任务本身由 `TaskManager` 调度） | 无 |
 
 简单来说：
 - 如果你想做一个**可独立运行、有配置界面的功能模块**，用**扩展**。
@@ -95,8 +100,12 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
    解释：
 
    - `class MyExtension(BaseExtension[MyConfig])` — 通过泛型参数 `MyConfig` 声明配置类型。框架会自动从中提取配置模型并注册。
-   - `@extension(name="...", description="...")` — 注册装饰器。`name` 是展示名称，`description` 是功能描述。不传时 `name` 默认使用类名，`description` 默认使用 docstring 首行。
-   - `def run(self) -> bool:` — 抽象方法，必须实现。返回 `True` 表示成功，`False` 表示失败。
+   - `@extension(...)` — 注册装饰器，常用参数：
+     - `extension_id` — 注册标识，默认取类名并去掉 `Extension` 后缀；CLI 与 `extensions.json` 都用它。
+     - `name` / `description` — 展示名称与功能描述；不传时 `name` 默认使用类名，`description` 默认使用 docstring 首行。扩展目录提供 `locales/` 时以本地化文案优先。
+     - `background=True` — 声明为后台轮询扩展，见下文「后台扩展」。
+     - `executable=False` — 声明为无执行逻辑扩展，只提供配置与启用/禁用，见下文「无执行逻辑扩展」。
+   - `def run(self) -> bool:` — 可执行扩展必须实现。返回 `True` 表示成功，`False` 表示失败；`executable=False` 的扩展无需重写（基类默认返回 `True`）。
    - `self.config` — 类型为 `MyConfig`，可直接访问配置字段，IDE 能提供完整的自动补全。
 
 5. 使用 IOperator 执行实际操作。扩展通过 `self.operator` 可以执行游戏内的各种操作：
@@ -166,17 +175,18 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
    [MyExtension] (1/1) 目标: 星穹列车
    扩展 'MyExtension' 执行成功
 
-   sra> extension run MyExtension --count 3 --target 黑塔空间站
+   sra> extension config set MyExtension '{"target": "黑塔空间站", "count": 3}'
+   sra> extension run MyExtension
    [MyExtension] (1/3) 目标: 黑塔空间站
    [MyExtension] (2/3) 目标: 黑塔空间站
    [MyExtension] (3/3) 目标: 黑塔空间站
    扩展 'MyExtension' 执行成功
    ```
 
-   你还可以查看扩展的配置 Schema：
+   你还可以查看扩展的配置 Schema；`extension list --json` 会带上 `executable`、`enabled` 等元数据：
 
    ```text
-   sra> extension info MyExtension --json
+   sra> extension schema MyExtension --json
    {"properties": {"target": {"default": "星穹列车", "description": "目标名称", "type": "string"}, ...}}
    ```
 
@@ -184,8 +194,9 @@ SRA 有三种可插拔模块，它们共享"动态发现"机制但定位不同�
    你已经学会了如何在 SRA 中添加扩展。回顾一下关键点：
    - 扩展目录放在 `extensions/` 下（含 `__init__.py`）
    - 定义 Pydantic `BaseModel` 作为配置模型，用 `Field` 声明默认值和约束
-   - 继承 `BaseExtension[YourConfig]` 并实现 `run()` 方法
-   - 用 `@extension` 装饰器注册，可附带 `name` 和 `description`
+   - 继承 `BaseExtension[YourConfig]` 并实现 `run()` 方法（`executable=False` 时无需实现）
+   - 用 `@extension` 装饰器注册，可附带 `name`、`description`、`background`、`executable` 等参数
+   - 需要修改现有任务行为时，用 `executable=False` + `on_tasks_registered` 声明式接入
    - 通过 `self.operator` 执行游戏内操作（截图、OCR、点击等）
    - 通过 `self.config` 访问配置，IDE 完整支持类型补全
    - SRA 启动时自动发现并注册，无需手动修改任何注册代码
@@ -216,11 +227,95 @@ class HelloExtension(BaseExtension):
 | `self.config` | 始终为 `None` | 类型为 `MyConfig`，IDE 自动补全 |
 | JSON Schema | 不生成 | 自动生成 |
 | 前端配置表单 | 无 | 根据字段自动渲染 |
-| `extension run <id>` 参数覆盖 | 不可用 | 可用（如 `--count 3`） |
+| `extension config set` 覆盖字段 | 不可用 | 可用 |
 
 :::note
 `@extension` 装饰器会自动检测泛型参数：有则提取配置类，无则注册为无配置扩展，两种写法的注册方式完全一致。
 :::
+
+## 无执行逻辑扩展/钩子拓展（`executable=False`）
+
+有些扩展不需要“运行一次”的入口，而是常驻修改 SRA 的现有行为（例如接管登录流程的自动切号）。
+这类扩展在装饰器里声明 `executable=False`：
+
+```python
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+
+
+class AccountSwitchConfig(BaseModel):
+    enabled: bool = Field(default=False, description="是否启用自动切号")
+
+
+@extension(name="自动切号", description="免密码历史账号切号", executable=False)
+class AccountSwitchExtension(BaseExtension[AccountSwitchConfig]):
+    # 没有执行逻辑，无需重写 run()
+    ...
+```
+
+与可执行扩展的差异：
+
+| | `executable=True`（默认） | `executable=False` |
+|---|---|---|
+| `run()` | 必须实现 | 无需实现（基类默认返回 `True`） |
+| 运行入口 | `extension run <id>` | 无，`extension run` 会报错 |
+| CLI 开关 | 无 | `extension enable <id>` / `extension disable <id>` |
+| 前端操作 | 运行 / 停止 | 启用 / 禁用 |
+| 启用状态 | 无 `enabled` 概念 | 读取配置模型中的 `enabled` 字段 |
+
+:::caution
+`executable=False` 的扩展必须在配置模型里声明 `enabled` 字段，否则 `extension enable/disable` 会报错
+`扩展 '<id>' 的配置中没有可切换的 enabled 开关`；直接执行 `extension run` 会报错
+`扩展 '<id>' 没有执行逻辑，只能启用或禁用`。
+:::
+
+`extension enable/disable` 实际是修改 `extensions.json` 中该扩展的 `enabled` 值并保存，随后触发
+`on_tasks_registered` 重新执行，因此扩展应在钩子里根据 `config.enabled` 决定安装还是撤销自己的修改。
+`extension list --json` 会返回 `executable` 与 `enabled`（配置中没有该字段时为 `null`），桌面端与 WebUI
+据此渲染“运行/停止”或“启用/禁用”。
+
+## 任务注册后钩子（`on_tasks_registered`）
+
+扩展可以重写类方法 `on_tasks_registered`，在任务类注册完成后读取或包装它们：
+
+```python
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+from SRACore.task import TaskRegistry
+
+
+class HookConfig(BaseModel):
+    enabled: bool = Field(default=False, description="是否启用")
+
+
+@extension(name="任务钩子示例", description="在任务注册后修改任务类", executable=False)
+class TaskHookExtension(BaseExtension[HookConfig]):
+    @classmethod
+    def on_tasks_registered(cls, tasks: TaskRegistry,
+                            config: HookConfig | None = None) -> None:
+        if config is None or not config.enabled:
+            # 禁用时撤销此前的修改（必须能重复调用）
+            ...
+            return
+        task_cls = tasks.get_task_class("StartGameTask")
+        # 在这里读取或包装任务类；重复调用时应保持幂等
+        ...
+```
+
+调用时机：
+
+- SRA 启动、`task reload`、`extension reload` 之后；
+- 扩展配置变更后（`ExtensionConfigManager.set()` → `ExtensionRunner.reload_extension()`）。
+
+实现要求：
+
+1. **必须幂等**：同一进程内会被多次调用。
+2. **自行处理启用/禁用**：钩子在两种状态下都会执行，禁用时要还原对任务类的修改。
+3. **不要缓存任务类**：`tasks/` 是按文件动态导入的，热重载后会变成新的类对象，每次都在钩子里重新获取。
+4. **失败隔离**：单个扩展的钩子抛异常只会记录日志，不影响其他扩展与启动流程。
+
+完整示例见 `extensions/account_switch/`：它用 `executable=False` + `on_tasks_registered` 给
+`StartGameTask` 打补丁，在 `config.enabled` 为假时调用 `plugin.uninstall()` 还原原方法。
 
 ## 扩展的本地化
 
