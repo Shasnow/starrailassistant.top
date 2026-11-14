@@ -648,6 +648,9 @@ onMounted(async () => {
       <p v-else-if="authMode === 'register'" class="auth-hint">
         注册后需点击邮件中的确认链接才能登录，确认链接会跳回本页面。
       </p>
+      <p v-else class="auth-hint">
+        未收到确认邮件？<button type="button" class="auth-link" @click="resendConfirmEmail">重新发送</button>
+      </p>
       <p v-if="authError" class="auth-error">{{ authError }}</p>
 
       <div class="strategy-dialog__footer">
