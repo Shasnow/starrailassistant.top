@@ -143,7 +143,13 @@ async function request<T>(path: string, options: RequestOptions = {}, allowRetry
     if (!response.ok) {
       throw new ApiError(extractErrorMessage(text, response.status), response.status);
     }
-    return (text ? JSON.parse(text) : undefined) as T;
+    if (!text) return undefined as T;
+    // 部分 Identity 接口（如 confirmEmail）返回纯文本而非 JSON
+    try {
+      return JSON.parse(text) as T;
+    } catch {
+      return text as T;
+    }
   } finally {
     window.clearTimeout(timer);
   }
