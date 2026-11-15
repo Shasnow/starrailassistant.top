@@ -235,6 +235,15 @@ html[data-theme='dark'] .tag--danger {
   color: var(--sl-color-text-accent);
 }
 
+.icon-btn[data-action='delete'] {
+  color: #e03131;
+}
+
+.icon-btn[data-action='delete']:hover {
+  color: #c92a2a;
+  border-color: #e03131;
+}
+
 /* ---------- 我的攻略 / 分页 ---------- */
 .my-strategies-header {
   display: flex;

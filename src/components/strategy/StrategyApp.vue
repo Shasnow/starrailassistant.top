@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import {
   ApiError,
   createStrategy,
+  deleteStrategy,
   getStrategies,
   getStrategiesByUploader,
   getStrategyDetail,
@@ -37,6 +38,8 @@ const ICON_INFO =
   "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z";
 const ICON_DOWNLOAD =
   "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z";
+const ICON_DELETE =
+  "M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h40a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z";
 
 const user = ref<AccountUser | null>(getCurrentUser());
 const authenticated = ref(isAuthenticated());
@@ -167,6 +170,29 @@ async function download(id: StrategyMeta["id"] | null): Promise<void> {
   } catch (err) {
     console.error("Failed to download strategy:", err);
     showToast(errorMessage(err, "攻略下载失败！"), "error");
+  }
+}
+
+/** 删除自己上传的攻略，仅在「我的攻略」列表可用 */
+async function removeMyStrategy(item: StrategyMeta): Promise<void> {
+  const confirmed = await confirmDialog(`确定要删除攻略「${item.title}」吗？删除后不可恢复。`, {
+    title: "删除攻略",
+    confirmText: "删除",
+  });
+  if (!confirmed) return;
+
+  setLoading(true, "正在删除...");
+  try {
+    await deleteStrategy(item.id);
+    showToast("攻略已删除", "success");
+    // 当前页只有这一条时回退到上一页
+    const targetPage = myStrategies.value.length === 1 && myPage.value > 1 ? myPage.value - 1 : myPage.value;
+    await loadMine(targetPage);
+  } catch (err) {
+    console.error("Failed to delete strategy:", err);
+    showToast(errorMessage(err, "删除攻略失败"), "error");
+  } finally {
+    setLoading(false);
   }
 }
 
@@ -564,6 +590,26 @@ onMounted(async () => {
               aria-hidden="true"
             >
               <path :d="ICON_DOWNLOAD"></path>
+            </svg>
+          </button>
+          <button
+            v-if="view === 'mine'"
+            type="button"
+            class="icon-btn"
+            data-action="delete"
+            title="删除攻略"
+            aria-label="删除攻略"
+            @click="removeMyStrategy(item)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+              aria-hidden="true"
+            >
+              <path :d="ICON_DELETE"></path>
             </svg>
           </button>
         </div>

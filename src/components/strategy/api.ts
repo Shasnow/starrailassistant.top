@@ -58,7 +58,7 @@ export class ApiError extends Error {
 }
 
 interface RequestOptions {
-  method?: "GET" | "POST";
+  method?: "GET" | "POST" | "DELETE";
   body?: unknown;
   /** 是否携带访问令牌，默认携带 */
   auth?: boolean;
@@ -221,4 +221,9 @@ export function getStrategyDetail(id: StrategyMeta["id"]): Promise<StrategyDetai
 /** 上传攻略；上传者由服务端按登录账号写入，客户端传值会被忽略 */
 export function createStrategy(data: Record<string, unknown>): Promise<unknown> {
   return request<unknown>("/strategy", { method: "POST", body: data });
+}
+
+/** 删除攻略；仅上传者本人或 SRA 角色可以删除 */
+export function deleteStrategy(id: StrategyMeta["id"]): Promise<unknown> {
+  return request<unknown>(`/strategy/${encodeURIComponent(String(id))}`, { method: "DELETE" });
 }
