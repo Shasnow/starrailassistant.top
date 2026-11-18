@@ -87,6 +87,32 @@ const totalPages = computed(() => Math.max(1, Math.ceil(myTotal.value / MY_PAGE_
 /** 详情弹窗复用的只读表单数据 */
 const detailDraft = computed(() => (detail.value ? strategyToDraft(detail.value) : null));
 
+/** 同一分享码的多次上传合并为一组，以更新时间最新的一条作为代表展示 */
+interface StrategyGroup {
+  key: string;
+  items: StrategyMeta[];
+}
+
+/** 归一化分享码：忽略空白与首尾 ##，避免同一官方攻略因写法不同被拆成多组 */
+function groupKey(item: StrategyMeta): string {
+  const code = (item.shareCode ?? "").trim().replace(/^#+|#+$/g, "");
+  return code ? `share:${code}` : `id:${item.id}`;
+}
+
+const listGroups = computed<StrategyGroup[]>(() => {
+  const groups = new Map<string, StrategyGroup>();
+  for (const item of list.value) {
+    const key = groupKey(item);
+    const group = groups.get(key);
+    if (group) group.items.push(item);
+    else groups.set(key, { key, items: [item] });
+  }
+  return [...groups.values()].map((group) => ({
+    ...group,
+    items: [...group.items].sort((a, b) => (b.updateTime ?? 0) - (a.updateTime ?? 0)),
+  }));
+});
+
 function errorMessage(err: unknown, fallback: string): string {
   if (err instanceof ApiError || err instanceof OfficialApiError) return err.message;
   if (err instanceof DOMException && err.name === "AbortError") return "请求超时，请稍后重试";
@@ -543,16 +569,49 @@ onMounted(async () => {
 
   <section>
     <div class="strategy-list">
-      <article v-for="item in list" :key="item.id" class="strategy-card">
+      <article
+        v-for="group in listGroups"
+        :key="group.key"
+        class="strategy-card"
+        :class="{ 'strategy-card--grouped': group.items.length > 1 }"
+      >
         <div class="strategy-card__content">
-          <h3 class="strategy-card__title">{{ item.title }}</h3>
-          <p class="strategy-card__desc">{{ item.description }}</p>
+          <h3 class="strategy-card__title">{{ group.items[0].title }}</h3>
+          <p class="strategy-card__desc">{{ group.items[0].description }}</p>
           <div class="strategy-card__tags">
-            <span class="tag tag--primary">上传者：{{ item.uploader }}</span>
-            <span class="tag tag--info">上次更新：{{ formatTime(item.updateTime) }}</span>
-            <span v-if="item.isPublic" class="tag tag--success">公开</span>
+            <span class="tag tag--primary">上传者：{{ group.items[0].uploader }}</span>
+            <span class="tag tag--info">上次更新：{{ formatTime(group.items[0].updateTime) }}</span>
+            <span v-if="group.items.length > 1" class="tag tag--info">
+              同分享码 {{ group.items.length }} 份
+            </span>
+            <span v-if="group.items[0].isPublic" class="tag tag--success">公开</span>
             <span v-else class="tag tag--danger">仅自己可见</span>
           </div>
+          <details v-if="group.items.length > 1" class="strategy-group">
+            <summary>查看其他 {{ group.items.length - 1 }} 份</summary>
+            <ul class="strategy-group__list">
+              <li v-for="item in group.items.slice(1)" :key="item.id" class="strategy-group__item">
+                <div class="strategy-group__meta">
+                  <span class="strategy-group__title">{{ item.title }}</span>
+                  <span class="strategy-group__sub">
+                    {{ item.uploader }} · {{ formatTime(item.updateTime) }}
+                  </span>
+                </div>
+                <div class="strategy-group__actions">
+                  <button type="button" class="btn" @click="openDetail(item.id)">详情</button>
+                  <button type="button" class="btn" @click="download(item.id)">下载</button>
+                  <button
+                    v-if="view === 'mine'"
+                    type="button"
+                    class="btn"
+                    @click="removeMyStrategy(item)"
+                  >
+                    删除
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </details>
         </div>
         <div class="strategy-card__actions">
           <button
@@ -560,7 +619,7 @@ onMounted(async () => {
             class="icon-btn"
             title="详细信息"
             aria-label="详细信息"
-            @click="openDetail(item.id)"
+            @click="openDetail(group.items[0].id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -579,7 +638,7 @@ onMounted(async () => {
             data-action="download"
             title="下载攻略"
             aria-label="下载攻略"
-            @click="download(item.id)"
+            @click="download(group.items[0].id)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -599,7 +658,7 @@ onMounted(async () => {
             data-action="delete"
             title="删除攻略"
             aria-label="删除攻略"
-            @click="removeMyStrategy(item)"
+            @click="removeMyStrategy(group.items[0])"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -21,6 +21,8 @@ export interface StrategyMeta {
   updateTime?: number;
   uploader: string;
   isPublic: boolean;
+  /** 游戏内分享码；旧版接口可能不返回 */
+  shareCode?: string;
 }
 
 /** SRA 攻略数据，与 tasks/currency_wars/strategies/template.json 一致 */
