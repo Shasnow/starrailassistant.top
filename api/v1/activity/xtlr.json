@@ -6,6 +6,14 @@
     "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/09/sgus1yfz.jpg",
     "activities": [
         {
+            "name": "「联合讨伐」",
+            "kind": "挑战活动",
+            "description": "讨伐期间需在规定时间内对首领造成尽可能多的伤害，伤害按比例转化为分数，根据首领机制做出对应操作可获得技巧得分，分数达到节点可获取星数。本期领主为热嘟噜噗男爵与流风美人，两项星数相加为本期总星数，可按排名获取[星之砂]、称号[狩猎专家]奖励。参与条件：权限等级≥21",
+            "startTime": "2026-11-01T04:00:00",
+            "endTime": "2026-11-29T22:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/10/28/b_9kRJCn.jpg"
+        },
+        {
             "name": "「星途一载·特别致谢」登录活动",
             "kind": "登录活动",
             "description": "星途同心赴新程，参与签到共计可获得[青空礼券]*1、[萌芽礼券]*1、[灿金闪碟]*300、[亮银闪碟]*300、[豪华礼物随机盒]*1、[星章抛光剂]*10、[精选旅人晋升礼盒]*50、[精选技能卡带礼盒]*50、[精选秘纹晋升礼盒]*50、[罐装干劲汽水]*8奖励！参与条件：权限等级≥2",
@@ -27,7 +35,7 @@
             "description": "秋日，海滩，甜品！按照顾客们的订单制作美味的冰淇淋吧！完成活动关卡获得[星之砂]、[新手旅人晋升礼盒]等奖励。参与条件：权限等级≥5",
             "startTime": "2026-11-13T17:00:00",
             "endTime": "2026-11-27T03:59:59",
-            "cover": ""
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/13/vd7batQj.jpg"
         },
         {
             "name": "「灾变防线」",
@@ -43,23 +51,7 @@
             "description": "风属性五星旅人「风影」限时复刻期间，完成复刻招募纪念任务可获得[圣洁之滴]、[星章抛光剂]、[真格挑战礼盒]、[股权证明]等奖励。参与条件：权限等级≥5",
             "startTime": "2026-11-17T12:00:00",
             "endTime": "2026-12-01T10:59:59",
-            "cover": ""
-        },
-        {
-            "name": "「攻略纪录大征集」",
-            "kind": "限时活动",
-            "description": "提交符合条件的「纪录」，响应地理协会的号召完成「纪录征集」！活动期间，魔王大人可递交符合条件的纪录完成征集可获取[萌芽礼券]、活动专属头衔等奖励。参与条件：权限等级≥10",
-            "startTime": "2026-11-10T12:00:00",
-            "endTime": "2026-11-17T10:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/pDCnz7VL.jpg"
-        },
-        {
-            "name": "「乘光而起的星之砂」复刻纪念活动",
-            "kind": "限时活动",
-            "description": "光属性五星旅人「火垂」限时复刻期间，完成复刻纪念系列任务，可获得[圣洁之滴]、[星章抛光剂]、[真格挑战礼盒]等奖励。参与条件：权限等级≥5",
-            "startTime": "2026-10-27T12:00:00",
-            "endTime": "2026-11-17T10:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/10/23/dApx6FGO.jpg"
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/16/JyYuhOqM.jpg"
         },
         {
             "name": "「紧急悬赏」",
@@ -78,7 +70,7 @@
             "cover": ""
         },
         {
-            "name": "「攻略纪录大征集」（新一期）",
+            "name": "「攻略纪录大征集」",
             "kind": "限时活动",
             "description": "根据征集目标保存纪录并提交即可领取奖励！魔王大人可查看每条征集所需的纪录要求，根据要求提供符合的纪录完成征集！参与条件：权限等级≥10",
             "startTime": "2026-11-27T12:00:00",
