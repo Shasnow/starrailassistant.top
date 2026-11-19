@@ -7,7 +7,7 @@ import { Steps } from "@astrojs/starlight/components";
 
 ## 先决条件
 
-- Python 3.12 及以上版本
+- Python 3.12（项目要求 `>=3.12, <3.13`，暂不支持 3.13）
 - Git
 
 ## 分步教程
@@ -30,28 +30,32 @@ import { Steps } from "@astrojs/starlight/components";
 3. 创建并激活虚拟环境：
     ```bash
     python -m venv .venv
-    source .venv/bin/activate  # Linux 或 macOS
-    .venv\Scripts\activate     # Windows
+    .venv\Scripts\activate
     ```
 
-4. 安装依赖：
+4. 以可编辑模式安装项目及桌面端依赖：
     ```bash
-    pip install -r requirements.txt
+    pip install -e ".[standard]"
     ```
+   `standard` 包含桌面端运行所需的键鼠模拟、剪贴板与通知等依赖；如需运行服务端（WebUI / HTTP API / MCP），改用 `.[server]`。
    如果安装较慢，考虑使用国内镜像源，例如清华大学的 PyPI 镜像：
     ```bash
-    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    pip install -e ".[standard]" -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
 
 5. 运行 SRA：
     ```bash
     python main.py
     ```
+   安装完成后也可以直接使用命令行入口：
+    ```bash
+    sra
+    ```
    这会让你进入 SRA 的交互式命令行界面，你应该看到下面的输出：
     ```text
     # ... 这些是一些调试信息
-    SRA-cli 2.4.0 (2.4.0 on win32)
-    输入 'help' 或 '?' 来查看命令列表。
+    欢迎使用 SRA-cli（版本 2.26.0，内核 2.26.0 on win32）。
+    输入 'help' 查看命令列表。
     sra> 
     ```
 
