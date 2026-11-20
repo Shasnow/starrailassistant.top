@@ -84,7 +84,20 @@ export default defineConfig({
         {
           label: "参考",
           translations: { en: "Reference" },
-          items: [{ autogenerate: { directory: "reference" } }],
+          items: [
+            {
+              label: "SRAServer API",
+              slug: "reference/api-reference",
+            },
+            {
+              label: "SRA 公开接口",
+              slug: "reference/public-api",
+            },
+            {
+              label: "SRACore",
+              items: [{ autogenerate: { directory: "reference/sracore" } }],
+            }
+          ],
         },
         {
           label: "公告",
