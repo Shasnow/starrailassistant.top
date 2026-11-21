@@ -15,6 +15,42 @@ import "@/components/strategy/strategy.css";
 >
   <!-- not-content：退出 Starlight 的 Markdown 排版规则（否则相邻 <button> 会被加上 margin-top: 1rem） -->
   <div class="not-content">
+    <div id="strategy-boot" class="strategy-app strategy-boot" aria-busy="true" aria-label="攻略站加载中">
+      <div class="strategy-toolbar">
+        <span class="strategy-toolbar__hint">社区攻略库</span>
+      </div>
+      <section class="hero">
+        <div>
+          <div class="sk-line sk-line--xs"></div>
+          <div class="sk-line sk-line--lg" style="width: min(440px, 82%); height: 42px;"></div>
+          <div class="sk-line sk-line--md" style="width: min(520px, 92%);"></div>
+          <div class="sk-line sk-line--sm"></div>
+        </div>
+        <div class="hero__stat-card">
+          <div class="sk-line sk-line--xs"></div>
+          <div class="sk-line sk-line--sm"></div>
+          <div class="sk-line sk-line--md"></div>
+        </div>
+      </section>
+      <section class="catalog">
+        <div class="search-row">
+          <div class="search-field">
+            <input disabled placeholder="搜索标题、作者、上传者或分享码…" aria-label="搜索攻略（加载中）" />
+          </div>
+        </div>
+        <div class="skeleton-grid" style="margin-top: 16px;">
+          {Array.from({ length: 6 }).map(() => (
+            <div class="sk-card">
+              <div class="sk-line sk-line--xs"></div>
+              <div class="sk-line sk-line--lg"></div>
+              <div class="sk-line sk-line--md"></div>
+              <div class="sk-line sk-line--sm"></div>
+              <div class="sk-line sk-line--md" style="margin-top: 34px;"></div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
     <StrategyApp client:only="vue" />
   </div>
 </StarlightPage>

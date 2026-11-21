@@ -1,5 +1,5 @@
 import { API_BASE_URL, REQUEST_TIMEOUT } from "@/components/strategy/config";
-import { clearSession, getRefreshToken, getToken, saveSession } from "@/components/strategy/session";
+import { clearSession, getRefreshToken, getToken, getUser, saveSession } from "@/components/strategy/session";
 
 /** 本站账号（MyAPI Identity），上传者即该账号的邮箱 */
 export interface AccountUser {
@@ -23,6 +23,11 @@ export interface StrategyMeta {
   isPublic: boolean;
   /** 游戏内分享码；旧版接口可能不返回 */
   shareCode?: string;
+  author?: string;
+  likes?: number;
+  favorites?: number;
+  liked?: boolean;
+  favorited?: boolean;
 }
 
 /** SRA 攻略数据，与 tasks/currency_wars/strategies/template.json 一致 */
@@ -40,8 +45,21 @@ export interface SraStrategy {
 }
 
 export interface StrategyDetail extends SraStrategy {
-  id: number | string | null;
+  id: number | string;
+  isPublic?: boolean;
+  likes?: number;
+  favorites?: number;
+  liked?: boolean;
+  favorited?: boolean;
+  updateTime?: number;
   [key: string]: unknown;
+}
+
+export interface ReactionResult {
+  liked?: boolean;
+  favorited?: boolean;
+  likes?: number;
+  favorites?: number;
 }
 
 export interface PageResult<T> {
@@ -60,7 +78,7 @@ export class ApiError extends Error {
 }
 
 interface RequestOptions {
-  method?: "GET" | "POST" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: unknown;
   /** 是否携带访问令牌，默认携带 */
   auth?: boolean;
@@ -102,7 +120,8 @@ async function refreshAccessToken(): Promise<boolean> {
     });
     if (!response.ok) return false;
     const data = (await response.json()) as TokenResponse;
-    saveSession(data.accessToken, data.refreshToken, null);
+    // 刷新令牌不返回用户信息，保留登录时保存的账号，避免后续“我的攻略”丢失上传者
+    saveSession(data.accessToken, data.refreshToken, getUser());
     return true;
   } catch {
     return false;
@@ -200,7 +219,7 @@ export function exchangeGithubCode(code: string): Promise<TokenResponse> {
 }
 
 export function getStrategies(): Promise<StrategyMeta[]> {
-  return request<StrategyMeta[]>("/strategy", { auth: false });
+  return request<StrategyMeta[]>("/strategy");
 }
 
 export function getStrategiesByUploader(params: {
@@ -213,11 +232,40 @@ export function getStrategiesByUploader(params: {
     page: String(params.page),
     pageSize: String(params.pageSize),
   });
-  return request<PageResult<StrategyMeta>>(`/strategy/by-uploader?${query.toString()}`, { auth: false });
+  return request<PageResult<StrategyMeta>>(`/strategy/by-uploader?${query.toString()}`);
 }
 
 export function getStrategyDetail(id: StrategyMeta["id"]): Promise<StrategyDetail> {
-  return request<StrategyDetail>(`/strategy/${encodeURIComponent(String(id))}`, { auth: false });
+  return request<StrategyDetail>(`/strategy/${encodeURIComponent(String(id))}`);
+}
+
+/** 当前登录用户的收藏列表 */
+export function getFavoriteStrategies(params: { page: number; pageSize: number }): Promise<PageResult<StrategyMeta>> {
+  const query = new URLSearchParams({
+    page: String(params.page),
+    pageSize: String(params.pageSize),
+  });
+  return request<PageResult<StrategyMeta>>(`/strategy/favorites?${query.toString()}`);
+}
+
+/** 点赞（幂等） */
+export function likeStrategy(id: StrategyMeta["id"]): Promise<ReactionResult> {
+  return request<ReactionResult>(`/strategy/${encodeURIComponent(String(id))}/like`, { method: "PUT" });
+}
+
+/** 取消点赞（幂等） */
+export function unlikeStrategy(id: StrategyMeta["id"]): Promise<ReactionResult> {
+  return request<ReactionResult>(`/strategy/${encodeURIComponent(String(id))}/like`, { method: "DELETE" });
+}
+
+/** 收藏（幂等） */
+export function favoriteStrategy(id: StrategyMeta["id"]): Promise<ReactionResult> {
+  return request<ReactionResult>(`/strategy/${encodeURIComponent(String(id))}/favorite`, { method: "PUT" });
+}
+
+/** 取消收藏（幂等） */
+export function unfavoriteStrategy(id: StrategyMeta["id"]): Promise<ReactionResult> {
+  return request<ReactionResult>(`/strategy/${encodeURIComponent(String(id))}/favorite`, { method: "DELETE" });
 }
 
 /** 上传攻略；上传者由服务端按登录账号写入，客户端传值会被忽略 */

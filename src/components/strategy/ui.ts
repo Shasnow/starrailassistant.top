@@ -50,6 +50,8 @@ export function setLoading(active: boolean, text = "加载中..."): void {
     if (!loadingOverlay) {
       loadingOverlay = document.createElement("div");
       loadingOverlay.className = "strategy-loading";
+      loadingOverlay.setAttribute("role", "status");
+      loadingOverlay.setAttribute("aria-live", "polite");
       loadingOverlay.innerHTML =
         '<span class="strategy-loading__spinner" aria-hidden="true"></span><p class="strategy-loading__text"></p>';
       document.body.append(loadingOverlay);
@@ -82,6 +84,8 @@ export function confirmDialog(message: string, options: ConfirmOptions = {}): Pr
         <button type="button" class="btn" data-confirm="cancel">${escapeHtml(cancelText)}</button>
         <button type="button" class="btn btn--primary" data-confirm="ok">${escapeHtml(confirmText)}</button>
       </div>`;
+    // 挂到攻略应用内以继承页面 token（确认弹窗也会在攻略页触发）
+    (document.querySelector(".strategy-app") ?? document.body).append(dialog);
 
     const finish = (value: boolean) => {
       if (!dialog.isConnected) return;
@@ -96,7 +100,6 @@ export function confirmDialog(message: string, options: ConfirmOptions = {}): Pr
     });
     dialog.addEventListener("cancel", () => finish(false));
 
-    document.body.append(dialog);
     dialog.showModal();
   });
 }

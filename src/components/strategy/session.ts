@@ -4,6 +4,14 @@ const TOKEN_KEY = "sra_access_token";
 const REFRESH_KEY = "sra_refresh_token";
 const USER_KEY = "sra_user";
 const STATE_KEY = "github_oauth_state";
+const PENDING_KEY = "sra_pending_reaction";
+
+/** 登录前触发、登录后需要重放的点赞/收藏动作 */
+export interface PendingReaction {
+  kind: "like" | "favorite";
+  id: string | number;
+  desired: boolean;
+}
 
 /** OAuth state 的有效期（10 分钟） */
 const STATE_TTL = 10 * 60 * 1000;
@@ -53,6 +61,23 @@ export function clearSession(): void {
   sessionStorage.removeItem(TOKEN_KEY);
   sessionStorage.removeItem(REFRESH_KEY);
   sessionStorage.removeItem(USER_KEY);
+}
+
+/** 记录登录后要重放的点赞/收藏动作（OAuth 重定向后仍保留） */
+export function savePendingReaction(action: PendingReaction): void {
+  sessionStorage.setItem(PENDING_KEY, JSON.stringify(action));
+}
+
+/** 取出并清除待重放动作 */
+export function consumePendingReaction(): PendingReaction | null {
+  const raw = sessionStorage.getItem(PENDING_KEY);
+  sessionStorage.removeItem(PENDING_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as PendingReaction;
+  } catch {
+    return null;
+  }
 }
 
 export function saveOAuthState(state: string): void {
