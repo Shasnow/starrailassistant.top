@@ -2,7 +2,6 @@
 
 /* ---------- 页面令牌 ---------- */
 .strategy-app {
-  container-type: inline-size;
   position: relative;
   max-width: 1240px;
   margin: 0 auto;
@@ -98,7 +97,7 @@
   box-sizing: border-box;
 }
 
-.strategy-app > * {
+.strategy-app > :not(dialog) {
   position: relative;
   z-index: 1;
 }
@@ -742,8 +741,11 @@
 
 /* ---------- 详情弹窗 ---------- */
 dialog.detail {
+  position: fixed;
+  inset: 0;
   width: min(800px, 94vw);
   max-height: 88vh;
+  margin: auto;
   padding: 0;
   color: var(--strategy-text);
   background: var(--strategy-surface-2);
@@ -834,6 +836,8 @@ dialog.detail::backdrop { background: rgba(3, 5, 14, 0.66); backdrop-filter: blu
 
 /* ---------- 登录 / 上传 / 转换 / 编辑弹窗 ---------- */
 dialog.strategy-dialog {
+  position: fixed;
+  inset: 0;
   width: min(720px, 92vw);
   max-height: 85vh;
   overflow: auto;
@@ -1023,12 +1027,12 @@ textarea.strategy-input { min-height: 4rem; line-height: 1.5; resize: vertical; 
 }
 
 /* ---------- 响应式 ---------- */
-@container (max-width: 1080px) {
+@media (max-width: 1080px) {
   .hero { grid-template-columns: 1fr; align-items: start; }
   .hero__side { grid-template-columns: 1fr 1fr; }
   .grid, .skeleton-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@container (max-width: 740px) {
+@media (max-width: 740px) {
   .strategy-toolbar { padding: 14px 16px 0; }
   .hero { padding: 24px 16px 16px; gap: 16px; }
   .hero__title { font-size: 34px; }
