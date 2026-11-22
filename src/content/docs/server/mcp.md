@@ -1,186 +1,144 @@
 ---
 title: MCP 工具
+description: 通过 MCP 协议让 AI 客户端控制 SRA
 sidebar:
   order: 4
 ---
 
-SRA-server 内置了对 Model Context Protocol (MCP) 的支持，允许 AI 助手（如 Claude、Cursor 等）通过 MCP 协议直接控制 SRA。
+SRA-server 内置 Model Context Protocol（MCP）服务，AI 客户端（Claude Desktop、Cursor 等）
+可以直接调用 SRA 的工具：截图、OCR、任务控制、游戏操作、配置与设置修改。
 
-MCP 端点地址：`http://localhost:5000/mcp`
+MCP 使用 **Streamable HTTP**，端点：
 
-## 连接方式
+```text
+http://localhost:5073/mcp
+```
 
-在支持 MCP 的 AI 客户端中，添加以下 MCP 服务器配置：
+:::note
+- 需要安装 `[server]` 依赖并以 `sra serve` / `sra-server` / `python -m SRAServer` 启动；
+- MCP 位于 `/api` 之外，**不受访问令牌保护**；
+- 访客模式（`SRA_VISITOR_MODE=true`）下不挂载 `/mcp`。
+:::
+
+## 连接配置
+
+在支持远程 MCP 的客户端中添加：
 
 ```json
 {
   "mcpServers": {
     "sra": {
-      "url": "http://localhost:5000/mcp"
+      "url": "http://localhost:5073/mcp"
     }
   }
 }
 ```
 
-## 可用工具
+连接前请先启动服务端，并确保游戏窗口已就绪（本地模式要求 1920×1080 客户区）。
 
-### 截图
+## 工具一览
 
-#### `sra_screenshot`
+### 截图与会话
 
-截取游戏窗口截图（720p），返回 PNG 图片。
+| 工具 | 参数 | 说明 |
+| --- | --- | --- |
+| `sra_screenshot` | 无 | 返回 720p JPEG 画面，并提示坐标需从 720p 换算到 1080p |
+| `sra_startup` | 无 | 启动后端；进程内模式下为幂等操作 |
+| `sra_shutdown` | 无 | 请求停止当前任务/扩展（进程内无子进程可结束） |
+| `sra_restart` | 无 | 进程内重新初始化 SRA 核心（重载任务、扩展与设置） |
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| — | — | — | 无参数 |
+### 任务
 
-返回结果包含截图图片和坐标转换提示，可用于 AI 分析当前游戏状态。
+| 工具 | 参数 | 说明 |
+| --- | --- | --- |
+| `sra_task_list` | 无 | 列出已注册任务（名称、顺序、类名、说明） |
+| `sra_task_run` | `configNames`（空格分隔，可空） | 运行指定配置中的任务，留空运行全部 |
+| `sra_task_single` | `task`、`configName`（可空） | 运行单个任务，`task` 支持名称或索引 |
+| `sra_task_stop` | 无 | 停止当前任务，空闲时返回失败提示 |
+| `sra_task_status` | 无 | 返回任务状态 JSON（含 `success`、`message`、`data`） |
 
-### 后端控制
+### Operator 与游戏操作
 
-#### `sra_startup`
+| 工具 | 参数 | 说明 |
+| --- | --- | --- |
+| `sra_ocr` | `fromX`、`fromY`、`toX`、`toY`（均可空） | OCR 识别，返回全部文本；坐标单位为 1080p 像素 |
+| `sra_ocr_match` | `text`、区域坐标（可空） | OCR 匹配，返回命中的文本 |
+| `sra_click_point` | `mode`（`abs` / `rel`）、`x`、`y` | 点击坐标；`abs` 为分辨率像素，`rel` 为 0–1 比例 |
+| `sra_scroll` | `clicks`、`x`、`y`（可空） | 滚轮滚动，正数向上、负数向下 |
+| `sra_press_key` | `key` | 按键，支持 `ctrl+c` 这类组合 |
+| `sra_hold_key` | `key`、`duration`（默认 1.0） | 长按指定秒数 |
+| `sra_sleep` | `seconds` | 等待指定秒数（服务端等待，不阻塞其他请求） |
+| `sra_operator_list` | 无 | 列出全部 Operator 方法 |
+| `sra_operator_help` | `method` | 查看方法签名、参数类型与文档 |
+| `sra_operator_call` | `method`、`parameters`（JSON 字符串） | 调用任意 Operator 方法 |
 
-启动 SRA 后端。
+`sra_operator_call` 的 `parameters` 是一个 **JSON 对象字符串**，例如：
 
-#### `sra_shutdown`
+```json
+{
+  "method": "click_point",
+  "parameters": "{\"mode\": \"rel\", \"x\": 0.5, \"y\": 0.5}"
+}
+```
 
-关闭 SRA 后端。
+不确定参数时，先调用 `sra_operator_list` 与 `sra_operator_help`，不必猜。
 
-### 任务控制
+### 日志
 
-#### `sra_task_list`
+| 工具 | 参数 | 说明 |
+| --- | --- | --- |
+| `sra_get_logs` | `count`（默认 100） | 返回最近若干条日志文本 |
 
-列出所有可用任务。
+### 配置
 
-#### `sra_task_run`
+| 工具 | 参数 | 说明 |
+| --- | --- | --- |
+| `sra_config_list` | 无 | 返回配置名列表与当前配置 |
+| `sra_config_get` | `configName` | 读取配置；用户名/密码会被掩码 |
+| `sra_config_create` | `configName` | 注册新配置名（首次更新时才写文件） |
+| `sra_config_update` | `configName`、`patchJson` | 用局部 JSON 打补丁，只修改给出的字段 |
+| `sra_config_delete` | `configName` | 删除配置注册信息，磁盘上的配置文件保留 |
 
-运行指定配置中的所有任务。
+`patchJson` 的顶层键是配置分区，内层是带点号的字段键：
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `configNames` | string | 否 | 空格分隔的配置名列表，留空则运行全部 |
+```json
+{
+  "cosmicStrife": {
+    "currencyWars.runtimes": 3,
+    "currencyWars.pointRewards": true
+  }
+}
+```
 
-#### `sra_task_single`
+`startGame.username` / `startGame.password` 接受明文，服务端加密后保存；未提供的字段保持不变。
 
-运行单个任务。
+### 设置
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `task` | string | 是 | 任务名或索引 |
-| `configName` | string | 否 | 配置名，留空使用当前配置 |
+| 工具 | 参数 | 说明 |
+| --- | --- | --- |
+| `sra_settings_get` | 无 | 读取应用设置（点号键，如 `developerMode.customBackend.enabled`） |
+| `sra_settings_update` | `patchJson` | 用局部 JSON 打补丁，只修改给出的字段 |
 
-#### `sra_task_stop`
+```json
+{
+  "advanced": {
+    "developerMode.customBackend.enabled": true
+  }
+}
+```
 
-停止当前运行的任务。
+## 推荐工作流
 
-#### `sra_task_status`
+```text
+截图 → 分析画面 → OCR 确认界面 → 点击/按键 → 再截图验证
+```
 
-获取当前任务状态（JSON 格式）。
+1. `sra_screenshot` 获取画面（记住是 720p，换算到 1080p 后再点击）；
+2. 需要精确判断时用 `sra_ocr` / `sra_ocr_match`；
+3. 用 `sra_click_point` / `sra_press_key` / `sra_hold_key` 操作；
+4. 用 `sra_task_status`、`sra_get_logs` 确认执行情况。
 
-### OCR 文字识别
-
-#### `sra_ocr`
-
-对游戏窗口执行 OCR 文字识别。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `fromX` | int | 否 | 识别区域左上角 X |
-| `fromY` | int | 否 | 识别区域左上角 Y |
-| `toX` | int | 否 | 识别区域右下角 X |
-| `toY` | int | 否 | 识别区域右下角 Y |
-
-#### `sra_ocr_match`
-
-OCR 匹配指定文字。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `text` | string | 是 | 要匹配的文字 |
-| `fromX` | int | 否 | 识别区域左上角 X |
-| `fromY` | int | 否 | 识别区域左上角 Y |
-| `toX` | int | 否 | 识别区域右下角 X |
-| `toY` | int | 否 | 识别区域右下角 Y |
-
-### 游戏操作
-
-#### `sra_click_point_abs`
-
-点击游戏窗口的绝对坐标位置。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `x` | int | 是 | X 坐标 |
-| `y` | int | 是 | Y 坐标 |
-
-#### `sra_click_point_rel`
-
-点击游戏窗口的相对坐标位置（0.0 ~ 1.0）。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `x` | float | 是 | X 比例 |
-| `y` | float | 是 | Y 比例 |
-
-#### `sra_scroll`
-
-鼠标滚轮滚动。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `clicks` | int | 是 | 滚动量（正数向上，负数向下） |
-| `x` | int | 否 | 滚动位置 X |
-| `y` | int | 否 | 滚动位置 Y |
-
-#### `sra_press_key`
-
-按下键盘按键，支持组合键（如 `"w+d"`）。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `key` | string | 是 | 按键名称或组合 |
-
-#### `sra_hold_key`
-
-长按键盘按键。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `key` | string | 是 | 按键名称 |
-| `duration` | float | 否 | 长按时间（秒），默认 1.0 |
-
-#### `sra_sleep`
-
-暂停执行指定时间。
-
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| `seconds` | int | 是 | 暂停秒数 |
-
-## 使用示例
-
-以下是通过 MCP 工具实现的常见工作流：
-
-### 截图分析
-
-1. 调用 `sra_screenshot` 获取当前游戏画面
-2. AI 分析截图内容，判断当前状态
-3. 根据分析结果调用相应操作
-
-### 自动运行任务
-
-1. 调用 `sra_task_list` 查看可用任务
-2. 调用 `sra_task_status` 确认当前无任务运行
-3. 调用 `sra_task_run` 开始执行
-4. 调用 `sra_task_status` 等待任务完成
-
-### 游戏内操作
-
-1. 调用 `sra_ocr` 识别当前界面文字
-2. 调用 `sra_click_point_rel` 点击目标位置
-3. 调用 `sra_sleep` 等待动画完成
-4. 调用 `sra_ocr_match` 确认操作结果
-
-:::tip
-使用 MCP 工具时，SRA-server 需要已经启动且后端进程就绪。如果后端尚未启动，请先调用 `sra_startup`。
+:::caution
+MCP 工具会真实操作游戏与 SRA 状态，请勿在没有监督的情况下让模型自由调用配置修改与任务控制类工具；
+公开部署时务必通过反向代理屏蔽 `/mcp`。
 :::
