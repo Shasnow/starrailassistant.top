@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "gen:updates": "node scripts/gen-updates.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

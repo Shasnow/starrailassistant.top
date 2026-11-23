@@ -1,9 +1,24 @@
 // @ts-check
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightDocSearch from "@astrojs/starlight-docsearch";
 import vue from "@astrojs/vue";
+
+/** 构建/开发开始前，从 public/api/v1/anno.json 重新生成公告页。 */
+function updatesGenerator() {
+  return {
+    name: "gen-updates",
+    hooks: {
+      "astro:config:setup": () => {
+        execFileSync(process.execPath, ["scripts/gen-updates.mjs"], {
+          cwd: fileURLToPath(new URL(".", import.meta.url)),
+        });
+      },
+    },
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,6 +44,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    updatesGenerator(),
     vue(),
     starlight({
       title: "StarRailAssistant",
