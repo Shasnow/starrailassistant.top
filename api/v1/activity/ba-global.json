@@ -1,16 +1,16 @@
 {
   "version": "2026-11",
   "versionName": "国际服活动",
-  "startTime": "2026-11-10T10:00:00",
-  "endTime": "2026-11-24T10:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/09da0c6ead7d41d9bdb264c9fe2292cd577d7f95.webp",
+  "startTime": "2026-11-24T10:00:00",
+  "endTime": "2026-12-08T10:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/e6460b8402226ae0801765ad89806525972c61b1.webp",
   "activities": [
     {
-      "name": "出航！万魔船～真琴议长的华丽避暑～",
+      "name": "瘟疫危机～奇迹的松饼～-复刻-",
       "description": "",
-      "startTime": "2026-11-10T10:00:00",
-      "endTime": "2026-11-24T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/09da0c6ead7d41d9bdb264c9fe2292cd577d7f95.webp"
+      "startTime": "2026-11-24T10:00:00",
+      "endTime": "2026-12-08T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/e6460b8402226ae0801765ad89806525972c61b1.webp"
     }
   ]
 }
