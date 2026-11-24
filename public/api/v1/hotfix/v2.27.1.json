@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "channel": "stable",
+  "version": "2.27.1",
+  "baseVersion": "2.27.0",
+  "generatedAt": "2026-11-24T02:57:46Z",
+  "sources": [
+    "https://cnb.cool/StarRailAssistant/StarRailAssistant/-/git/raw/v{version}/{path}",
+    "https://raw.githubusercontent.com/Shasnow/StarRailAssistant/v{version}/{path}"
+  ],
+  "files": [
+    {
+      "path": "SRACore/util/const.py",
+      "sha256": "61d2dd9db4ae4f7b946161cba2579deeb4def1094e6de839e9f266b3216c93de",
+      "size": 1326
+    },
+    {
+      "path": "tasks/currency_wars/CurrencyWars.py",
+      "sha256": "7b2f2bdb35464a16739ddb3dd2242ba73db7a5e4f1f5a35192f4e9c992d3d98a",
+      "size": 91584
+    }
+  ],
+  "deleted": []
+}
