@@ -1,0 +1,47 @@
+---
+title: Running the SRA GUI from Source
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+This chapter explains how to run the SRA GUI from source.
+
+## Prerequisites
+
+- .NET 10.0 SDK or later
+- Git
+
+## Step-by-Step Tutorial
+
+<Steps>
+
+1. Clone the repository:
+   If you have already cloned the repository, you can skip this step.
+   ```bash
+   git clone https://github.com/Shasnow/StarRailAssistant.git
+   ```
+   If cloning is slow, consider a shallow clone:
+   ```bash
+   git clone https://github.com/Shasnow/StarRailAssistant.git --depth=1
+   ```
+2. Enter the project directory:
+   ```bash
+   cd StarRailAssistant
+   ```
+
+3. Run the project:
+   ```bash
+   dotnet run --project .\SRAFrontend\SRAFrontend.Desktop\SRAFrontend.Desktop.csproj
+   ```
+   This compiles and runs the SRA GUI; the SRA window should appear.
+
+4. Try it out:
+   - Explore the feature modules to get familiar with SRA.
+   - Visit the settings page to adjust SRA's configuration.
+
+</Steps>
+
+## FAQ
+- `请求的操作需要提升`:
+  - Consider running the terminal as administrator, then repeat step 3.
+  - If you use an IDE such as Visual Studio, make sure to run the IDE as administrator.

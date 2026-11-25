@@ -1,0 +1,163 @@
+---
+title: Adding Custom Commands
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+## Adding Custom Commands to SRA
+
+### How It Works
+
+SRA's command system is built on Python's `cmd2` library and loads commands through a "dynamic discovery + automatic registration" mechanism:
+
+1. **Dynamic import**: At startup, `SRACore/__main__.py` calls `dynamic_import("tasks")`, which scans every `.py` file in the `tasks/` directory and imports each one with `importlib.import_module`. This step ensures that all modules in `tasks/` are loaded into memory.
+
+2. **CommandSet**: `cmd2` provides the `CommandSet` base class. For any class that inherits from `cmd2.CommandSet[SRACli]`, methods whose names start with `do_` are automatically recognized as commands by `cmd2`. You can also use the `@cmd2.with_argparser` decorator to add argument parsing to a command, and `@cmd2.as_subcommand_to` to create subcommand groups.
+
+3. **Automatic registration**: `SRACli` sets `auto_load_commands=True` during initialization. `cmd2` searches all imported modules for subclasses of `CommandSet` and automatically instantiates and registers them — no manual registration call is needed.
+
+In short: **put a file into the `tasks/` directory, write a `CommandSet` subclass, and SRA will automatically discover and register your command at startup.**
+
+### Prerequisites
+
+- SRA is installed, or you have obtained the SRA source code
+- Basic Python programming knowledge
+- A text editor (such as VSCode or Notepad++)
+
+### Step-by-Step Tutorial
+
+<Steps>
+
+1. Open SRA's installation directory or source directory and locate the `tasks` folder.
+   This folder holds all task scripts and command scripts.
+   For example, `taskcli.py` is an existing command script that defines commands such as `tpconfig` and `strategy`.
+
+2. Create a new Python file, for example `MyCommands.py`.
+
+3. Write the command code in the file. Below we implement a `hello` command that accepts a `--name` argument for a personalized greeting:
+
+   ```python
+   import argparse
+
+   import cmd2
+
+   from SRACore.cli2 import SRACli
+
+
+   class HelloCommands(cmd2.CommandSet[SRACli]):
+       DEFAULT_CATEGORY = 'My Commands'
+
+       @staticmethod
+       def _build_hello_parser() -> cmd2.Cmd2ArgumentParser:
+           parser = cmd2.Cmd2ArgumentParser(description='打个招呼')
+           parser.add_argument('--name', default='World', help='你要问候的名字')
+           return parser
+
+       @cmd2.with_argparser(_build_hello_parser)
+       def do_hello(self, args: argparse.Namespace) -> None:
+           """向世界（或者你指定的人）打个招呼"""
+           message = f"Hello, {args.name}!"
+           self._cmd.poutput(message)
+   ```
+
+   Explanation:
+
+   - `class HelloCommands(cmd2.CommandSet[SRACli]):` — defines a command set; the generic parameter `SRACli` lets you access the CLI instance through `self._cmd`.
+   - `DEFAULT_CATEGORY = 'My Commands'` — the command category name, used to group commands in the `help` output.
+   - `def do_hello(self, args):` — the `do_` prefix is a `cmd2` convention; `do_hello` corresponds to the `hello` command.
+   - `@cmd2.with_argparser(_build_hello_parser)` — binds the argument parser; when the user enters `hello --name SRA`, the value of `args.name` is `"SRA"`.
+   - `self._cmd.poutput(message)` — accesses the CLI instance through `self._cmd` and calls `poutput` to print output.
+
+4. Run SRA to test your command:
+   Before continuing, make sure all your changes are saved.
+   Run SRA:
+   - If you are using an installed SRA, locate `SRA-cli.exe` in the SRA installation directory and run it.
+   - If you are using the source code, refer to the previous chapters for how to run SRA.
+
+   If everything works, enter the following commands in SRA-cli:
+
+   ```text
+   sra> hello
+   Hello, World!
+   sra> hello --name 开拓者
+   Hello, 开拓者!
+   sra> help hello
+   Usage: hello [-h] [--name NAME]
+
+   向世界（或者你指定的人）打个招呼
+
+   Options:
+     -h, --help   show this help message and exit
+     --name NAME  你要问候的名字
+   ```
+
+5. Advanced: creating subcommand groups
+
+   If you have a group of related commands, you can organize them into subcommands with `@cmd2.as_subcommand_to`. Below is a weather query example containing the two subcommands `list` and `query`:
+
+   ```python
+   import argparse
+   from rich.text import Text
+
+   import cmd2
+
+   from SRACore.cli2 import SRACli
+
+
+   class WeatherCommands(cmd2.CommandSet[SRACli]):
+       DEFAULT_CATEGORY = 'Weather'
+
+       @staticmethod
+       def _build_weather_parser() -> cmd2.Cmd2ArgumentParser:
+           parser = cmd2.Cmd2ArgumentParser(description=Text.assemble('查询天气信息'))
+           parser.add_subparsers(metavar="SUBCOMMAND", help="子命令", required=True)
+           return parser
+
+       @cmd2.with_argparser(_build_weather_parser)
+       def do_weather(self, args: argparse.Namespace) -> None:
+           """天气查询"""
+           args.cmd2_subcommand_func(args)
+
+       @staticmethod
+       def _build_list_parser() -> cmd2.Cmd2ArgumentParser:
+           return cmd2.Cmd2ArgumentParser(description='列出所有支持查询的城市')
+
+       @cmd2.as_subcommand_to("weather", "list", _build_list_parser(), help='列出可用城市')
+       def _weather_list(self, _: argparse.Namespace) -> None:
+           self._cmd.poutput("支持查询的城市: 北京, 上海, 广州, 成都")
+
+       @staticmethod
+       def _build_query_parser() -> cmd2.Cmd2ArgumentParser:
+           parser = cmd2.Cmd2ArgumentParser(description='查询指定城市的天气')
+           parser.add_argument('city', help='城市名称')
+           return parser
+
+       @cmd2.as_subcommand_to("weather", "query", _build_query_parser(), help='查询城市天气')
+       def _weather_query(self, args: argparse.Namespace) -> None:
+           self._cmd.poutput(f"{args.city}: 晴天 25°C")
+   ```
+
+   Usage:
+
+   ```text
+   sra> weather list
+   支持查询的城市: 北京, 上海, 广州, 成都
+   sra> weather query 成都
+   成都: 晴天 25°C
+   ```
+
+   Explanation:
+
+   - `do_weather` defines the parent command `weather`; its parser sets `add_subparsers(required=True)` and calls `args.cmd2_subcommand_func(args)` to dispatch to a subcommand.
+   - `@cmd2.as_subcommand_to("weather", "list", ...)` — registers the method as the `weather list` subcommand. The first argument is the parent command name, the second is the subcommand name, and the third is the argument parser.
+   - This is consistent with how existing commands such as `task single` and `game screenshot` are written in `SRACli`.
+
+6. Congratulations!
+   You have learned how to add custom commands to SRA. Key points to review:
+   - Files go in the `tasks/` directory
+   - Inherit from `cmd2.CommandSet[SRACli]`
+   - Use the `do_` prefix to define commands, and `@cmd2.with_argparser` to add arguments
+   - Use `@cmd2.as_subcommand_to` to create subcommand groups
+   - SRA discovers and registers them automatically at startup, with no need to modify any registration code
+
+</Steps>

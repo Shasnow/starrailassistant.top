@@ -1,0 +1,163 @@
+---
+title: Adding a UI Language
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+SRA currently provides three UI languages: Simplified Chinese, English, and Русский. This tutorial uses adding Spanish (resource suffix `es-es`, BCP-47 tag
+`es-ES`) as an example to explain what needs to change in the backend, the desktop client, and the WebUI, and how to verify a newly added language.
+
+## Where Language Resources Live
+
+| Client | Location | Language tag |
+|---|---|---|
+| Python backend and CLI | `SRACore/localization/resources.toml` | `zh-cn`, `en-us`, `ru-ru` |
+| OpenAPI field descriptions | `SRACore/localization/terms.<lang>.json` | `zh-cn`, `en-us`, `ru-ru` |
+| .NET desktop client | `SRAFrontend/SRAFrontend/Localization/Resources*.resx` | Neutral (English), `zh`, `ru-RU` |
+| Vue WebUI | `SRAFrontend/srafrontend-webui/src/locales/langs/*.json` | `zh-CN`, `en-US`, `ru-RU` |
+| Extensions | `extensions/<extension>/locales/*.json` | `zh-CN`, `en-US`, `ru-RU` |
+| Trailblaze Power instances and stage names | `tasks/config/trailblaze_power.*.json` | `en-US`, `ru-RU` |
+
+The backend and CLI select resources based on `Display.Language` in `settings.json` (the `UiLanguage` enum, 0/1/2): the CLI reads this value at startup and
+calls `Resources.set_language`, and the server shares the same settings. The WebUI's UI language is stored separately in the browser's
+`localStorage.sra_locale` and is independent of the setting.
+
+:::note
+On the Python side, the language index is the enum value: `Resources.set_language(int)` directly takes `available_languages[value]`,
+so the order of language columns in `resources.toml` must match the `UiLanguage` enum order; new languages are always appended at the end.
+:::
+
+## Prerequisites
+
+- SRA can already be run from source (see [Running SRA CLI from Source](/en/tutorials/run-cli-from-src) and [Running the SRA GUI from Source](/en/tutorials/run-gui-from-src))
+- .NET 10 SDK and Node.js are installed (needed when changing the desktop client and WebUI)
+
+## Step-by-Step Tutorial
+
+<Steps>
+
+1. **Complete the backend resources**. In `SRACore/localization/resources.toml`, add a line for the new language to every key; `zh-cn` is the baseline,
+   and placeholders such as `{name}` must match the other languages exactly:
+
+   ```toml
+   [cli.intro]
+   zh-cn = "SRA-cli {version} ({core})\n输入 'help' 或 '?' 来查看命令列表。"
+   en-us = "SRA-cli {version} ({core})\nType 'help' or '?' to list commands."
+   ru-ru = "SRA-cli {version} ({core})\nВведите 'help' или '?' для списка команд."
+   es-es = "SRA-cli {version} ({core})\nEscriba 'help' o '?' para listar los comandos."
+   ```
+
+2. **Regenerate the resources**:
+
+   ```bash
+   npm run pyl10nc
+   ```
+
+   This writes `SRACore/localization/resources_es-es.json` and adds the new language to `available_languages` in the generated class `resources.py`.
+   Do not hand-edit generated files; keep using attributes such as `Resources.cli_intro` in code.
+   Keys with placeholders generate methods (such as `Resources.cli_invalidArguments(command)`).
+
+3. **Translate the glossary**. Field descriptions in the OpenAPI components come from `x-i18n`, and the source files are `SRACore/localization/terms.<lang>.json`:
+
+   - Copy `terms.zh-cn.json` to `terms.es-es.json` and translate it while keeping the same structure;
+   - Add `"es-es": "es-ES"` to `_LANG_FILES` in `SRACore/localization/terms.py`;
+   - Add `es-es` to `LANGS` in `scripts/i18n_check.py`; otherwise `npm run i18n:check` will not check it.
+
+4. **Enable the language for extension localization**. Add an entry to both `SUPPORTED_LANGS` and `_LANG_TAGS` in `SRACore/extension/locales.py`,
+   then add the new language file to each extension directory's `locales/` (see [Adding Extensions](/en/tutorials/add-extension) for the key conventions).
+
+5. **Add the language to the desktop client**
+
+   1. Append the enum value to `UiLanguage` in `SRAFrontend/SRAFrontend/Models/AppSettings.cs` (in the same order as the TOML),
+      write the language's native name in `[Description]`, then run `npm run modelgen` to sync `SRACore/models/app_settings.py`;
+   2. Add the satellite resource `SRAFrontend/SRAFrontend/Localization/Resources.es-ES.resx`, with a key set exactly identical to `Resources.resx`,
+      and regenerate `Resources.Designer.cs`;
+   3. Add a branch to `CultureFor` in `SRAFrontend/SRAFrontend.Desktop/App.axaml.cs`:
+
+      ```csharp
+      public static CultureInfo CultureFor(UiLanguage language) => language switch
+      {
+          UiLanguage.Chinese => new CultureInfo("zh-CN"),
+          UiLanguage.Russian => new CultureInfo("ru-RU"),
+          UiLanguage.Spanish => new CultureInfo("es-ES"), // 新增
+          _ => new CultureInfo("en-US")
+      };
+      ```
+
+   4. Append a `ComboBoxItem` to the language drop-down in `SRAFrontend/SRAFrontend.Desktop/Views/SettingsPageView.axaml`,
+      in the same order as the enum (`SelectedIndex` binds directly to `LanguageIndex`); take the language name from the resx.
+
+   :::note
+   The desktop client's UI language is written to `CurrentCulture` / `Resources.Culture` by `App.ConfigureCulture` at startup;
+   switching languages requires restarting the app to take effect, and the restart prompt is shown in the newly selected language.
+   :::
+
+6. **Add the language to the WebUI**
+
+   1. Add `SRAFrontend/srafrontend-webui/src/locales/langs/es-ES.json`, copying the key structure of `zh-CN.json`;
+   2. Add an entry to both the `Locale` union type and `LOCALE_LABELS` in `src/locales/index.ts`; `SUPPORTED_LOCALES` is derived automatically:
+
+      ```ts
+      export type Locale = 'zh-CN' | 'en-US' | 'ru-RU' | 'es-ES'
+
+      const LOCALE_LABELS: Record<Locale, string> = {
+        'zh-CN': '简体中文',
+        'en-US': 'English',
+        'ru-RU': 'Русский',
+        'es-ES': 'Español', // 新增
+      }
+      ```
+
+7. **(Optional) Trailblaze Power instances and stage names**. Keep `tasks/config/trailblaze_power.toml` in Chinese as-is (recognition still matches Chinese),
+   and provide a translation file `tasks/config/trailblaze_power.es-ES.json` that overrides `name` and `result` by "subtask → stage id":
+
+   ```json
+   {
+     "subtasks": {
+       "calyx_golden": {
+         "name": "Calyx (Golden)",
+         "levels": { "1": { "name": "Bud of Memories", "result": "Traveler's Guide" } }
+       }
+     }
+   }
+   ```
+
+   Also add `"es-es": "es-ES"` to `_LEVEL_LANG_FILES` in `tasks/taskcli.py`; missing entries fall back to Chinese.
+
+8. **Verify** (see the next section).
+
+</Steps>
+
+## Verification
+
+```bash
+npm run pyl10nc && npm run i18n:check
+python -m pytest tests/test_russian_localization.py tests/test_standard_io_utf8.py
+dotnet test -c Release tests/localization/SRALocalizationChecks.csproj
+cd SRAFrontend/srafrontend-webui && pnpm test
+```
+
+- `npm run i18n:check` verifies that the key sets and placeholders of each language glossary are consistent;
+- `tests/test_russian_localization.py` verifies that the TOML matches the generated files, that every `Resources.<attr>` used in code has been generated,
+  and that no Chinese remains in extension display names or schemas;
+- `tests/localization` renders each language × light/dark theme × 800/1024 width with headless Avalonia and outputs screenshots;
+- The WebUI's `localization.spec.ts` verifies language persistence and `setLocale`.
+
+:::caution
+The language lists in tests are hard-coded. After adding a language, update the test cases accordingly: `tests/test_russian_localization.py`,
+`tests/localization/*.cs`, and the WebUI's `localization.spec.ts`.
+:::
+
+## Boundaries
+
+Logs are an important tool for troubleshooting and locating issues. Localizing logs would change their content and make it harder to locate code, so logs are not localized.
+
+## FAQ
+
+:::caution
+- **Only the TOML column was added**: `resources_es-es.json` is generated, but without a corresponding `UiLanguage` value it cannot be selected; conversely, changing only the enum
+  without changing the TOML shifts all indices (`set_language` takes values directly by index).
+- **Missing resx keys**: `ResourceManager` falls back to neutral resources (English), so the UI mixes Chinese/English or Russian/English;
+  run the key-set check in `tests/localization` before submitting a PR.
+- **`R.message` is not localized**: `message` in the CLI / HTTP `R` envelope is always English; localized text that needs to be shown to users belongs in `data`.
+:::

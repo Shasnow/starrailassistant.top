@@ -1,0 +1,116 @@
+---
+title: Creating and Adding Custom Currency Wars Strategies
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+## Adding Custom Currency Wars Strategies to SRA
+
+This chapter explains how to add a custom Currency Wars strategy to SRA.
+
+### Prerequisites
+
+- SRA is installed, or you have obtained the SRA source code
+- Familiarity with the JSON format
+- A text editor (such as VSCode or Notepad++)
+
+### Step-by-Step Tutorial
+
+<Steps>
+
+1. Open SRA's installation directory or source directory and locate the `tasks` folder.
+
+   ![SRA installation directory](../../../../assets/img/develop/custom-task-1.png)
+   This folder holds all task scripts.
+   ![tasks folder](../../../../assets/img/develop/custom-task-2.png)
+
+2. Enter the `currency_wars/strategies` folder.
+
+   ![strategies folder](../../../../assets/img/develop/strategies_folder.png)
+   This folder holds all Currency Wars strategy files.
+
+3. Create a new JSON file, for example `MyCustomStrategy.json`.
+
+   The name does not matter; just make sure the file extension is `.json`.
+
+4. Write the basic strategy information.
+
+   Open `MyCustomStrategy.json` in your favorite text editor. Enter the following content:
+
+   ```json
+   {
+     "title": "MyCustomStrategy",
+     "description": "这是一个自定义的货币战争攻略",
+     "author": "Your Name",
+     "uploader": "Your Name",
+     "share_code": "##Your Share Code=##"
+   }
+   ```
+
+   `title`: the strategy title, used for display in SRA.
+   `description`: the strategy description, helping users understand what the strategy does.
+   `author`: to protect the author's copyright, it is recommended to include the author's nickname in the strategy.
+   `uploader`: to distinguish the author from the uploader, it is recommended to include the uploader's nickname in the strategy.
+   `share_code`: if the strategy you made has a corresponding share code in the official server's strategy collection, fill it in here to specify recommended equipment.
+
+5. Write the strategy content.
+
+   Next, you need to write the strategy's specific content.
+   For example, you can add the following:
+
+   ```json
+   {
+     "min_coins": 40, // 最小金币保留数量，当金币数量少于这个数量时，SRA会跳过购买角色和提升等级
+     "min_level": 6, // 最小等级要求，当等级低于这个值时，SRA会优先提升等级
+     "mid_level": 9, // 中等等级要求，当等级低于这个值时，SRA会在购买角色中穿插提升等级
+     "on_field": {
+       // 前台角色字典
+       "姬子·启行": 3, // 格式为 角色名: 星级
+       "瓦尔特": 1, // 例如：这个键值对告诉SRA应该购买到1星瓦尔特
+       "开拓者": 2, // 例如：这个键值对告诉SRA应该购买到2星开拓者
+       "花火": 2, // 也可以把后台角色强制放到前台
+       "星期日": 1,
+       "丹恒·饮月": 2
+       // 角色在字典中出现的顺序即为角色在场上的位置
+       // 例如，如果想让"姬子·启行"在前台1号位，只需把她放到字典顶部
+       // 如果攻略需要前期过渡阵容，越前期的角色越在底部。
+     },
+     "off_field": {
+       // 后台角色字典
+       "三月七": 2,
+       "刻律德菈": 3,
+       "符玄": 2,
+       "千冶·刃": 2, // 角色顺序同时也是站位，例如当场上只有七个位置，但我们有八名角色时，千冶·刃会优先上场
+       "缇宝": 2
+     },
+     "special_events": {
+       // 特殊事件处理
+       "领航员": "护盾" // 例如：当触发领航员羁绊时，SRA会选择”护盾“选项
+     }
+   }
+   ```
+
+6. Use the strategy.
+
+   After saving the strategy file, you can use it in SRA.
+   Open the `Cosmic Strife` task in SRA, scroll down to the `Strategy` section under `Currency Wars`, and click the refresh button on the right to see the strategy you added.
+
+7. Share the strategy.
+
+   You can share strategies in SRA so other players can use yours.
+   Open the `Cosmic Strife` task in SRA, scroll down to the `Strategy` section under `Currency Wars`, and click the strategy site button on the right to jump to the [strategy site](https://starrailassistant.top/strategy/), where you can share your strategy with other players.
+   ![Strategy site](../../../../assets/img/develop/strategy_station.png)
+   Upload your strategy file to share it with other players. Uploads go through review; once approved, the strategy is publicly listed on the strategy site.
+
+8. Import a strategy.
+
+   You can import other players' strategies in SRA.
+   Go to the [strategy site](https://starrailassistant.top/strategy/), choose a strategy you like, and click the download button to download the strategy file.
+   Then place the strategy file in the `currency_wars/strategies` folder to use it in SRA.
+
+9. Congratulations!
+
+   You have successfully created and added a custom Currency Wars strategy.
+   You can use it in SRA or share it with other players.
+
+</Steps>

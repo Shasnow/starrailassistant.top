@@ -1,0 +1,406 @@
+---
+title: SRA Server API
+description: Endpoints, request bodies, and response formats of the SRA server REST API
+sidebar:
+  order: 1
+---
+
+SRA-server is built on Litestar; all business endpoints are prefixed with `/api` (paths are **lowercase**).
+Interactive docs:
+
+| Doc | Address |
+| --- | --- |
+| Swagger UI | `http://localhost:5073/openapi/swagger` |
+| ReDoc | `http://localhost:5073/openapi/redoc` |
+| OpenAPI JSON | `http://localhost:5073/openapi/openapi.json` |
+| Spec with merged models (used by WebUI) | `http://localhost:5073/openapi/v1.json` |
+
+## Common conventions
+
+### Response envelope
+
+Except for images, SSE, and 404, every endpoint returns the same structure:
+
+```json
+{
+  "success": true,
+  "message": "success",
+  "data": {}
+}
+```
+
+- `message` is always **English** and does not change with the UI language;
+- Business failures usually still return HTTP 200, with only `success=false` (e.g. stopping an idle task);
+- Parameter errors, conflicts, and not-found use 400 / 404 / 409;
+- Once an access token is enabled, `/api/**` requires the `X-Access-Token` header or the `access_token` query
+  parameter; see [Authentication and security](/en/server/authentication).
+
+### Paths and 404
+
+Unregistered `/api/*` paths return `text/plain` `Not Found` (HTTP 404) instead of a JSON envelope, so an SPA fallback
+cannot disguise an endpoint typo as a 200 page.
+
+## Authentication
+
+### `POST /api/auth`
+
+Validates the access token; no authentication required.
+
+```json
+{ "token": "change-me" }
+```
+
+| Scenario | HTTP | Response |
+| --- | --- | --- |
+| Matches | 200 | `{"success": true, "message": "authorized", "data": null}` |
+| Does not match | 401 | `{"success": false, "message": "unauthorized", "data": null}` |
+| No token configured | 200 | `{"success": true, "message": "No access token configured", "data": null}` |
+
+## Tasks
+
+### `GET /api/task/status`
+
+Returns the task run status. It returns `success=true` even when idle.
+
+```json
+{
+  "success": true,
+  "message": "Task status",
+  "data": {
+    "session_id": "8f2c…",
+    "pid": 12345,
+    "mode": "run",
+    "status": "running",
+    "configs": ["Default"],
+    "unit": "领取奖励",
+    "error": "",
+    "progress": [2, 5]
+  }
+}
+```
+
+| Field | Description |
+| --- | --- |
+| `mode` | `unknown` (idle), `run` (multiple configs), `single` (single task) |
+| `status` | `idle` / `running` / `completed` / `failed` / `stopped` |
+| `configs` | List of config names for this run |
+| `unit` | Current execution unit (task name, etc.) |
+| `error` | Failure reason; an empty string when there is no error |
+| `progress` | `[current, total]` |
+
+### `POST /api/task/run`
+
+Runs the tasks in a config. Three forms:
+
+```json
+{ "configName": "Default" }
+```
+
+```json
+{ "config": { "name": "MyConfig", "...": "..." }, "persist": true }
+```
+
+```json
+{ "config": { "...": "..." }, "persist": false }
+```
+
+- `configName` names an existing config; 400 if it does not exist;
+- `config` + `persist=true` writes the config to `configs/<name>.json` first, then runs it;
+- `config` + `persist=false` creates a temporary `_api_<random>` config; leftover temp files are cleaned up before and
+  after the run;
+- An empty config name and an empty list are both equivalent to running all current configs.
+
+| HTTP | Scenario | Response `message` |
+| --- | --- | --- |
+| 200 | Started | `Task started` |
+| 200 | Failed to start | `Failed to send task command to backend.` |
+| 400 | Config not found | `Config 'X' not found` |
+| 409 | A task is already running | `A task is already running` |
+
+:::note
+In visitor mode this returns `Task started` immediately, without actually running anything.
+:::
+
+### `POST /api/task/single`
+
+Runs a single task.
+
+```json
+{ "taskName": "ReceiveRewardsTask", "configName": "Default" }
+```
+
+- `taskName`: task ID (registered name, which defaults to the class name), class name (case-insensitive), or task list
+  index (e.g. `"2"`);
+- `configName`: optional; defaults to the current config in the cache.
+
+| HTTP | Scenario |
+| --- | --- |
+| 200 | Started / failed to start (distinguished by `success`) |
+| 409 | A task is already running |
+
+### `POST /api/task/stop`
+
+Requests stopping the current task and extensions; no request body.
+
+- Running: `success=true`, `message="Stop signal sent"`;
+- Idle: HTTP 200, `success=false`, `message="No task is running"`.
+
+## Backend
+
+### `POST /api/backend/restart`
+
+Reinitializes the SRA core in-process: stops current work, reloads tasks and extensions, and re-reads settings.
+
+```json
+{ "arguments": "--inline --no-admin" }
+```
+
+`arguments` is kept only for compatibility with older clients and is ignored in in-process mode. Returns 500 on
+failure.
+
+### `POST /api/backend/stop`
+
+Requests stopping current work; if the service was started by `run_server`, it also triggers a graceful uvicorn
+shutdown (the response may return before the process exits).
+
+### `GET /api/backend/logs?count=100`
+
+Returns the most recent `count` log lines (default 100):
+
+```json
+{ "success": true, "message": "success", "data": ["15:00:00 | INFO | …"] }
+```
+
+### `GET /api/backend/logs/stream`
+
+SSE log stream, `text/event-stream`:
+
+```text
+: Connected
+
+data: 15:00:00 | INFO | 正在初始化...
+
+data: 15:00:01 | INFO | 就绪
+```
+
+Reconnecting after a disconnect resumes subsequent logs; how much history is kept is determined by the server's
+500-entry ring buffer. When a token is enabled, pass it via `?access_token=`.
+
+### `GET /api/backend/screenshot`
+
+Returns the current game frame as a **720p JPEG** (`image/jpeg`). On failure it returns a JSON envelope:
+
+```json
+{ "success": false, "message": "Failed to get screenshot from backend: …" }
+```
+
+Visitor mode returns an empty JPEG and does not expose the frame.
+
+## Configs
+
+### `GET /api/configs`
+
+Returns the list of config names:
+
+```json
+{ "success": true, "message": "success", "data": ["Default", "PlanB"] }
+```
+
+### `GET /api/configs/{name}`
+
+Returns the full config (keys are sections + dotted field names).
+
+:::warning[Account and password]
+`startGame.username` / `startGame.password` are never returned in plaintext:
+
+- When an access token is configured, they are returned as strings encrypted with that token;
+- When no token is configured, both are empty strings.
+
+Writes are interpreted under the same convention (see `PUT` below).
+:::
+
+A missing config returns 404 with `message="not found"`.
+
+### `POST /api/configs/{name}`
+
+Registers a new config name (the file is written only on the first `PUT`). The name cannot contain
+`\ / : * ? " < > |`.
+
+| HTTP | Scenario | `message` |
+| --- | --- | --- |
+| 200 | Success | `success` |
+| 400 | Name contains invalid characters | `Config name contains invalid characters` |
+| 409 | Already exists | `Config name already exists` |
+
+### `PUT /api/configs/{name}`
+
+Overwrites the config with a complete `TasksConfig` object:
+
+- Username/password in the request body are interpreted as "encrypted with the access token"; without a configured
+  token they are treated as plaintext;
+- If `startGame.username` / `password` are not provided, the values on disk are kept;
+- An invalid structure (Pydantic validation failure) is not written to disk and returns 400 `Invalid config payload`;
+- Returns 404 if the config does not exist.
+
+### `DELETE /api/configs/{name}`
+
+Deletes the config name registration; on success `message="deleted"`, 404 if missing.
+The `configs/<name>.json` file on disk is **not** deleted; handle it manually if you need a complete removal.
+
+## Settings
+
+### `GET /api/settings`
+
+Returns the full settings (sections + dotted keys):
+
+```json
+{
+  "success": true,
+  "message": "Settings retrieved",
+  "data": {
+    "general": { "gamePath": "", "keybindings.f4": "F4" },
+    "advanced": { "backend.remote.enabled": false },
+    "…": {}
+  }
+}
+```
+
+Settings sections: `general`, `display`, `update`, `advanced`, `notification`.
+
+### `PUT /api/settings`
+
+Partially updates by "section + dotted field"; only existing fields are accepted:
+
+```json
+{
+  "advanced": {
+    "developerMode.customBackend.enabled": true
+  }
+}
+```
+
+- Success: `message="Settings updated"`, with `data` being the list of updated field names;
+- All fields invalid or skipped: 400 `No valid settings were updated`;
+- Partially invalid: 200, invalid entries are ignored and a warning is logged.
+
+## Extensions
+
+### `GET /api/extensions`
+
+```json
+{
+  "success": true,
+  "message": "OK",
+  "data": [
+    {
+      "id": "auto_player",
+      "name": "自动演奏",
+      "description": "…",
+      "extension_class": "AutoPlayerExtension",
+      "config_class": "AutoPlayerConfig",
+      "executable": true,
+      "enabled": true,
+      "readme": "# …"
+    }
+  ]
+}
+```
+
+### `GET /api/extensions/{id}/schema`
+
+Returns the extension's config JSON Schema (field descriptions are already composed into single-language text
+according to the server language).
+When the extension does not exist or has no config model, `success=false` (HTTP 200).
+
+### `GET /api/extensions/{id}/config`
+
+Returns the extension config; `data` is a **JSON string** (clients must parse it again):
+
+```json
+{ "success": true, "message": "OK", "data": "{\"volume\": 80}" }
+```
+
+### `PUT /api/extensions/{id}/config`
+
+The request body can be a JSON object or a JSON string (the server parses it):
+
+```json
+{ "volume": 80 }
+```
+
+Success returns `message="Config updated"`; 400 when it cannot be parsed; validation failures return `success=false`.
+
+### `POST /api/extensions/{id}/run?config=<配置名>`
+
+Runs the extension. `config` is an optional query parameter; failures return `success=false`.
+
+### `POST /api/extensions/{id}/stop`
+
+Stops the extension; failures return `success=false`.
+
+### `POST /api/extensions/reload`
+
+Rescans and imports the extension packages under `extensions/`; failures return `success=false`.
+
+:::note
+In visitor mode, all the write operations above return success without executing, and `/api/backend/screenshot`
+returns an empty image.
+:::
+
+## Operator
+
+### `GET /api/operator/list`
+
+Returns the list of callable Operator method names:
+
+```json
+{ "success": true, "message": "Operator methods", "data": ["click_point", "press_key", "screenshot"] }
+```
+
+### `GET /api/operator/help/{method}`
+
+Returns the method signature and docs; `success=false` if it does not exist:
+
+```json
+{
+  "success": true,
+  "message": "click_point",
+  "data": {
+    "method": "click_point",
+    "summary": "……",
+    "parameters": [
+      { "name": "x", "type": "int | float" },
+      { "name": "y", "type": "int | float" },
+      { "name": "after_sleep", "default": 0, "type": "float" }
+    ],
+    "doc": "……"
+  }
+}
+```
+
+### `POST /api/operator/call`
+
+Calls any Operator method:
+
+```json
+{
+  "method": "click_point",
+  "params": { "mode": "rel", "x": 0.5, "y": 0.5 }
+}
+```
+
+- An empty `method` returns 400 `method is required`;
+- A non-object `params` is treated as an empty object;
+- A failed call returns HTTP 200 + `success=false`, with the reason written to the log;
+- Non-JSON types in the return value are serialized to strings (e.g. an image path).
+
+## App info
+
+| Endpoint | Returns |
+| --- | --- |
+| `GET /api/app/system-info` | `version`, `osVersion`, `architecture`, `dotnetVersion` (value is `Python x.y.z`), `processorCount`, `cultureInfo` |
+| `GET /api/app/phrases` | `{ "zh-CN": [...], "en-US": [...], "ru-RU": [...] }` home page phrases |
+| `GET /api/app/background` | Background image `image/jpeg` (anonymously reachable, used by the login page) |
+
+The `dotnetVersion` field name follows the old WebUI convention; its content is actually the Python version, so do
+not use it to infer the runtime.

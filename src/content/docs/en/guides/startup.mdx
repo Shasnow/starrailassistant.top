@@ -1,0 +1,36 @@
+---
+title: Launching SRA with Windows Task Scheduler
+sidebar:
+  order: 1
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+Because SRA requires administrator privileges when it starts, you cannot reliably add SRA to your startup items to
+launch it at boot.
+
+To start at boot or run on a schedule, you can use Windows Task Scheduler to launch SRA-cli.
+
+<Steps>
+1. Press the Windows logo key on your keyboard, search for "Task Scheduler", and open it.
+   ![Task Scheduler](../../../../assets/img/use/taskschd1.png)
+
+2. Click Create Task and enter a task name, for example "SRA auto run".
+   ![Create Task](../../../../assets/img/use/taskschd2.png)
+
+3. Be sure to check "Run with highest privileges" so that SRA-cli can run properly.
+   ![Run with highest privileges](../../../../assets/img/use/taskschd3.png)
+
+4. Click Triggers and set the trigger conditions, for example "At log on" or "On a schedule".
+   ![Triggers](../../../../assets/img/use/taskschd4.png)
+
+5. Click Actions and add a new action, choosing "Start a program".
+   ![Actions](../../../../assets/img/use/taskschd5.png)
+
+   In the "Program/script" field, enter the full path to SRA-cli, for example `C:\Program Files\SRA\SRA-cli.exe`.
+
+   In the "Add arguments" field, enter the run command, for example `-c run Default + exit`. See [Arguments and startup options](/en/cli/argument-and-startup).
+
+   In the "Start in" field, enter the SRA-cli installation directory, for example `C:\Program Files\SRA`.
+
+</Steps>

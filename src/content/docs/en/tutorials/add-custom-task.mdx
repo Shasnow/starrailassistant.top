@@ -1,0 +1,126 @@
+---
+title: Adding Custom Tasks
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+## Adding Custom Tasks to SRA
+
+This chapter explains how to add a custom task to SRA.
+
+### How It Works
+
+SRA's task loading mechanism shares the same "dynamic discovery" flow as command loading:
+
+1. **Dynamic import**: At startup, `SRACore/__main__.py` calls `dynamic_import("tasks")`, scanning every `.py` file in the `tasks/` directory (excluding subfolders) and importing each one with `importlib.import_module`.
+
+2. **Task registration**: In the imported modules, every class that inherits `BaseTask` and uses the `@task` decorator is automatically registered to the global task list by the decorator. `TaskManager` obtains this list through `get_task_classes()`.
+
+3. **Index is order**: A task's position in the list is its index. `task single 0` runs the first task (usually `StartGameTask`), and `task single 5` runs the sixth. Files are imported in filename order, so a task's index is determined by how its filename sorts in the directory.
+
+In short: **put a file into the `tasks/` directory, inherit `BaseTask`, and add the `@task` decorator; SRA will automatically discover and register your task at startup.**
+
+### Prerequisites
+
+- SRA is installed, or you have obtained the SRA source code
+- Basic Python programming knowledge
+- A text editor (such as VSCode or Notepad++)
+
+### Step-by-Step Tutorial
+
+<Steps>
+
+1. Open SRA's installation directory or source directory and locate the `tasks` folder.
+   ![SRA installation directory](../../../../assets/img/develop/custom-task-1.png)
+   This folder holds all task scripts.
+   ![tasks folder](../../../../assets/img/develop/custom-task-2.png)
+2. Create a new Python file, for example `MyCustomTask.py`.
+3. Write the task code in the file, for example:
+
+   ```python
+   from SRACore.task import BaseTask, task
+   from SRACore.util.logger import logger
+
+   @task
+   class MyCustomTask(BaseTask):
+       def run(self):
+           logger.info("这是我的自定义任务！")
+   ```
+
+   Explanation:
+   This is a simple task class that inherits `BaseTask` and implements the `run` method, which prints a log message when the task runs.
+   - `from SRACore.task import BaseTask`: imports the task base class.
+   - `from SRACore.util.logger import logger`: imports the logger.
+   - `class MyCustomTask(BaseTask):`: defines a new task class.
+   - `def run(self):`: implements the main task logic.
+   - `logger.info("这是我的自定义任务！")`: prints a log message.
+   - The `BaseTask` class is the base class of all tasks; you must inherit it for SRA to recognize your class as a task.
+   - `BaseTask` requires implementing the `run` method as the task's entry point.
+   - The `@task` decorator registers the task with SRA so that it can be recognized and invoked.
+
+4. Register the task:
+   No registration code needs to be modified manually. SRA automatically scans all Python files in the `tasks` folder (excluding those in subfolders) and registers the task classes defined in them.
+   As long as your task class correctly inherits from `BaseTask` and uses the `@task` decorator, SRA will automatically recognize and load it.
+
+5. Test your task class:
+   Before continuing, make sure all your changes are saved.
+   Run SRA:
+   - If you are using an installed SRA, locate `SRA-cli.exe` in the SRA installation directory and run it.
+   - If you are using the source code, refer to the previous chapters for how to run SRA.
+
+   If everything works, you should see in SRA-cli that your custom task has been loaded, with output similar to the following:
+
+   ```text
+   DEBUG | Successfully load task: [
+   class 'tasks.StartGameTask.StartGameTask',
+   class 'tasks.TrailblazePowerTask.TrailblazePowerTask',
+   class 'tasks.ReceiveRewardsTask.ReceiveRewardsTask',
+   class 'tasks.CosmicStrifeTask.CosmicStrifeTask',
+   class 'tasks.MissionAccomplishTask.MissionAccomplishTask',
+   class 'tasks.MyCustomTask.MyCustomTask']
+   ```
+
+   SRA prints the list of loaded tasks, which should include `MyCustomTask`. Your task has been registered successfully, and its index is 5.
+
+   In SRA-cli, run the following command to execute your custom task:
+
+   ```text
+   task single 5
+   ```
+
+   or
+
+   ```text
+   task single MyCustomTask
+   ```
+
+   You should see log output in the console:
+
+   ```text
+   sra> task single 5
+   12:28:40[7916] | DEBUG | [Start]
+   12:28:40[7916] | DEBUG | run single task: config=Default, task=5
+   12:28:40[7916] | DEBUG | config: ...
+   12:28:40[7916] | DEBUG | running task: MyCustomTask
+   12:28:40[7916] | INFO | 这是我的自定义任务！
+   12:28:40[7916] | ERROR | 任务 'MyCustomTask' 失败。停止进一步执行。
+   12:28:40[7916] | DEBUG | [Done]
+   sra>
+   ```
+
+   This means your task ran successfully.
+   You may notice an error message in the log, `任务 'MyCustomTask' 失败。停止进一步执行。`; this is because we did not return a success status after the task finished.
+
+   Add the following code at the end of the `run` method to return a success status:
+
+   ```python
+   return True
+   ```
+
+   Now run the task again; you should no longer see the error message.
+
+6. Congratulations!
+   You have successfully created and run a custom task! If you want to implement more complex functionality, refer to SRA's other task scripts and the SRA-provided API
+   documentation.
+
+</Steps>

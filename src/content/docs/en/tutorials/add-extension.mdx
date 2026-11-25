@@ -1,0 +1,667 @@
+---
+title: Adding Extensions
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+## Adding Extensions to SRA
+
+### How It Works
+
+SRA's extension system is a pluggable architecture built on "generic declaration + decorator registration + dynamic discovery":
+
+1. **Configuration generics**: Each extension declares its own configuration type by inheriting `BaseExtension[YourConfig]`, where `YourConfig` is a Pydantic `BaseModel`. The generic parameter lets the framework know which configuration the extension requires and automatically generates a JSON Schema for the frontend to render configuration forms.
+
+2. **Decorator registration**: The `@extension` decorator automatically registers the extension class and its configuration model in the global `ExtensionRegistry` when the module is imported. The extension identifier (ID, by default the class name with the `Extension` suffix removed), display name, description, whether it is a background extension (`background`), and whether it contains execution logic (`executable`) can all be declared here.
+
+3. **Dynamic discovery**: At startup, SRA calls `load_extensions()`, which scans every top-level directory under `extensions/` that contains `__init__.py` (a directory package) and imports it, triggering the module-level `@extension` decorator to complete registration. Legacy single-file `extensions/xxx.py` modules only produce a warning and are then ignored.
+
+4. **Running and configuration**: `ExtensionRunner` instantiates extensions and injects `IOperator`; extensions can perform real operations such as screenshots, clicks, and OCR through `self.operator`. `ExtensionConfigManager` loads and saves each extension's configuration from `extensions.json`.
+
+5. **Execution form**: `executable=True` by default; the extension implements `run()` and is run via `extension run <id>`. When declared with `executable=False`, the extension has no run entry point and only provides configuration plus enable/disable, which suits extensions that "modify existing behavior".
+
+6. **Post-task-registration hook**: Any extension can override the class method `on_tasks_registered` to read or wrap task classes at application startup, after task/extension hot reload, and after its own configuration changes, thereby taking over or wrapping task behavior without modifying task code.
+
+In short: **create an extension directory containing `__init__.py` under `extensions/`, define a configuration model and inherit `BaseExtension[Config]`, register it with the `@extension` decorator, and SRA will automatically discover and register your extension at startup. If you need to modify the behavior of existing tasks, plug in declaratively with `executable=False` + `on_tasks_registered`.**
+
+### Extensions vs. Tasks vs. Commands
+
+SRA has three kinds of pluggable modules. They share the "dynamic discovery" mechanism but serve different purposes:
+
+|  | Extension | Task | Command (CommandSet) |
+|---|---|---|---|
+| Directory | `extensions/` | `tasks/` | `tasks/` |
+| Base class | `BaseExtension[Config]` | `BaseTask` | `cmd2.CommandSet[SRACli]` |
+| Registration | `@extension` decorator; the generic declares the configuration class | `@task` decorator | Automatic discovery by `cmd2` |
+| Purpose | Standalone functional modules (screenshots, OCR, etc.) | A step in the automated task pipeline | CLI commands |
+| Configuration | Pydantic BaseModel with an auto-generated Schema; the frontend renders a configuration form | Reads global settings via `self.settings`; no separate configuration model | No built-in configuration system |
+| Execution | Executable: `extension run <id>`; no execution logic: `extension enable/disable <id>` | `task single <index>` / `task single <ClassName>` | Invoked directly as CLI commands |
+| Execution order | No fixed order; invoked independently by ID | Indices determined by filename sorting; `task run` executes them in order | No fixed order |
+| IOperator | Injected automatically; can perform in-game operations | Injected automatically; can perform in-game operations | Not available |
+| Lifecycle callbacks | `on_start` / `on_completed` / `on_failed` (executable extensions only) | Managed by `TaskManager`; a failed task stops subsequent tasks | None |
+| Post-task-registration hook | `on_tasks_registered` (optional) | None (tasks themselves are scheduled by `TaskManager`) | None |
+
+In short:
+- If you want a **standalone functional module with a configuration UI**, use an **extension**.
+- If you want to participate in the **automated task pipeline** (such as a daily task chain), use a **task**.
+- If you want to add a **CLI command** for manual invocation, use a **command**.
+
+### Prerequisites
+
+- SRA is installed, or you have obtained the SRA source code
+- Basic Python programming knowledge
+- Familiarity with the basics of Pydantic `BaseModel`
+- A text editor (such as VSCode or Notepad++)
+
+### Step-by-Step Tutorial
+
+<Steps>
+
+1. Open SRA's installation directory or source directory and locate the `extensions` folder.
+   This folder holds all extension scripts.
+
+2. Create a new extension directory `MyExtension/` and add `__init__.py` inside it; only directory packages containing `__init__.py` are loaded,
+   while a single file `MyExtension.py` is ignored. The configuration model, extension class, and optional `locales/` (see "Extension Localization" below)
+   all live in this directory.
+
+3. Define the configuration model. The configuration model is a class inheriting from `pydantic.BaseModel`, using `Field` to declare the default value, description, and constraints of each configuration item:
+
+   ```python
+   from pydantic import BaseModel, Field
+
+   class MyConfig(BaseModel):
+       """我的扩展配置。"""
+       target: str = Field(default="星穹列车", description="目标名称")
+       count: int = Field(default=1, ge=1, le=100, description="执行次数")
+       verbose: bool = Field(default=False, description="是否输出详细日志")
+   ```
+
+   Explanation:
+
+   - `Field(default=...)` — sets the default value, used when nothing is configured.
+   - `Field(description=...)` — description text, displayed in the frontend configuration dialog.
+   - `Field(ge=1, le=100)` — constraints; `ge` = minimum and `le` = maximum. The frontend automatically renders a numeric input with lower and upper bounds for `int` types.
+
+4. Define the extension class and register it with the `@extension` decorator:
+
+   ```python
+   from SRACore.extension import BaseExtension, extension
+
+   @extension(name="我的扩展", description="这是一个自定义扩展")
+   class MyExtension(BaseExtension[MyConfig]):
+       """一个自定义扩展示例。"""
+
+       def run(self) -> bool:
+           for i in range(self.config.count):
+               print(f"[MyExtension] ({i + 1}/{self.config.count}) 目标: {self.config.target}")
+           return True
+   ```
+
+   Explanation:
+
+   - `class MyExtension(BaseExtension[MyConfig])` — declares the configuration type through the generic parameter `MyConfig`. The framework extracts the configuration model from it and registers it automatically.
+   - `@extension(...)` — the registration decorator; common parameters:
+     - `extension_id` — registration identifier, by default the class name with the `Extension` suffix removed; both the CLI and `extensions.json` use it.
+     - `name` / `description` — display name and functional description; if omitted, `name` defaults to the class name and `description` defaults to the first line of the docstring. When the extension directory provides `locales/`, localized text takes precedence.
+     - `background=True` — declares a background polling extension; see "Background Extensions" below.
+     - `executable=False` — declares an extension without execution logic that only provides configuration and enable/disable; see "Extensions Without Execution Logic" below.
+   - `def run(self) -> bool:` — required for executable extensions. Returning `True` means success and `False` means failure; extensions with `executable=False` do not need to override it (the base class returns `True` by default).
+   - `self.config` — typed as `MyConfig`; configuration fields can be accessed directly, with full IDE autocompletion.
+
+5. Use IOperator to perform real operations. Extensions can perform various in-game operations through `self.operator`:
+
+   ```python
+   @extension(name="截图示例", description="演示 IOperator 的基本用法")
+   class ScreenshotDemo(BaseExtension[MyConfig]):
+       """演示 operator 的使用。"""
+
+       def run(self) -> bool:
+           # 截图
+           screenshot = self.operator.screenshot()
+
+           # 定位模板图片
+           box = self.operator.locate("resources/template.png")
+           if box:
+               self.operator.click_box(box)
+
+           # OCR 文字识别
+           text = self.operator.ocr(screenshot, x=100, y=200, w=300, h=50)
+           print(f"识别到文字: {text}")
+
+           # 发送通知
+           self.send_notification("截图完成", f"识别结果: {text}")
+
+           return True
+   ```
+
+   Common methods of `self.operator`:
+   - `screenshot()` — captures the current screen
+   - `locate(template)` — locates a template image on the screen
+   - `click_box(box)` — clicks the specified area
+   - `ocr(...)` — performs OCR text recognition on the specified area
+
+6. (Optional) Override the lifecycle callbacks:
+
+   ```python
+   @extension(name="生命周期示例", description="演示生命周期回调")
+   class LifecycleDemo(BaseExtension[MyConfig]):
+       """演示生命周期回调。"""
+
+       def on_start(self) -> None:
+           print("扩展开始执行前调用，可用于初始化资源")
+
+       def run(self) -> bool:
+           print("执行主要逻辑")
+           return True
+
+       def on_completed(self) -> None:
+           print("执行成功后调用，可用于清理资源")
+
+       def on_failed(self) -> None:
+           print("执行失败后调用，可用于错误恢复")
+   ```
+
+7. Run SRA to test your extension.
+
+   Make sure your extension directory is placed under `extensions/`. Run SRA-cli:
+
+   ```text
+   sra> extension list
+   已注册 2 个扩展：
+     Hello     问候               HelloExtension (config: HelloConfig)    简单的问候示例...
+     MyExtension  我的扩展          MyExtension (config: MyConfig)          这是一个自定义扩展
+
+   sra> extension run MyExtension
+   [MyExtension] (1/1) 目标: 星穹列车
+   扩展 'MyExtension' 执行成功
+
+   sra> extension config set MyExtension '{"target": "黑塔空间站", "count": 3}'
+   sra> extension run MyExtension
+   [MyExtension] (1/3) 目标: 黑塔空间站
+   [MyExtension] (2/3) 目标: 黑塔空间站
+   [MyExtension] (3/3) 目标: 黑塔空间站
+   扩展 'MyExtension' 执行成功
+   ```
+
+   You can also view the extension's configuration Schema; `extension list --json` includes metadata such as `executable` and `enabled`:
+
+   ```text
+   sra> extension schema MyExtension --json
+   {"properties": {"target": {"default": "星穹列车", "description": "目标名称", "type": "string"}, ...}}
+   ```
+
+8. Congratulations!
+   You have learned how to add extensions to SRA. Key points to review:
+   - Extension directories go under `extensions/` (containing `__init__.py`)
+   - Define a Pydantic `BaseModel` as the configuration model, declaring default values and constraints with `Field`
+   - Inherit `BaseExtension[YourConfig]` and implement the `run()` method (not needed when `executable=False`)
+   - Register with the `@extension` decorator, optionally with parameters such as `name`, `description`, `background`, and `executable`
+   - To modify existing task behavior, plug in declaratively with `executable=False` + `on_tasks_registered`
+   - Perform in-game operations (screenshots, OCR, clicks, etc.) through `self.operator`
+   - Access configuration through `self.config`, with full type completion support in the IDE
+   - SRA discovers and registers extensions automatically at startup, with no need to modify any registration code
+   - The frontend automatically generates the configuration form from the configuration Schema, with no UI code required
+
+</Steps>
+
+## Extensions Without a Configuration Class
+
+If the extension does not need user configuration, you can inherit `BaseExtension` directly (without a generic parameter):
+
+```python
+from SRACore.extension import BaseExtension, extension
+
+@extension(name="简单问候", description="不需要配置的简单扩展")
+class HelloExtension(BaseExtension):
+    """简单的问候扩展。"""
+
+    def run(self) -> bool:
+        print("Hello, SRA!")
+        return True
+```
+
+Compared with the version that has a configuration type, the differences are:
+
+| | `BaseExtension` | `BaseExtension[MyConfig]` |
+|---|---|---|
+| `self.config` | Always `None` | Typed as `MyConfig`, with IDE autocompletion |
+| JSON Schema | Not generated | Generated automatically |
+| Frontend configuration form | None | Rendered automatically from the fields |
+| `extension config set` field overrides | Not available | Available |
+
+:::note
+The `@extension` decorator detects the generic parameter automatically: if present, it extracts the configuration class; if absent, it registers a configuration-less extension. Registration is identical for both forms.
+:::
+
+## Extensions Without Execution Logic / Hook Extensions (`executable=False`)
+
+Some extensions do not need a "run once" entry point; instead, they permanently modify SRA's existing behavior (for example, automatic account switching that takes over the login flow).
+Such extensions declare `executable=False` in the decorator:
+
+```python
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+
+
+class AccountSwitchConfig(BaseModel):
+    enabled: bool = Field(default=False, description="是否启用自动切号")
+
+
+@extension(name="自动切号", description="免密码历史账号切号", executable=False)
+class AccountSwitchExtension(BaseExtension[AccountSwitchConfig]):
+    # 没有执行逻辑，无需重写 run()
+    ...
+```
+
+Differences from executable extensions:
+
+| | `executable=True` (default) | `executable=False` |
+|---|---|---|
+| `run()` | Must be implemented | Not required (the base class returns `True` by default) |
+| Run entry | `extension run <id>` | None; `extension run` reports an error |
+| CLI switch | None | `extension enable <id>` / `extension disable <id>` |
+| Frontend actions | Run / Stop | Enable / Disable |
+| Enabled state | No concept of `enabled` | Reads the `enabled` field from the configuration model |
+
+:::caution
+Extensions with `executable=False` must declare an `enabled` field in their configuration model; otherwise `extension enable/disable` reports
+`扩展 '<id>' 的配置中没有可切换的 enabled 开关`; running `extension run` directly reports
+`扩展 '<id>' 没有执行逻辑，只能启用或禁用`.
+:::
+
+`extension enable/disable` actually modifies and saves the extension's `enabled` value in `extensions.json`, then triggers
+`on_tasks_registered` to run again, so an extension should decide in the hook whether to install or revert its changes based on `config.enabled`.
+`extension list --json` returns `executable` and `enabled` (`null` when the field is absent from the configuration), and the desktop client and WebUI
+use these to render "Run/Stop" or "Enable/Disable".
+
+## Post-Task-Registration Hook (`on_tasks_registered`)
+
+Extensions can override the class method `on_tasks_registered` to read or wrap task classes after task classes have been registered:
+
+```python
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+from SRACore.task import TaskRegistry
+
+
+class HookConfig(BaseModel):
+    enabled: bool = Field(default=False, description="是否启用")
+
+
+@extension(name="任务钩子示例", description="在任务注册后修改任务类", executable=False)
+class TaskHookExtension(BaseExtension[HookConfig]):
+    @classmethod
+    def on_tasks_registered(cls, tasks: TaskRegistry,
+                            config: HookConfig | None = None) -> None:
+        if config is None or not config.enabled:
+            # 禁用时撤销此前的修改（必须能重复调用）
+            ...
+            return
+        task_cls = tasks.get_task_class("StartGameTask")
+        # 在这里读取或包装任务类；重复调用时应保持幂等
+        ...
+```
+
+When it is called:
+
+- After SRA startup, `task reload`, and `extension reload`;
+- After an extension's configuration changes (`ExtensionConfigManager.set()` → `ExtensionRunner.reload_extension()`).
+
+Implementation requirements:
+
+1. **Must be idempotent**: it is called multiple times within the same process.
+2. **Handle enable/disable yourself**: the hook runs in both states, and modifications to task classes must be reverted when disabled.
+3. **Do not cache task classes**: `tasks/` is imported dynamically per file, and hot reload produces new class objects, so fetch them again in the hook every time.
+4. **Failure isolation**: an exception thrown by a single extension's hook is only logged and does not affect other extensions or the startup flow.
+
+For a complete example, see `extensions/account_switch/`: it uses `executable=False` + `on_tasks_registered` to patch
+`StartGameTask`, and calls `plugin.uninstall()` to restore the original method when `config.enabled` is false.
+
+## Extension Localization
+
+An extension's display name, field descriptions, and enum labels can all follow the UI language; resources live in the extension directory's `locales/`:
+
+```text
+extensions/MyExtension/
+├── __init__.py
+└── locales/
+    ├── zh-CN.json
+    ├── en-US.json
+    └── ru-RU.json
+```
+
+Keys are the field keys in the configuration model (use `alias` when the field declares one):
+
+| Key | Purpose |
+|---|---|
+| `name` / `description` | Extension display name and description, overriding the values in `@extension(name=..., description=...)` |
+| `<field>.title` | Field title, overriding `Field(title=...)` (the field name when not declared) |
+| `<field>.description` | Field description, overriding `Field(description=...)` |
+| `<field>.labels` | Enum label array, in the same order as declared in `Literal` / `enum` |
+
+Taking the `MyConfig` from step 3 (`target`, `count`, `verbose`) as an example:
+
+```json
+// locales/zh-CN.json
+{
+  "name": "我的扩展",
+  "description": "这是一个自定义扩展",
+  "target.title": "目标",
+  "target.description": "目标名称",
+  "count.title": "执行次数",
+  "count.description": "执行次数（1-100）",
+  "verbose.description": "是否输出详细日志"
+}
+```
+
+```json
+// locales/en-US.json
+{
+  "name": "My Extension",
+  "description": "A custom extension",
+  "target.title": "Target",
+  "target.description": "Target name",
+  "count.title": "Repeat count",
+  "count.description": "How many times to run (1-100)",
+  "verbose.description": "Print detailed logs"
+}
+```
+
+Enum field labels align with the declaration order:
+
+```python
+difficulty: Literal["lowest", "highest", "current"] = "current"
+```
+
+```json
+{
+  "difficulty.labels": ["Lowest difficulty", "Highest difficulty", "Current difficulty"]
+}
+```
+
+Behavior notes:
+
+1. **Language source** — taken from the UI language corresponding to `Display.Language` in `settings.json`, consistent between the CLI and the server; after switching languages, re-fetch the schema for it to take effect.
+2. **Backend composes monolingual text** — `get_schema()` replaces `title` / `description` with the current language's monolingual text and writes enum labels to `x-enum-labels`;
+   the display names and descriptions in `extension list` also come from `locales` (falling back to the values in the decorator when absent).
+3. **Fallback rules** — keys missing in the current language fall back to Chinese; a missing `locales/` or invalid JSON only logs a warning and does not affect extension loading.
+4. **Display text only** — field keys, types, default values, and enum values are unchanged, so existing configurations remain valid.
+
+:::note
+File names under `locales/` use BCP-47 (`zh-CN.json`, `en-US.json`, `ru-RU.json`), which differs from the lowercase language keys in the backend
+`resources.toml` (`zh-cn`, `en-us`, `ru-ru`). To add a new language, you also need to enable it in
+`SUPPORTED_LANGS` in `SRACore/extension/locales.py`; see [Adding a UI Language](/en/tutorials/add-localization) for the full steps.
+:::
+
+:::caution
+If you translate only the fields without providing `name` / `description`, the extension list still shows the Chinese name from the decorator; conversely, if you translate only the name and not the fields,
+the configuration dialog mixes Chinese and English. We recommend keeping the key sets of all three JSON files identical;
+`python -m pytest tests/test_russian_localization.py` verifies that no Chinese remains in extension display names or schemas in Russian mode.
+:::
+
+## Background Extensions
+
+The extensions above are all in "single-run" mode: `extension run <id>` starts, runs `run()` once, and finishes. Some scenarios require an extension to **keep running** (such as monitoring game state, polling on a schedule, or responding to events in real time); for these, use a **background extension**.
+
+### Declaration
+
+Pass `background=True` to the `@extension` decorator:
+
+```python
+import time
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+from SRACore.util.errors import ThreadStoppedError
+
+class MonitorConfig(BaseModel):
+    """后台监控扩展配置。"""
+    interval: float = Field(default=5.0, ge=0.5, le=3600, description="轮询间隔（秒）")
+
+@extension(name="状态监控", description="定期检查游戏状态", background=True)
+class MonitorExtension(BaseExtension[MonitorConfig]):
+    """后台轮询扩展示例。"""
+
+    def run(self) -> bool:
+        cfg = self.config or MonitorConfig()
+
+        # 后台扩展的 run() 应做一轮工作后返回，
+        # 框架会周期性地再次调用它
+        screenshot = self.operator.screenshot()
+        # ... 执行检查逻辑 ...
+        print(f"[Monitor] 检查完成，等待 {cfg.interval} 秒后下一轮")
+
+        # 利用 stop_event 实现可中断的等待
+        if self.operator.stop_event.wait(cfg.interval):
+            raise ThreadStoppedError("监控停止", "线程已停止")
+
+        return True
+```
+
+### Execution Model
+
+Background extensions run quite differently from single-run extensions:
+
+|  | Single-run extension | Background extension |
+|---|---|---|
+| Declaration | `@extension(...)` | `@extension(..., background=True)` |
+| Start command | `extension run <id>` | `extension run <id>` (dispatched automatically) |
+| Thread model | Owns a dedicated thread, mutually exclusive with tasks | **Shares the polling thread**; multiple background extensions can run at the same time |
+| `run()` calls | Runs once, then ends | **Called repeatedly on a schedule**, with about 500 ms between calls |
+| Stop command | `extension stop` (no arguments) | `extension stop <id>` (specify the ID) |
+| Configuration hot update | Not supported (requires re-running) | Supported; the instance is replaced automatically after a configuration change, without interrupting the thread |
+
+Key design points:
+
+1. **Shared thread** — all background extensions share one polling thread; `_background_loop` iterates over all enabled background extensions every 500 ms and calls their `run()`. This means multiple background extensions are polled **serially**, and one extension's blocking `run()` delays the scheduling of subsequent extensions.
+2. **`run()` should return quickly** — each `run()` call should complete one round of work and return promptly, delegating long waits to `stop_event.wait()` rather than `time.sleep()`, so stop requests are honored immediately.
+3. **Automatic dispatch** — `extension run <id>` checks the extension's `background` flag: background extensions go through `start_extension()`, while single-run extensions go through `run_in_thread()`, so users do not need to distinguish.
+
+### CLI Operations
+
+```text
+sra> extension list
+已注册 3 个扩展：
+  AutoPlayer  自动演奏    AutoPlayerExtension (config: AutoPlayerConfig)    按 JSON 乐谱自动演奏...
+  Monitor     状态监控    MonitorExtension (config: MonitorConfig)        定期检查游戏状态
+
+sra> extension run Monitor
+已启动后台扩展 'Monitor'
+[Monitor] 检查完成，等待 5.0 秒后下一轮
+[Monitor] 检查完成，等待 5.0 秒后下一轮
+
+sra> extension stop Monitor
+已停止后台扩展 'Monitor'
+```
+
+:::note
+The behavior of `extension stop` depends on whether an argument is passed:
+
+- **`extension stop <id>`** — stops the specified background extension (must be a `background=True` extension)
+- **`extension stop`** (no arguments) — stops the currently running single-run extension (a non-background extension)
+
+Using `extension stop <id>` on a non-background extension reports: `扩展 '<id>' 不是后台扩展，不能通过 stop 指定停止`.
+:::
+
+### Configuration Hot Update
+
+Background extensions support configuration hot updates — after a configuration change, the framework **replaces the instance automatically**, with no manual restart:
+
+1. The user changes a background extension's configuration through the frontend or `extension config`
+2. `ExtensionConfigManager.set()` triggers the `reload_extension` callback
+3. The framework creates a brand-new extension instance with the new configuration and replaces the old instance in `self.extensions[id]`
+4. The shared polling thread is **not interrupted**; the next round naturally uses the new instance
+
+This means extension developers need no special handling for configuration updates — reading `self.config` on each `run()` call automatically uses the latest configuration.
+
+### Behavior of `extension reload`
+
+`extension reload` re-scans the `extensions/` directory and re-imports all modules. For running background extensions:
+
+1. Record the list of currently active background extension IDs
+2. Stop all background extensions
+3. Re-import the modules (triggering the `@extension` decorator to register again)
+4. Automatically restart background extensions that still exist (were not deleted)
+
+So after modifying background extension code, developers can simply run `extension reload` to hot-reload, without restarting SRA.
+
+### Complete Example: Real-Time Event Monitoring
+
+Below is a more complete background extension example, demonstrating the polling pattern and exception handling:
+
+```python
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+from SRACore.util.errors import ThreadStoppedError
+
+class WatcherConfig(BaseModel):
+    """事件监控配置。"""
+    check_interval: float = Field(default=10.0, ge=1.0, le=300, description="检查间隔（秒）")
+    notify_on_event: bool = Field(default=True, description="检测到事件时发送通知")
+
+@extension(name="事件监控", description="后台监控游戏内事件", background=True)
+class EventWatcher(BaseExtension[WatcherConfig]):
+    """后台事件监控扩展。"""
+
+    def on_start(self) -> None:
+        self._event_count = 0
+
+    def run(self) -> bool:
+        cfg = self.config or WatcherConfig()
+
+        try:
+            # 每轮做一次检查
+            screenshot = self.operator.screenshot()
+            if self._detect_event(screenshot):
+                self._event_count += 1
+                if cfg.notify_on_event:
+                    self.send_notification("检测到事件", f"累计 {self._event_count} 次")
+            # 利用 stop_event 实现可中断的等待
+            if self.operator.stop_event.wait(cfg.check_interval):
+                raise ThreadStoppedError("监控停止", "线程已停止")
+        except ThreadStoppedError:
+            raise  # 不要吞掉停止信号
+        except Exception as e:
+            # 后台扩展的 run() 抛出异常会被框架捕获并自动停止该扩展
+            # （见 _background_loop 中的 except 分支）
+            # 如需容错（不因单轮异常而退出），在此 try/except 并 return True
+            raise
+
+        return True
+
+    def _detect_event(self, screenshot) -> bool:
+        # ... 实际的事件检测逻辑 ...
+        return False
+```
+
+:::caution
+When a background extension's `run()` throws an uncaught exception, the framework **automatically stops that extension** (removes it from the polling list and logs an error). If you want an exception in a single round not to affect subsequent rounds, catch it inside `run()` and return `True`.
+:::
+
+## Using Hotkey Listening in Extensions
+
+SRA includes a built-in global keyboard listener, so extensions can register hotkeys that let users control behavior (such as pause/resume or reset) while the extension runs. The built-in "Auto Player" extension (`extensions/auto_player/`) is a typical example of hotkey usage.
+
+### How It Works
+
+1. **The host creates a single instance**: `KeyboardListener` is created and started by the host (CLI), which is also responsible for registering the global stop hotkey (default `F9`, configurable in settings).
+2. **Injected into extensions**: the listener instance is automatically injected into an extension's `self.event_listener` property, so the extension does not need to create it.
+3. **Extensions only register/unregister**: extensions should only call `register_key_event` / `unregister_key_event` to operate the key registry. **Do not** call `start()` / `stop()`; the lifecycle of the listener thread is managed by the host.
+
+### Basic API
+
+```python
+# 注册按键按下事件（重复注册同一按键会抛出 ValueError）
+self.event_listener.register_key_event(key, callback, args=None)
+
+# 注销指定按键的事件
+self.event_listener.unregister_key_event(key)
+```
+
+- `key` — key string. Regular keys are the character itself (such as `'a'` or `'1'`); special keys use pynput names (such as `'f8'`, `'enter'`, `'ctrl'`, or `'space'`).
+- `callback` — callback executed when the key is pressed; the signature must be `callback(args)`. When no argument is needed, write `def callback(_args): ...`.
+- `args` — arguments passed to the callback (optional).
+
+:::note
+Hotkeys are debounced: while a key is held down, the callback fires only once, and it is re-armed after the key is released. Callbacks run in a separate daemon thread and do not block keyboard input, but be mindful of thread safety when writing callbacks.
+:::
+
+### Complete Example
+
+Below is an extension with a "pause/resume" hotkey, demonstrating the recommended way to use hotkey listening:
+
+```python
+import threading
+import time
+from pydantic import BaseModel, Field
+from SRACore.extension import BaseExtension, extension
+from SRACore.util.errors import ThreadStoppedError
+
+class CounterConfig(BaseModel):
+    """热键扩展示例配置。"""
+    hotkey_pause: str = Field(default="f8", description="暂停/继续热键")
+
+@extension(name="热键示例", description="演示在扩展中使用热键监听")
+class HotkeyDemo(BaseExtension[CounterConfig]):
+    """带暂停热键的计数扩展示例。"""
+
+    def run(self) -> bool:
+        cfg = self.config or CounterConfig()
+
+        # 1. 检查监听器是否可用（可能未被宿主注入）
+        if self.event_listener is None:
+            print("未注入全局事件监听器，热键不可用，将直接运行")
+
+        # 2. 共享状态：热键线程与运行线程都会访问
+        paused = threading.Event()
+
+        # 3. 回调签名必须为 callback(args)
+        def on_pause(_args=None) -> None:
+            if paused.is_set():
+                paused.clear()
+                print("继续")
+            else:
+                paused.set()
+                print("已暂停（按热键继续）")
+
+        # 4. 注册热键
+        pause_key = cfg.hotkey_pause.strip().lower()
+        if self.event_listener is not None:
+            self.event_listener.register_key_event(pause_key, on_pause)
+            print(f"热键已启用：暂停/继续 [{pause_key.upper()}]")
+
+        # 5. 主循环：finally 保证注销热键
+        try:
+            for i in range(1, 11):
+                if self.operator.stop_event.is_set():
+                    raise ThreadStoppedError("任务停止", "线程已停止")
+                while paused.is_set():
+                    if self.operator.stop_event.wait(0.2):
+                        raise ThreadStoppedError("任务停止", "线程已停止")
+                print(f"计数 {i}/10")
+                time.sleep(1)
+        finally:
+            if self.event_listener is not None:
+                self.event_listener.unregister_key_event(pause_key)
+
+        return True
+```
+
+Key points:
+
+- **Null check** — `self.event_listener` is typed `KeyboardListener | None` and may be `None` in some runtime environments (such as when running via SRA-server), so it must be checked before use.
+- **Configurable hotkeys** — define hotkeys as configuration fields (`hotkey_pause`) so users can change them in the frontend configuration form, avoiding conflicts with other extensions or global hotkeys.
+- **Thread safety** — callbacks run in a separate thread; use thread-safe primitives such as `threading.Event` when sharing state with the main `run()` thread.
+- **Unregister in `finally`** — the hotkey must be unregistered whether the extension finishes normally or is stopped (`ThreadStoppedError`); otherwise the registered key lingers and a later duplicate registration raises `ValueError`.
+- **Respond to stop** — `self.operator.stop_event` is the global stop event (set when the user presses `F9`); long-running extensions should check it periodically, otherwise hotkey listening lingers after the task stops.
+
+### Caveats
+
+:::caution
+Before registering a hotkey, make sure the key is not already taken:
+
+- The global stop hotkey defaults to `F9`; registering it conflicts with task stopping.
+- Only one callback can be registered per key; registering again raises `ValueError: 按键 {key} 已被注册`.
+- If a hotkey conflicts with the extension's own simulated key presses (for example, performance-type extensions), triggering the hotkey may also affect normal operations.
+
+We recommend making hotkeys configurable like the "Auto Player" extension, and checking for conflicts with known keys at startup and emitting a warning log.
+:::
