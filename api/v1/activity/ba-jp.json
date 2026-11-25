@@ -1,16 +1,16 @@
 {
   "version": "2026-11",
   "versionName": "日服活动",
-  "startTime": "2026-11-11T10:00:00",
-  "endTime": "2026-11-25T10:00:59",
-  "cover": "https://resource.starrailassistant.top/ba/activity/9b238079c9ec8063526164908fc3e46478f78f26.webp",
+  "startTime": "2026-11-25T10:00:00",
+  "endTime": "2026-12-09T10:00:59",
+  "cover": "https://resource.starrailassistant.top/ba/activity/40abca2464469bdd0009ae686851bbed96153abc.webp",
   "activities": [
     {
-      "name": "「谁的艺术～伪饰之画与美学的去向～」",
+      "name": "被操控的艺术～象牙之塔与不速之客～",
       "description": "",
-      "startTime": "2026-11-11T10:00:00",
-      "endTime": "2026-11-25T10:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/9b238079c9ec8063526164908fc3e46478f78f26.webp"
+      "startTime": "2026-11-25T10:00:00",
+      "endTime": "2026-12-09T10:00:59",
+      "cover": "https://resource.starrailassistant.top/ba/activity/40abca2464469bdd0009ae686851bbed96153abc.webp"
     }
   ]
 }
