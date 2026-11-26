@@ -1,121 +1,101 @@
 {
-  "version": "1.6",
-  "versionName": "Sanctuary of Ink",
-  "startTime": "2026-10-15T12:00:00",
-  "endTime": "2026-11-26T06:00:00",
-  "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg",
+  "version": "1.7",
+  "versionName": "Meeting You in the World o'Shrooms",
+  "startTime": "2026-11-25T07:00:00",
+  "endTime": "2027-01-07T05:59:59",
+  "cover": "https://web-static.hg-cdn.com/upload/image/20261124/a3a96dba4a3e82dbcedce572ff553b12.jpg",
   "activities": [
     {
-      "name": "[Monumental Etching: Shadow Marked] Limited-Time Challenge",
-      "kind": "",
-      "description": "Complete various [Umbral Monument] challenges in the [Marked by Dark Shadows] series to claim rewards including [Oroberyl]×1200 and [Advanced Progression Selection Crate I].",
-      "startTime": "2026-10-05T12:00:00",
-      "endTime": "2026-10-19T04:00:00",
-      "cover": ""
-    },
-    {
-      "name": "[Yuanyuan's Blazing Stoves] Fun & Games Event",
-      "kind": "",
-      "description": "Visit the [Si's Painting] area in [Wuling], manage [Yuanyuan Manor Inn], complete the corresponding Session Tasks, and increase your Inn Milestones to claim rewards including [Oroberyl]×1000 and [Mark of Perseverance].",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[Spirit's Restoration] Sign-In Event",
-      "kind": "",
-      "description": "Sign in for a total of 7 days to earn rewards such as [Spirit's Restoration HH Permit]×5.",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-05T11:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[All the Inky Hues] Guide Event",
-      "kind": "",
-      "description": "Visit the [Si's Painting] area in the region of [Wuling] and complete specified missions to earn event rewards such as [Oroberyl]×1200 and [Mark of Perseverance].",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-05T12:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[Season of Phantasia] (Echoes of War)",
-      "kind": "",
-      "description": "New season [Season of Phantasia] is available. This season features 3 cycles, each including 3 stages. [Season of Phantasia] adds 3 new stages. Clear all new stages on Normal difficulty to claim rewards including [Oroberyl]×300.",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-05T11:59:59",
-      "cover": ""
-    },
-    {
-      "name": "[Carly's Verdant Anthology] Camera Event",
-      "kind": "",
-      "description": "Complete camera missions to earn event rewards that include: [Oroberyl]×1500, [Portrait Frame: Carly's Verdant Anthology], [Mark of Perseverance].",
-      "startTime": "2026-10-22T12:00:00",
-      "endTime": "2026-11-05T04:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[Monumental Etching: Forest of Maras] Limited-Time Challenge",
-      "kind": "",
-      "description": "Upon the release of the [Murmurs of the Deep Forest] series, the [Monumental Etching: Forest of Maras] limited-time event will begin. During the event, complete various [Umbral Monument] challenges to claim rewards including [Oroberyl]×1200 and [Advanced Progression Selection Crate II].",
-      "startTime": "2026-10-22T12:00:00",
-      "endTime": "2026-11-05T04:00:00",
-      "cover": ""
-    },
-    {
-      "name": "[Contingency Readiness] Limited-Time Event",
-      "kind": "",
-      "description": "During the event, complete specified missions every day to receive rewards including [Sanity Usage Permit], [Emergency Sanity Booster], [Wuling Artificing Catalyst], and [Coolant Gel].",
-      "startTime": "2026-10-29T04:00:00",
-      "endTime": "2026-11-05T04:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[Arena of Games] Challenge Event",
-      "kind": "",
-      "description": "During the event, take on [Arena of Games] challenges to earn Arena Points. Reach every tier in [Arena Milestone] to earn rewards including [Oroberyl]×1200 and [Mark of Perseverance].",
-      "startTime": "2026-10-29T12:00:00",
-      "endTime": "2026-11-19T04:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[Back to the Rustics] Narrative Event",
-      "kind": "",
-      "description": "Complete the side mission [Back to the Rustics] to earn [Oroberyl]×600, [Elementary Cognitive Carrier], and other rewards.",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "[The Stars Are With Me] Sign-In Event",
-      "kind": "",
-      "description": "Sign in for a total of 7 days to earn rewards such as [The Stars Are With Me HH Permit]×5.",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
       "name": "[Contingency Contract: Indigo Experimental Operation] Challenge Event",
-      "kind": "",
-      "description": "During the event, you can select any combination of Test Criteria for the challenge, and try to complete it. Complete event missions to earn rewards such as [Portrait: Silverblade Medal], [Portrait Frame: Contingency Respondent] and [Vitrified Indigo]. Spend [Vitrified Indigo] at the [Secret Sanctuary] to exchange for great rewards including [Oroberyl]×2000, [Sticker: Contingency Resolved], and [Advanced Progression Selection Crate II].",
+      "kind": "Challenge Event",
+      "description": "The world is changing, and answers are far away. Muddy tides have poured into the Protocol Space... Please shatter this desecration.",
       "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+      "endTime": "2026-12-02T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_contingency_new.png"
     },
     {
-      "name": "[Season of Fervor] (Echoes of War)",
-      "kind": "",
-      "description": "New season [Season of Fervor] is available. This season features 3 cycles, each including 3 stages. [Season of Fervor] adds 3 new stages. Clear all new stages on Normal difficulty to claim rewards including [Oroberyl]×300.",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": ""
+      "name": "[Array Construction: Mending Old Wounds] Construction Event",
+      "kind": "Construction Event",
+      "description": "This permanent gameplay includes limited-time construction tasks; the tasks expire, but the gameplay remains available. Northern Exclusion Zone still has many branch rifts to resolve so we can return to our old home.",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2027-01-07T05:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_wonder_build.png"
+    },
+    {
+      "name": "[My Wish Is Sweetpie] Narrative Event",
+      "kind": "Narrative Event",
+      "description": "Wuling citizens have recently been troubled by strange hallucinations. What wondrous encounters await you as you investigate in person...",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2027-01-07T05:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_char_guide_sweetpie.png"
+    },
+    {
+      "name": "[Combat Drill] Operator Trial Event",
+      "kind": "Operator Trial Event",
+      "description": "",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_character_trial_sweetpie.png"
+    },
+    {
+      "name": "[Roaming Fields Sign-In] Limited-Time Sign-In",
+      "kind": "Limited-Time Sign-In",
+      "description": "Participate in check-ins to claim rewards including Roaming Fields Headhunting Permits ×5.",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_char_sign_sweetpie.png"
+    },
+    {
+      "name": "[Mushroom! Fungus! Fungi!] Guide Event",
+      "kind": "Guide Event",
+      "description": "Step into the long-sealed dam, a wondrous kingdom, our sweet... sweet! SWEET! world!",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_guide_dam.png"
+    },
+    {
+      "name": "[Monument Revealed: Tyranny] Challenge Event",
+      "kind": "Challenge Event",
+      "description": "",
+      "startTime": "2026-12-02T12:00:00",
+      "endTime": "2026-12-23T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_highdifficulty_v1d7.png"
     },
     {
       "name": "[Sanity Supply] Limited-Time Event",
-      "kind": "",
-      "description": "During the event, complete specified missions every day to claim Sanity Supply rewards: [Sanity Usage Permit] and [Emergency Sanity Booster].",
-      "startTime": "2026-11-19T04:00:00",
-      "endTime": "2026-11-26T04:00:00",
-      "cover": ""
+      "kind": "Limited-Time Event",
+      "description": "",
+      "startTime": "2026-12-09T04:00:00",
+      "endTime": "2026-12-16T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_stamina.png"
+    },
+    {
+      "name": "[On the Rise! Arena Tournament!] Event with Trial Operators",
+      "kind": "Event with Trial Operators",
+      "description": "At the far, blazing, utterly magnificent edge of Wuling, the fierce competition hot enough to burn through Talos-II opens once again!",
+      "startTime": "2026-12-16T12:00:00",
+      "endTime": "2027-01-07T05:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_double_assault_v2.png"
+    },
+    {
+      "name": "[Sanity Supply] Limited-Time Event",
+      "kind": "Limited-Time Event",
+      "description": "",
+      "startTime": "2026-12-31T04:00:00",
+      "endTime": "2027-01-07T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_stamina.png"
+    }
+  ],
+  "pools": [
+    {
+      "name": "Anvil, Backpack, Plus A Pot o'Honey",
+      "type": "Chartered Headhunting",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/charremoteicon/icon_chr_0040_sweetpie.png",
+      "upCharacters": [
+        "Sweetpie"
+      ]
     }
   ]
 }
