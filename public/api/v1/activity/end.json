@@ -1,121 +1,101 @@
 {
-  "version": "1.6",
-  "versionName": "丹青渡",
-  "startTime": "2026-10-15T12:00:00",
-  "endTime": "2026-11-26T06:00:00",
-  "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg",
+  "version": "1.7",
+  "versionName": "穿越甚大蘑境与你相逢",
+  "startTime": "2026-11-25T07:00:00",
+  "endTime": "2027-01-07T05:59:59",
+  "cover": "https://web.hycdn.cn/upload/image/20261124/818bac8b584d3949f589963dba7b635b.jpg",
   "activities": [
     {
-      "name": "「丰碑留名·刻影」限时挑战",
+      "name": "危机合约 浸蓝测试作战",
       "kind": "挑战活动",
-      "description": "「幽影刻形」系列开放后，在「影拓丰碑」完成对应挑战，即可领取【嵌晶玉】×1200、【高阶培养自选箱Ⅰ】等活动奖励",
-      "startTime": "2026-10-05T12:00:00",
-      "endTime": "2026-10-19T04:00:00",
-      "cover": ""
+      "description": "世界正在变化，回应遥遥无期。污浊潮水涌入了协议空间……请您粉碎这份亵渎。",
+      "startTime": "2026-11-05T12:00:00",
+      "endTime": "2026-12-02T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_contingency_new.png"
     },
     {
-      "name": "「烟火生缘」趣味活动",
-      "kind": "趣味活动",
-      "description": "前往「武陵」地区的「祀的画」区域，经营「缘缘庄客栈」，完成相应的经营任务，提升经营里程，即可领取【嵌晶玉】×1000、【存续的痕迹】等奖励。",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+      "name": "阵列建设：旧伤弥合",
+      "kind": "建设活动",
+      "description": "该常驻玩法包含限时建设任务，任务过期后将无法参与，玩法仍可继续体验。\n\n北部禁区尚有大量分支裂隙带，解决这些隐患，让我们得以重归旧家园。",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2027-01-07T05:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_wonder_build.png"
     },
     {
-      "name": "「万物有灵」签到活动",
-      "kind": "限时签到",
-      "description": "累计签到7日，即可获得【万物有灵寻访凭证】×5等奖励。",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-05T11:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "「墨分诸彩」引入活动",
-      "kind": "引入活动",
-      "description": "前往「武陵」地区的「祀的画」区域完成指定任务，即可领取【嵌晶玉】×1200、【存续的痕迹】活动奖励。",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-05T12:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "「异想赛季」（战争回响）",
-      "kind": "",
-      "description": "全新赛季「异想赛季」开放，该赛季分为3个轮换周期，每个轮换周期包含3个关卡。「异想赛季」新增3个关卡，完成所有新增关卡的普通难度即可领取【嵌晶玉】×300等奖励。",
-      "startTime": "2026-10-15T12:00:00",
-      "endTime": "2026-11-05T11:59:59",
-      "cover": ""
-    },
-    {
-      "name": "「卡莉的芳菲童话」拍照活动",
-      "kind": "拍照活动",
-      "description": "完成拍照任务，即可获得【嵌晶玉】×1500、【头像框·卡莉的芳菲集】、【存续的痕迹】等活动奖励。",
-      "startTime": "2026-10-22T12:00:00",
-      "endTime": "2026-11-05T04:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "「丰碑留名·魇林」限时挑战",
-      "kind": "挑战活动",
-      "description": "「深林呓语」系列开放后，将开启「丰碑留名·魇林」限时活动。活动期间在「影拓丰碑」完成对应挑战，即可领取【嵌晶玉】×1200、【高阶培养自选箱Ⅱ】等活动奖励。",
-      "startTime": "2026-10-22T12:00:00",
-      "endTime": "2026-11-05T04:00:00",
-      "cover": ""
-    },
-    {
-      "name": "「危机筹备」限时活动",
-      "kind": "限时活动",
-      "description": "活动期间，每日完成指定任务即可获得【理智消耗许可】【应急理智加强剂】【武陵精锻助剂】及【冷却脂】活动奖励。",
-      "startTime": "2026-10-29T04:00:00",
-      "endTime": "2026-11-05T04:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "「百趣演武」挑战活动",
-      "kind": "挑战活动",
-      "description": "活动期间挑战「百趣演武」，获取演武积分，达到演武历程中的全部档位，即可获得【嵌晶玉】×1200、【存续的痕迹】等活动奖励。",
-      "startTime": "2026-10-29T12:00:00",
-      "endTime": "2026-11-19T04:00:00",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
-    },
-    {
-      "name": "「归野」叙事活动",
+      "name": "蜜饼是我的祈愿",
       "kind": "叙事活动",
-      "description": "完成支线任务「归野」，可获得【嵌晶玉】×600、【初级认知载体】等奖励。",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+      "description": "武陵市民近来被古怪的幻觉困扰。决定亲自调查的你，会收获什么奇妙的际遇呢……",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2027-01-07T05:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_char_guide_sweetpie.png"
     },
     {
-      "name": "「星河共我」签到活动",
+      "name": "作战演练",
+      "kind": "干员试用活动",
+      "description": "",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_character_trial_sweetpie.png"
+    },
+    {
+      "name": "漫野探奇签到",
       "kind": "限时签到",
-      "description": "累计签到7日，即可获得【星河共我寻访凭证】×5等奖励。",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+      "description": "参与签到累计可领取漫野探奇寻访凭证×5等丰富奖励。",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_char_sign_sweetpie.png"
     },
     {
-      "name": "「危机合约 浸蓝测试作战」挑战活动",
+      "name": "蘑菇！蕈类！真菌！",
+      "kind": "引入活动",
+      "description": "走进尘封已久的水坝，一个奇妙国度，我们的，甜蜜的……甜蜜的！甜蜜的！世界！",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_guide_dam.png"
+    },
+    {
+      "name": "丰碑揭示·暴虐",
       "kind": "挑战活动",
-      "description": "活动期间，通过自由选择指标组合完成战斗挑战，达成活动任务目标可获得【头像·白刃的奖章】【头像框·危机响应】及【晶化硬币·浸蓝】奖励。消耗【晶化硬币·浸蓝】可在「机密圣所」中兑换【嵌晶玉】×2000、【贴纸·除危记号】【高阶培养自选箱Ⅱ】等丰富奖励。",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": "https://web.hycdn.cn/upload/image/20261014/36c2e3fbd1f70b9a3402167ac404ea96.jpg"
+      "description": "",
+      "startTime": "2026-12-02T12:00:00",
+      "endTime": "2026-12-23T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_highdifficulty_v1d7.png"
     },
     {
-      "name": "「狂热赛季」（战争回响）",
-      "kind": "",
-      "description": "全新赛季「狂热赛季」开放，该赛季分为3个轮换周期，每个轮换周期包含3个关卡。「狂热赛季」新增3个关卡，完成所有新增关卡的普通难度即可领取【嵌晶玉】×300等奖励。",
-      "startTime": "2026-11-05T12:00:00",
-      "endTime": "2026-11-26T05:59:59",
-      "cover": ""
-    },
-    {
-      "name": "「理智补给」限时活动",
+      "name": "理智补给",
       "kind": "限时活动",
-      "description": "活动期间，每日完成指定任务即可领取理智补给奖励【理智消耗许可】及【应急理智加强剂】。",
-      "startTime": "2026-11-19T04:00:00",
-      "endTime": "2026-11-26T04:00:00",
-      "cover": ""
+      "description": "",
+      "startTime": "2026-12-09T04:00:00",
+      "endTime": "2026-12-16T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_stamina.png"
+    },
+    {
+      "name": "方兴！竞技大会！",
+      "kind": "含试用干员",
+      "description": "在那遥远、炽热、华丽至极的武陵边缘，真正足以烧穿塔卫二的热情赛事，再度开启了！",
+      "startTime": "2026-12-16T12:00:00",
+      "endTime": "2027-01-07T05:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/bg_activity_tab_double_assault_v2.png"
+    },
+    {
+      "name": "理智补给",
+      "kind": "限时活动",
+      "description": "",
+      "startTime": "2026-12-31T04:00:00",
+      "endTime": "2027-01-07T03:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/activity/activity_tab_bg_stamina.png"
+    }
+  ],
+  "pools": [
+    {
+      "name": "锻砧、行囊与蜜糖",
+      "type": "特许寻访",
+      "startTime": "2026-11-25T07:00:00",
+      "endTime": "2026-12-23T11:59:59",
+      "cover": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/charremoteicon/icon_chr_0040_sweetpie.png",
+      "upCharacters": [
+        "小刻"
+      ]
     }
   ]
 }
