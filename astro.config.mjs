@@ -107,6 +107,7 @@ export default defineConfig({
             },
             {
               label: "SRA 公开接口",
+              translations: { en: "SRA Public API" },
               slug: "reference/public-api",
             },
             {
