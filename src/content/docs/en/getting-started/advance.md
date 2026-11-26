@@ -192,20 +192,69 @@ If you change hotkeys in the game, update the hotkeys here accordingly so SRA ca
   - Frontend log folder: the folder that stores the app's backend runtime logs.
   - Configuration folder: the folder that stores user configuration files (such as task configurations and multi-account configurations).
   - Application folder: the folder that stores temporary data and cache generated while the app runs.
-- Resource integrity check: not yet implemented and currently disabled. The "Resource file check" feature cannot be triggered manually for now and may become available in a later version (it detects whether core files are corrupted or tampered with).
+- Resources integrity check / Resources cleanup: see [Resources Integrity Check and Cleanup](#resources-integrity-check-and-cleanup) below.
+
+### Resources Integrity Check and Cleanup
+
+Both features rely on the MD5 manifest `manifest.md5.json` bundled with the installer (in the application root). Only complete builds installed via the installer or the in-app updater contain this file; when running from source or using a distribution without the manifest, SRA reports that the manifest is missing and the features are unavailable.
+
+#### Resources Integrity Check
+
+Click **Check** to the right of "Resources integrity check" and SRA verifies every file in the app directory against `manifest.md5.json`:
+
+- Pass: a toast reports "Integrity check passed, N files verified".
+- Fail: a dialog lists **missing files** and **files that failed verification** (MD5 mismatch, possibly corrupted or from a different version), up to 50 entries per group, with the rest summarized.
+
+The check only reads files and never modifies or deletes anything. If files are missing or fail verification, reinstall via the in-app updater and check again.
+
+#### Resources Cleanup
+
+Click **Clean Up** to the right of "Resources cleanup" and SRA scans every file in the application root that is **not listed in `manifest.md5.json`** (for example leftovers from older versions, `log/`, and `reports/`), then lists their relative paths and sizes in a dialog:
+
+1. All entries are selected by default; clear individual items or use **Select all** at the top.
+2. Click **Delete selected** to delete them; directories that become empty are removed as well.
+3. Files that cannot be deleted because they are in use are reported in the result.
+
+:::warning
+Cleanup decides redundancy only by the MD5 manifest, and the scan covers the whole application directory, so results may include personal data such as logs and reports. Deletion is irreversible; review the list before proceeding. User configurations and cache live in `%APPDATA%/SRA` (or `~/.config/SRA` on Linux) and are out of scope.
+:::
+
+:::tip
+The in-app updater overwrites files incrementally by MD5 and does not delete files removed in the new version. If the installation grows noticeably after updates, use Resources cleanup to reclaim those leftovers.
+:::
+
+### Multimodal LLM Vision
+
+In some scenarios SRA prefers a multimodal LLM to locate UI elements for higher recognition accuracy (for example, locating the event frame at event-type stops in Divergent Universe). The feature is off by default; when disabled, SRA uses local recognition only.
+
+- Enable multimodal vision positioning: master switch.
+- Endpoint: must be compatible with the OpenAI `chat/completions` protocol.
+- Model ID: the multimodal model to use, for example `gpt-4o-mini`.
+- API Key: the key used to call the endpoint, stored encrypted.
+- Request timeout (seconds): timeout for a single request, 30 seconds by default.
+- Proxy address: proxy used when calling the model; leave empty for no proxy.
+
+:::caution
+When enabled, requests are sent to the model provider and incur a fee. The exact cost depends on the provider's pricing.
+:::
 
 ### Developer Options
 
 ![Developer options](../../../../assets/img/use/settings/devsetting.png)
 
-You can enable Developer Options by clicking the version number quickly several times.
+Click the version number quickly several times in "About" to reveal Developer Options; turning off "Enable developer options" hides the entry again.
 
-- Enable Developer Options: when enabled, developer-oriented features and settings are shown; when disabled, those entries are hidden.
-- Save OCR Image: when enabled, the app saves the images captured during OCR while running tasks, for developers to analyze and debug.
-- Run the backend from Python source: when enabled, SRA uses the specified Python environment to run the backend service instead of the bundled executable. This makes it easier for developers to debug and modify backend code.
-- Python interpreter: after enabling "Run the backend from Python source", specify the path to the Python interpreter here. Click the input box and enter the path to the Python executable.
-- Main program path: after enabling "Run the backend from Python source", specify the path to the SRA main program here. Click the input box and enter the path to the SRA main program (for example,
-  `main.py`).
+- Enable developer options: master switch.
+- Save OCR images: when enabled, the app saves the images captured during OCR while running tasks, for analysis and debugging.
+- Show debug info in overlay: draws debug information on the in-game overlay; enable "Enable overlay" in Task Settings first, otherwise nothing is shown.
+- Enable custom backend: when enabled, SRA starts the backend with your own command instead of the bundled backend. The following fields appear:
+  - Command / executable: for example `python`, `sra-cli`, `uv`, or an executable path; quoted paths are supported. Leave empty to use `python` from PATH.
+  - Arguments: for example `main.py` or `-m SRACore`; when both command and arguments are empty, `main.py` is used.
+  - Working directory: the working directory of the backend process; leave empty to use SRA's current directory.
+
+:::note
+"Enable custom backend" is only available in Developer Options. If a remote backend is enabled in Advanced Settings at the same time, the remote backend takes precedence.
+:::
 
 ### About
 

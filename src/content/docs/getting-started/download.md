@@ -170,7 +170,7 @@ docker run -d --name sra-server -p 5073:5073 \
   -e SRA_ACCESS_TOKEN=<你的令牌> \
   -v sra-data:/root/.config/SRA \
   -v sra-log:/app/log \
-  ghcr.io/shasnow/starrailassistant:beta
+  ghcr.io/shasnow/starrailassistant:latest
 ```
 
 浏览器打开 `http://localhost:5073`，填入令牌即可使用。
@@ -181,7 +181,7 @@ docker run -d --name sra-server -p 5073:5073 \
 :::
 
 :::note
-当前版本处于 beta 通道，所以镜像标签是 `beta`；正式版发布后可用 `:latest`。
+镜像提供 `latest`（最新正式版）与 `beta`（最新测试版）两个可变标签，按需选用。
 :::
 
 完整的部署说明（Compose 用法、镜像标签、环境变量、数据与卷、镜像更新、公网暴露注意事项）见

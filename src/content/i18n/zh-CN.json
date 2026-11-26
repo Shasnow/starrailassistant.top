@@ -1,3 +1,226 @@
 {
-    "gameTab.tryLabel": "试一试：获取 {{name}} 活动数据（{{locale}}）"
+  "gameTab.tryLabel": "试一试：获取 {{name}} 活动数据（{{locale}}）",
+  "home": {
+    "showcase": {
+      "eyebrow": "崩坏：星穹铁道 · 图像识别自动化",
+      "title": "打开电脑，剩下的交给 SRA",
+      "desc": "SRA 通过图像识别直接操作 PC 端《崩坏：星穹铁道》，不需要模拟器，也不需要修改游戏文件。从启动游戏、清体力、领取奖励，到货币战争与差分宇宙，一份配置跑完当天的日常。",
+      "points": {
+        "noEmulator": {
+          "title": "无需模拟器",
+          "text": "直接驱动 PC 客户端，识别稳定、资源占用低。"
+        },
+        "servers": {
+          "title": "多服务器",
+          "text": "官服、B 服、国际服，自动检测游戏安装路径。"
+        },
+        "hosting": {
+          "title": "随处托管",
+          "text": "桌面端、命令行、WebUI 与 MCP 共用同一个后端。"
+        }
+      },
+      "slides": {
+        "home": "SRA 主页界面",
+        "tasks": "SRA 任务界面",
+        "extensions": "SRA 拓展界面",
+        "console": "SRA 控制台界面",
+        "settings": "SRA 设置界面"
+      },
+      "carousel": {
+        "label": "界面截图",
+        "prev": "上一张截图",
+        "next": "下一张截图",
+        "goTo": "查看{{name}}"
+      }
+    },
+    "stats": {
+      "license": { "value": "AGPL-3.0", "label": "开源协议" },
+      "platform": { "value": "Windows 10 / 11", "label": "运行平台" },
+      "resolution": { "value": "1920 × 1080", "label": "画面分辨率" },
+      "servers": { "value": "官服 / B 服 / 国际服", "label": "服务器支持" }
+    },
+    "features": {
+      "eyebrow": "核心能力",
+      "title": "把重复的日常交给它",
+      "desc": "每个任务都可以单独开关，也可以按配置组合成一条完整的日常流水线。",
+      "launch": {
+        "title": "启动游戏",
+        "text": "自动检测游戏路径并启动客户端，支持官服、B 服与国际服，国际服可选择区服。"
+      },
+      "power": {
+        "title": "清体力",
+        "text": "自由组合副本、次数与作战顺序；支持多倍活动优先、培养目标自动计算与任务清单。"
+      },
+      "rewards": {
+        "title": "领取奖励",
+        "text": "助战、兑换码、派遣、邮件、每日实训与巡星之礼；兑换码会自动从官网拉取最新一批。"
+      },
+      "currencyWars": {
+        "title": "货币战争",
+        "text": "标准或超频博弈，刷开局 Boss 词条、投资策略与投资环境，也支持自定义策略。"
+      },
+      "universe": {
+        "title": "差分宇宙",
+        "text": "支持周期演算与完整对局，每周积分达到上限后自动收手。"
+      },
+      "accounts": {
+        "title": "多账号托管",
+        "text": "保存多份账号配置并自动切换，一个人也能轻松管理多个账号。"
+      },
+      "extensions": {
+        "title": "拓展系统",
+        "text": "用 Python 编写插件，放到扩展目录即被加载，配置界面自动生成。"
+      },
+      "api": {
+        "title": "MCP 与 REST API",
+        "text": "内置 MCP 服务器与 HTTP 接口，方便接入 AI Agent 或自建控制面板。"
+      }
+    },
+    "shots": {
+      "eyebrow": "界面预览",
+      "title": "看得见在做什么",
+      "tasks": "任务配置：勾选要执行的任务并调整参数",
+      "power": "清体力：指定副本、次数与作战顺序",
+      "rewards": "领取奖励：一次处理所有可领取内容"
+    },
+    "usage": {
+      "eyebrow": "使用方式",
+      "title": "三种入口，同一个内核",
+      "desktop": {
+        "title": "桌面端",
+        "text": "下载解压即可使用，图形界面完成配置与启动，适合日常使用。",
+        "link": "下载安装包"
+      },
+      "cli": {
+        "title": "命令行 SRA-cli",
+        "text": "把常用操作写进脚本或计划任务，支持启动参数与启动脚本。",
+        "link": "查看命令"
+      },
+      "server": {
+        "title": "服务端 SRA-server",
+        "text": "启动后可在浏览器打开 WebUI 远程操作，同时提供 REST API 与 MCP。",
+        "link": "部署服务端"
+      }
+    },
+    "steps": {
+      "eyebrow": "快速开始",
+      "title": "三步开始跑日常",
+      "button": "快速开始",
+      "one": {
+        "title": "下载并解压",
+        "text": "选择适合你的发行包，解压到任意目录。"
+      },
+      "two": {
+        "title": "完成基础设置",
+        "text": "首次启动会自动检测游戏路径，确认分辨率与账号信息。"
+      },
+      "three": {
+        "title": "勾选任务并启动",
+        "text": "在任务页选择需要的任务，保存配置后一键开始。"
+      }
+    },
+    "links": {
+      "title": "继续了解",
+      "docs": {
+        "title": "使用文档",
+        "text": "从下载到每个任务的详细说明。"
+      },
+      "api": {
+        "title": "公开 API",
+        "text": "查询公告、兑换码与更多公开数据。"
+      },
+      "mcp": {
+        "title": "MCP 工具",
+        "text": "让 AI 客户端直接操作 SRA 与游戏。"
+      },
+      "strategy": {
+        "title": "攻略站",
+        "text": "分享与获取货币战争自定义策略。"
+      },
+      "changelog": {
+        "title": "更新公告",
+        "text": "查看每个版本的新增内容与修复。"
+      },
+      "github": {
+        "title": "GitHub",
+        "text": "源码、Issue 与发行版本都在这里。"
+      }
+    },
+    "cta": {
+      "title": "准备好开始了吗？",
+      "text": "下载最新版本，几分钟内就能跑完第一轮日常。",
+      "primary": "立即下载",
+      "secondary": "在 GitHub 上查看"
+    }
+  },
+  "download": {
+    "meta": {
+      "title": "获取 SRA",
+      "description": "下载 StarRailAssistant 各发行包，或通过 Mirror酱、GitHub、PyPI 与 Docker 获取。"
+    },
+    "hero": {
+      "eyebrow": "下载",
+      "title": "获取 StarRailAssistant",
+      "desc": "选择适合你的发行包，解压即可使用。所有版本免费开源，不含任何付费内容。",
+      "primary": "前往 GitHub Releases",
+      "secondary": "通过 Mirror酱 加速下载",
+      "note": "国内网络较慢时可优先尝试 Mirror酱；具体版本号以 Release 页面为准。"
+    },
+    "packages": {
+      "title": "选择发行包",
+      "desc": "同一版本提供多种打包方式，区别只在于包含的组件与运行环境。",
+      "download": "前往下载",
+      "full": {
+        "badge": "推荐",
+        "desc": "含图形界面 SRA.exe、命令行 SRA-cli.exe、服务端 SRA-server.exe 与全部核心资源，功能完整。"
+      },
+      "core": {
+        "desc": "仅含 SRA-cli.exe 与核心资源，适合只用命令行或没有图形界面的环境，需要自行准备配置文件。"
+      },
+      "lite": {
+        "desc": "桌面端产物加 Python 源码，需要自行配置 Python 3.12 环境后再运行。"
+      },
+      "resources": {
+        "desc": "仅含 tasks、extensions、resources 与清单文件，用于手动更新 Core 包中的资源。"
+      }
+    },
+    "channels": {
+      "title": "其他获取方式",
+      "desc": "除官方 Release 外，也可以通过下列渠道安装或更新。",
+      "mirror": {
+        "title": "Mirror酱",
+        "desc": "第三方加速分发，也负责后续自动更新；仅对加速服务收费，SRA 本身免费。"
+      },
+      "github": {
+        "title": "GitHub Releases",
+        "desc": "官方发布渠道，包含全部发行包与历史版本。"
+      },
+      "quark": {
+        "title": "夸克网盘",
+        "desc": "国内网盘备份，版本可能滞后，建议优先使用上面两种方式。"
+      },
+      "pypi": {
+        "title": "通过 PyPI 安装",
+        "desc": "适用于 Windows、Linux 与 macOS，需要 Python 3.12。安装后执行 sra init 下载 WebUI 与核心资源。",
+        "link": "查看完整安装步骤"
+      },
+      "docker": {
+        "title": "用 Docker 部署",
+        "desc": "镜像只包含 SRA-server（WebUI、HTTP API 与 MCP），容器内只能使用云游戏。",
+        "link": "查看部署指南"
+      }
+    },
+    "requirements": {
+      "title": "运行要求",
+      "os": { "label": "系统", "value": "Windows 10 / 11（64 位）" },
+      "resolution": { "label": "分辨率", "value": "1920 × 1080（客户区）" },
+      "admin": { "label": "权限", "value": "建议以管理员身份运行" },
+      "python": { "label": "Python", "value": "3.12（仅 PyPI 安装需要）" }
+    },
+    "docs": {
+      "title": "完整下载与安装说明",
+      "desc": "发行包内容、PyPI 安装、Docker 部署与版本更新的详细步骤都在文档里。",
+      "link": "阅读文档"
+    }
+  }
 }

@@ -170,7 +170,7 @@ docker run -d --name sra-server -p 5073:5073 \
   -e SRA_ACCESS_TOKEN=<你的令牌> \
   -v sra-data:/root/.config/SRA \
   -v sra-log:/app/log \
-  ghcr.io/shasnow/starrailassistant:beta
+  ghcr.io/shasnow/starrailassistant:latest
 ```
 
 Open `http://localhost:5073` in your browser and enter the token to use it.
@@ -181,7 +181,7 @@ Cloud game settings are written automatically on first launch; fill in the accou
 :::
 
 :::note
-The current version is on the beta channel, so the image tag is `beta`; `:latest` will be available once the stable version is released.
+The image offers two mutable tags: `latest` (newest stable) and `beta` (newest test build).
 :::
 
 For complete deployment instructions (Compose usage, image tags, environment variables, data and volumes, image updates, and notes on exposing the service publicly), see

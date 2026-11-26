@@ -1,0 +1,559 @@
+---
+// 下载页正文：文案取自 src/content/i18n/ 下的 download.* 键
+import { Icon } from '@astrojs/starlight/components';
+
+const tr = Astro.locals.t;
+const prefix = Astro.currentLocale === 'en' ? '/en' : '';
+
+const releases = 'https://github.com/Shasnow/StarRailAssistant/releases/latest';
+
+const packages = [
+  {
+    name: 'StarRailAssistant',
+    file: 'StarRailAssistant_vx.x.x.zip',
+    desc: tr('download.packages.full.desc'),
+    badge: tr('download.packages.full.badge'),
+    featured: true,
+  },
+  {
+    name: 'StarRailAssistant Core',
+    file: 'StarRailAssistant_Core_vx.x.x.zip',
+    desc: tr('download.packages.core.desc'),
+    featured: false,
+  },
+  {
+    name: 'StarRailAssistant Lite',
+    file: 'StarRailAssistant_Lite_vx.x.x.zip',
+    desc: tr('download.packages.lite.desc'),
+    featured: false,
+  },
+  {
+    name: 'StarRailAssistant Resources',
+    file: 'StarRailAssistant_Resources_vx.x.x.zip',
+    desc: tr('download.packages.resources.desc'),
+    featured: false,
+  },
+];
+
+const requirements = [
+  { icon: 'seti:windows', label: tr('download.requirements.os.label'), value: tr('download.requirements.os.value') },
+  { icon: 'laptop', label: tr('download.requirements.resolution.label'), value: tr('download.requirements.resolution.value') },
+  { icon: 'approve-check', label: tr('download.requirements.admin.label'), value: tr('download.requirements.admin.value') },
+  { icon: 'seti:python', label: tr('download.requirements.python.label'), value: tr('download.requirements.python.value') },
+];
+---
+
+<div class="dl">
+  <!-- 顶部 -->
+  <section class="dl-hero">
+    <p class="dl-eyebrow">{tr('download.hero.eyebrow')}</p>
+    <h1 class="dl-hero__title">{tr('download.hero.title')}</h1>
+    <p class="dl-hero__desc">{tr('download.hero.desc')}</p>
+    <div class="dl-hero__actions">
+      <a class="dl-button" href={releases} target="_blank" rel="noreferrer">
+        <Icon name="download" /> {tr('download.hero.primary')}
+      </a>
+      <a class="dl-button dl-button--ghost" href="https://mirrorchyan.com/zh/projects?rid=StarRailAssistant&source=sra-webside" target="_blank" rel="noreferrer">
+        <Icon name="external" /> {tr('download.hero.secondary')}
+      </a>
+    </div>
+    <p class="dl-hero__note">{tr('download.hero.note')}</p>
+  </section>
+
+  <!-- 发行包 -->
+  <section class="dl-section">
+    <header class="dl-section__head">
+      <h2>{tr('download.packages.title')}</h2>
+      <p>{tr('download.packages.desc')}</p>
+    </header>
+    <div class="dl-packages">
+      {
+        packages.map((pkg) => (
+          <a class:list={['dl-package', { 'dl-package--featured': pkg.featured }]} href={releases} target="_blank" rel="noreferrer">
+            <div class="dl-package__head">
+              <h3>{pkg.name}</h3>
+              {pkg.badge && <span class="dl-badge">{pkg.badge}</span>}
+            </div>
+            <code class="dl-package__file">{pkg.file}</code>
+            <p>{pkg.desc}</p>
+            <span class="dl-package__download">
+              <Icon name="download" /> {tr('download.packages.download')}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 其他渠道 -->
+  <section class="dl-section">
+    <header class="dl-section__head">
+      <h2>{tr('download.channels.title')}</h2>
+      <p>{tr('download.channels.desc')}</p>
+    </header>
+    <div class="dl-channels">
+      <a class="dl-channel" href="https://mirrorchyan.com/zh/projects?rid=StarRailAssistant&source=sra-webside" target="_blank" rel="noreferrer">
+        <span class="dl-channel__icon"><Icon name="rocket" /></span>
+        <span class="dl-channel__body">
+          <strong>{tr('download.channels.mirror.title')}</strong>
+          <span>{tr('download.channels.mirror.desc')}</span>
+        </span>
+        <Icon name="external" class="dl-channel__arrow" />
+      </a>
+      <a class="dl-channel" href={releases} target="_blank" rel="noreferrer">
+        <span class="dl-channel__icon"><Icon name="github" /></span>
+        <span class="dl-channel__body">
+          <strong>{tr('download.channels.github.title')}</strong>
+          <span>{tr('download.channels.github.desc')}</span>
+        </span>
+        <Icon name="external" class="dl-channel__arrow" />
+      </a>
+      <a class="dl-channel" href="https://pan.quark.cn/s/8c00dec47499" target="_blank" rel="noreferrer">
+        <span class="dl-channel__icon"><Icon name="seti:folder" /></span>
+        <span class="dl-channel__body">
+          <strong>{tr('download.channels.quark.title')}</strong>
+          <span>{tr('download.channels.quark.desc')}</span>
+        </span>
+        <Icon name="external" class="dl-channel__arrow" />
+      </a>
+    </div>
+
+    <div class="dl-alt">
+      <div class="dl-alt__card">
+        <h3><Icon name="forward-slash" /> {tr('download.channels.pypi.title')}</h3>
+        <p>{tr('download.channels.pypi.desc')}</p>
+        <pre><code>{`uv tool install starrailassistant
+sra init
+sra serve`}</code></pre>
+        <a class="dl-alt__link" href={`${prefix}/getting-started/download`}>
+          {tr('download.channels.pypi.link')} <Icon name="right-arrow" />
+        </a>
+      </div>
+      <div class="dl-alt__card">
+        <h3><Icon name="server" /> {tr('download.channels.docker.title')}</h3>
+        <p>{tr('download.channels.docker.desc')}</p>
+        <pre><code>{`docker run -d --name sra-server -p 5073:5073 \\
+  -e SRA_ACCESS_TOKEN=<token> \\
+  ghcr.io/shasnow/starrailassistant:latest`}</code></pre>
+        <a class="dl-alt__link" href={`${prefix}/guides/docker`}>
+          {tr('download.channels.docker.link')} <Icon name="right-arrow" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 运行要求 -->
+  <section class="dl-section">
+    <header class="dl-section__head">
+      <h2>{tr('download.requirements.title')}</h2>
+    </header>
+    <div class="dl-requirements">
+      {
+        requirements.map((item) => (
+          <div class="dl-requirement">
+            <span class="dl-requirement__icon">
+              <Icon name={item.icon} />
+            </span>
+            <span>
+              <span class="dl-requirement__label">{item.label}</span>
+              <strong>{item.value}</strong>
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 更多说明 -->
+  <section class="dl-foot">
+    <div>
+      <h2>{tr('download.docs.title')}</h2>
+      <p>{tr('download.docs.desc')}</p>
+    </div>
+    <a class="dl-button" href={`${prefix}/getting-started/download`}>
+      {tr('download.docs.link')} <Icon name="right-arrow" />
+    </a>
+  </section>
+</div>
+
+<style>
+  .dl {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding-block: 2rem 1rem;
+  }
+
+  /* ---------- 顶部 ---------- */
+  .dl-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 46rem;
+  }
+
+  .dl-eyebrow {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sl-color-text-accent);
+  }
+
+  .dl-hero__title {
+    margin: 0;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--sl-color-white);
+  }
+
+  .dl-hero__desc {
+    margin: 0;
+    font-size: var(--sl-text-lg);
+    line-height: 1.7;
+    color: var(--sl-color-gray-2);
+  }
+
+  .dl-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .dl-hero__note {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+
+  .dl-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--sl-color-text-accent);
+    background: var(--sl-color-text-accent);
+    color: var(--sl-color-black);
+    font-weight: 600;
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  .dl-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+  }
+
+  .dl-button--ghost {
+    background: transparent;
+    color: var(--sl-color-white);
+    border-color: var(--sl-color-gray-5);
+  }
+
+  /* ---------- 区块 ---------- */
+  .dl-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .dl-section__head h2 {
+    margin: 0 0 0.4rem;
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    color: var(--sl-color-white);
+  }
+
+  .dl-section__head p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    line-height: 1.7;
+  }
+
+  /* ---------- 发行包 ---------- */
+  .dl-packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .dl-package {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.4rem;
+    border-radius: 0.85rem;
+    border: 1px solid var(--sl-color-hairline);
+    background: var(--sl-color-gray-6);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .dl-package:hover {
+    border-color: var(--sl-color-text-accent);
+    transform: translateY(-2px);
+  }
+
+  .dl-package--featured {
+    border-color: var(--sl-color-text-accent);
+    box-shadow: 0 0 0 1px var(--sl-color-text-accent) inset;
+  }
+
+  .dl-package__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dl-package__head h3 {
+    margin: 0;
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+  }
+
+  .dl-badge {
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: var(--sl-color-text-accent);
+    color: var(--sl-color-black);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .dl-package__file {
+    align-self: flex-start;
+    padding: 0.15rem 0.45rem;
+    border-radius: 0.35rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-gray-2);
+    font-size: 0.72rem;
+    word-break: break-all;
+  }
+
+  .dl-package p {
+    margin: 0;
+    flex: 1;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    line-height: 1.65;
+  }
+
+  .dl-package__download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    color: var(--sl-color-text-accent);
+  }
+
+  /* ---------- 渠道 ---------- */
+  .dl-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .dl-channel {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 0.85rem;
+    border: 1px solid var(--sl-color-hairline);
+    background: var(--sl-color-gray-6);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .dl-channel:hover {
+    border-color: var(--sl-color-text-accent);
+  }
+
+  .dl-channel__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 0.65rem;
+    border: 1px solid var(--sl-color-hairline);
+    color: var(--sl-color-text-accent);
+    font-size: 1.1rem;
+  }
+
+  .dl-channel__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .dl-channel__body strong {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+  }
+
+  .dl-channel__body span {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    line-height: 1.5;
+  }
+
+  .dl-channel__arrow {
+    margin-left: auto;
+    flex: none;
+    color: var(--sl-color-gray-4);
+  }
+
+  /* ---------- PyPI / Docker ---------- */
+  .dl-alt {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+  }
+
+  .dl-alt__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.3rem;
+    border-radius: 0.85rem;
+    border: 1px solid var(--sl-color-hairline);
+    background: var(--sl-color-gray-6);
+  }
+
+  .dl-alt__card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+  }
+
+  .dl-alt__card p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    line-height: 1.65;
+  }
+
+  .dl-alt__card pre {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border-radius: 0.55rem;
+    background: var(--sl-color-black);
+    border: 1px solid var(--sl-color-hairline);
+    overflow-x: auto;
+  }
+
+  .dl-alt__card pre code {
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--sl-color-gray-2);
+    background: transparent;
+    padding: 0;
+  }
+
+  .dl-alt__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: auto;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+
+  .dl-alt__link:hover {
+    text-decoration: underline;
+  }
+
+  /* ---------- 运行要求 ---------- */
+  .dl-requirements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .dl-requirement {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.1rem;
+    border-radius: 0.8rem;
+    border: 1px solid var(--sl-color-hairline);
+    background: var(--sl-color-gray-6);
+  }
+
+  .dl-requirement__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--sl-color-hairline);
+    color: var(--sl-color-text-accent);
+    font-size: 1rem;
+  }
+
+  .dl-requirement__label {
+    display: block;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  .dl-requirement strong {
+    display: block;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+  }
+
+  /* ---------- 底部 ---------- */
+  .dl-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-hairline);
+    background:
+      radial-gradient(120% 140% at 0% 0%, var(--sl-color-accent-low) 0%, transparent 60%),
+      var(--sl-color-gray-6);
+  }
+
+  .dl-foot h2 {
+    margin: 0 0 0.35rem;
+    font-size: var(--sl-text-lg);
+    color: var(--sl-color-white);
+  }
+
+  .dl-foot p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+  }
+
+  @media (max-width: 50rem) {
+    .dl {
+      gap: 3rem;
+    }
+  }
+</style>

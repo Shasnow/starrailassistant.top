@@ -1,3 +1,226 @@
 {
-    "gameTab.tryLabel": "Try it: fetch {{name}} activity data ({{locale}})"
+  "gameTab.tryLabel": "Try it: fetch {{name}} activity data ({{locale}})",
+  "home": {
+    "showcase": {
+      "eyebrow": "Honkai: Star Rail · Image-recognition automation",
+      "title": "Turn on your PC. SRA handles the rest.",
+      "desc": "SRA interacts with the PC client of Honkai: Star Rail through image recognition — no emulator and no game files touched. From launching the game and farming Trailblaze Power to claiming rewards, Currency Wars and the Divergent Universe, one config covers your daily routine.",
+      "points": {
+        "noEmulator": {
+          "title": "No emulator",
+          "text": "Drives the native PC client with stable recognition and low overhead."
+        },
+        "servers": {
+          "title": "Every server",
+          "text": "Official, Bilibili and global clients, with automatic game path detection."
+        },
+        "hosting": {
+          "title": "Run it anywhere",
+          "text": "Desktop, CLI, WebUI and MCP all share the same backend."
+        }
+      },
+      "slides": {
+        "home": "SRA home screen",
+        "tasks": "SRA tasks screen",
+        "extensions": "SRA extensions screen",
+        "console": "SRA console screen",
+        "settings": "SRA settings screen"
+      },
+      "carousel": {
+        "label": "Screenshots",
+        "prev": "Previous screenshot",
+        "next": "Next screenshot",
+        "goTo": "View {{name}}"
+      }
+    },
+    "stats": {
+      "license": { "value": "AGPL-3.0", "label": "License" },
+      "platform": { "value": "Windows 10 / 11", "label": "Platform" },
+      "resolution": { "value": "1920 × 1080", "label": "Resolution" },
+      "servers": { "value": "Official / Bilibili / Global", "label": "Servers" }
+    },
+    "features": {
+      "eyebrow": "Core features",
+      "title": "Hand the daily grind to SRA",
+      "desc": "Every task can be toggled on its own, or combined into a single daily pipeline.",
+      "launch": {
+        "title": "Launch Game",
+        "text": "Detects the game path and starts the client on official, Bilibili and global servers, with region selection for global."
+      },
+      "power": {
+        "title": "Trailblaze Power",
+        "text": "Mix stages, counts and battle order freely; prioritise double-drop events and auto-calculate from development goals."
+      },
+      "rewards": {
+        "title": "Claim Rewards",
+        "text": "Support rewards, redemption codes, assignments, mail, daily training and Gift of Odyssey — fresh codes are fetched automatically."
+      },
+      "currencyWars": {
+        "title": "Currency Wars",
+        "text": "Standard or overclocked games, with rerolling for Boss affixes, investment strategies and environments. Custom strategies supported."
+      },
+      "universe": {
+        "title": "Divergent Universe",
+        "text": "Supports both periodic calculation and full runs, stopping automatically once the weekly point cap is reached."
+      },
+      "accounts": {
+        "title": "Multi-account",
+        "text": "Store configuration per account and switch automatically — manage several accounts with ease."
+      },
+      "extensions": {
+        "title": "Extensions",
+        "text": "Write plugins in Python, drop them into the extension folder, and get a generated settings UI."
+      },
+      "api": {
+        "title": "MCP & REST API",
+        "text": "A built-in MCP server and HTTP API make it easy to plug into AI agents or your own dashboard."
+      }
+    },
+    "shots": {
+      "eyebrow": "Screenshots",
+      "title": "See exactly what it does",
+      "tasks": "Task config: pick the tasks and tune their options",
+      "power": "Trailblaze Power: choose stages, counts and order",
+      "rewards": "Claim Rewards: collect everything in one pass"
+    },
+    "usage": {
+      "eyebrow": "Ways to run it",
+      "title": "Three entry points, one core",
+      "desktop": {
+        "title": "Desktop app",
+        "text": "Download, extract and go. Configure and start everything from a GUI.",
+        "link": "Download"
+      },
+      "cli": {
+        "title": "Command line",
+        "text": "Script the common operations or schedule them, with startup arguments and scripts.",
+        "link": "See the commands"
+      },
+      "server": {
+        "title": "Server",
+        "text": "Open the WebUI in a browser to control SRA remotely, and use the REST API or MCP.",
+        "link": "Deploy the server"
+      }
+    },
+    "steps": {
+      "eyebrow": "Quick start",
+      "title": "Three steps to your first run",
+      "button": "Get started",
+      "one": {
+        "title": "Download and extract",
+        "text": "Pick the package that fits you and extract it anywhere."
+      },
+      "two": {
+        "title": "Finish the setup",
+        "text": "The game path is detected on first launch; confirm resolution and account."
+      },
+      "three": {
+        "title": "Select tasks and start",
+        "text": "Tick the tasks you need, save the config and hit start."
+      }
+    },
+    "links": {
+      "title": "Keep exploring",
+      "docs": {
+        "title": "Documentation",
+        "text": "Everything from downloading to each task in detail."
+      },
+      "api": {
+        "title": "Public API",
+        "text": "Query announcements, redemption codes and more."
+      },
+      "mcp": {
+        "title": "MCP tools",
+        "text": "Let AI clients operate SRA and the game directly."
+      },
+      "strategy": {
+        "title": "Strategy site",
+        "text": "Share and discover custom Currency Wars strategies."
+      },
+      "changelog": {
+        "title": "Changelog",
+        "text": "What every release added and fixed."
+      },
+      "github": {
+        "title": "GitHub",
+        "text": "Source code, issues and releases."
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "text": "Download the latest release and finish your first run in minutes.",
+      "primary": "Download now",
+      "secondary": "View on GitHub"
+    }
+  },
+  "download": {
+    "meta": {
+      "title": "Download",
+      "description": "Download StarRailAssistant packages, or get it through MirrorChyan, GitHub, PyPI and Docker."
+    },
+    "hero": {
+      "eyebrow": "Download",
+      "title": "Get StarRailAssistant",
+      "desc": "Pick the package that fits you and unzip it — every edition is free and open source.",
+      "primary": "Open GitHub Releases",
+      "secondary": "Speed up with MirrorChyan",
+      "note": "Use MirrorChyan if GitHub is slow; the Release page always has the current version number."
+    },
+    "packages": {
+      "title": "Choose a package",
+      "desc": "Each release ships in several flavours; the difference is which components and runtime are bundled.",
+      "download": "Download",
+      "full": {
+        "badge": "Recommended",
+        "desc": "The GUI SRA.exe, the CLI SRA-cli.exe, the server SRA-server.exe and all core resources — the complete feature set."
+      },
+      "core": {
+        "desc": "Only SRA-cli.exe and core resources. Suited to command-line or headless setups; bring your own config files."
+      },
+      "lite": {
+        "desc": "Desktop build plus the Python sources; requires a Python 3.12 environment you set up yourself."
+      },
+      "resources": {
+        "desc": "Only tasks, extensions, resources and the manifest, used to update resources inside a Core package."
+      }
+    },
+    "channels": {
+      "title": "Other ways to get it",
+      "desc": "Besides the official releases, you can install or update SRA through the channels below.",
+      "mirror": {
+        "title": "MirrorChyan",
+        "desc": "Third-party accelerated distribution that also powers automatic updates; only the acceleration is paid, SRA itself is free."
+      },
+      "github": {
+        "title": "GitHub Releases",
+        "desc": "The official channel, with every package and all previous versions."
+      },
+      "quark": {
+        "title": "Quark Drive",
+        "desc": "A mainland mirror that may lag behind; prefer the options above when possible."
+      },
+      "pypi": {
+        "title": "Install from PyPI",
+        "desc": "Works on Windows, Linux and macOS with Python 3.12. Run sra init afterwards to fetch the WebUI and core resources.",
+        "link": "See the full installation steps"
+      },
+      "docker": {
+        "title": "Deploy with Docker",
+        "desc": "The image only contains SRA-server (WebUI, HTTP API and MCP); inside a container only cloud gaming is available.",
+        "link": "Read the deployment guide"
+      }
+    },
+    "requirements": {
+      "title": "Requirements",
+      "os": { "label": "OS", "value": "Windows 10 / 11 (64-bit)" },
+      "resolution": { "label": "Resolution", "value": "1920 × 1080 (client area)" },
+      "admin": { "label": "Privileges", "value": "Administrator recommended" },
+      "python": { "label": "Python", "value": "3.12 (PyPI installs only)" }
+    },
+    "docs": {
+      "title": "Full download and installation guide",
+      "desc": "Package contents, PyPI installs, Docker deployment and update instructions all live in the docs.",
+      "link": "Read the docs"
+    }
+  }
 }

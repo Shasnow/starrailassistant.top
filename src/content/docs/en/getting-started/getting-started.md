@@ -177,19 +177,32 @@ Check the "**Divergent Universe - Paradise Memoir**" box to enable this task. Th
 
 Usually 20 runs per week are enough to complete the weekly point rewards.
 
+:::tip[Multimodal vision positioning]
+Event-type stops in Divergent Universe first try to locate the event frame with multimodal vision, falling back to regular recognition when it is not enabled. Enable it in Settings → Advanced → Multimodal LLM Vision and fill in the endpoint, model ID, and API key. Calls incur a fee; see [Multimodal LLM Vision](/en/getting-started/advance#multimodal-llm-vision).
+:::
+
 :::warning
 Before running, complete Tutorial I and Tutorial II, and clear all beginner tips.
 :::
 
 ### Cosmic Strife - Currency Wars
 
-Standard match, Overclock match, and Opening reroll are supported, with the highest, lowest, or current difficulty. There are two modes of operation: full-run mode and takeover mode.
+Standard match and Overclock match are supported, with the highest, lowest, or current difficulty; either type can also be combined with "Opening reroll". There are two modes of operation: full-run mode and takeover mode.
 
 1. Trailblazer name: required in every mode. If your Trailblazer name contains special or uncommon characters, recognition may fail, so try to use common characters.
-2. Type: select the Currency Wars type to run — Standard match, Overclock match, or Opening reroll.
-3. Difficulty: select the Currency Wars difficulty — Highest difficulty, Lowest difficulty, or Current difficulty.
-4. Strategy: select the Currency Wars strategy to run. For how to create or import strategies, see [Custom Currency Wars Strategies](/en/getting-started/advance#custom-currency-wars-strategies).
-5. Runs this time: the number of rounds to execute. For Opening reroll it means the number of attempts; for Standard match or Overclock match it means the number of repeated runs.
+2. Type: select the Currency Wars type to run — Standard match or Overclock match.
+3. Opening reroll: when enabled, SRA restarts the run repeatedly according to the conditions below until a satisfying opening appears; it can be freely combined with Standard match or Overclock match.
+4. Difficulty: select the Currency Wars difficulty — Highest difficulty, Lowest difficulty, or Current difficulty.
+5. Strategy: select the Currency Wars strategy to run. For how to create or import strategies, see [Custom Currency Wars Strategies](/en/getting-started/advance#custom-currency-wars-strategies).
+6. Runs this time: the number of rounds to execute. With Opening reroll enabled it means the number of attempts; otherwise it means the number of repeated runs.
+7. Enable weekly point rewards: when enabled, skip the Currency Wars task if the Cosmic Strife point rewards are already capped.
+
+Expand "Advanced" to configure the following skips, which apply to both normal runs and Opening reroll:
+
+- Skip shop refresh: only buy target characters from the current shop; do not refresh or level up.
+- Skip applying strategy: do not paste the strategy code after entering a run.
+- Skip crystal collection: do not perform the crystal-collection drag.
+- Skip equipping gear: do not click recommended gear for strategy characters automatically.
 
 When you are ready, remember to check both the Currency Wars checkbox and the Cosmic Strife checkbox to enable the task.
 
@@ -220,15 +233,17 @@ To run the Currency Wars task in takeover mode, you must be on the Currency Wars
 #### Opening Reroll
 
 ![Opening reroll](../../../../assets/img/use/getstarted/reroll_start.png)
-In the Currency Wars task, choose "Opening reroll" from the "Type" drop-down menu.
+Open the "Opening reroll" switch in the Currency Wars task (below the "Type" drop-down). Reroll uses the "Type" and "Difficulty" selected above and restarts the run repeatedly according to the conditions below until a satisfying opening appears; it then stops and does not finish that match.
 
 All fields are matched with **regular expressions**. Before matching, the recognized text is cleaned (spaces, `·`, `•`, and `?` are removed, and full-width characters are normalized to half-width), so you don't need to handle these OCR artifacts when configuring. Each configuration string is used as a regex with `re.search` against the recognized text; a match only requires the recognized text to **contain** a fragment that the regex matches — the whole string does not have to be equal.
 
 - Regex special characters (`.`, `+`, `*`, `(`, `)`, `[`, `]`, etc.) have special meanings; escape them with `\` to match the literal character. Make sure the input is a valid regex, or an error is reported at the configuration stage.
-- For investment strategies, Boss names, and Boss affixes, `?` is removed before matching, so the `?` quantifier cannot be used in these fields (such as `\+?`); use alternation with `|` instead. In investment environments, `?` means the "optional item" prefix only when it appears at the start.
+- For investment strategies, Boss names, encounter partners, and Boss affixes, `?` is removed before matching, so the `?` quantifier cannot be used in these fields (such as `\+?`); use alternation with `|` instead. In investment environments, `?` means the "optional item" prefix only when it appears at the start.
 - Boss names: enter the Boss names you want to roll here, for example `巨鹿生物制药;增熵能源集团;金血记忆体联盟`.
   Separate them with semicolons `;`, corresponding to Plane 1, 2, and 3 in order; each item is a regex match. Leaving an item empty means there is no specific requirement for that Plane, e.g. `;;金血记忆体联盟` means you only expect "金血记忆体联盟" on the third Plane.
   Thanks to search matching, you don't need to write the full name: for example, `凛冬|火线;铁盾;造梦` means the first Plane may match either "凛冬经贸联合体" or "火线动力机甲", the second Plane matches "铁盾安保集团", and the third Plane matches "造梦兄弟影业".
+- Encounter partners: enter the encounter partner names you want to roll here, for example `杨叔 阮·梅`.
+  Separate them with spaces; matching any one of them counts as satisfied. Leave it empty for no restriction.
 - Boss affixes: enter the Boss affix names you want to roll here, for example `变宝为废`. Boss affix names are based on the affix names shown in Currency Wars.
   Separate multiple affixes with spaces, and all of them must match, for example `首领强化 一鼓作气`.
   Prefix an affix name with an exclamation mark `!` (full-width or half-width) to mark it as a hated affix; any one appearing restarts the run. For example, `!熄火` restarts the run if any affix containing "熄火" appears (前台熄火, 后台熄火, 风之熄火, ...). Priority: hated affixes > required affixes.

@@ -1,0 +1,1097 @@
+---
+// 文档站首页的正文部分（splash hero 由 MDX frontmatter 提供）。
+// 中英文共用同一份组件，文案取自 src/content/i18n/ 下的翻译文件。
+import { Icon } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import softwareMain from '../../assets/img/use/softwaremain2.png';
+import mainTasks from '../../assets/img/use/softwaremain_tasks.png';
+import mainExtensions from '../../assets/img/use/softwaremain_extensions.png';
+import mainConsole from '../../assets/img/use/softwaremain_console.png';
+import mainSettings from '../../assets/img/use/softwaremain_settings.png';
+import shotTasks from '../../assets/img/use/getstarted/tasklist.png';
+import shotPower from '../../assets/img/use/getstarted/power_view.png';
+import shotRewards from '../../assets/img/use/getstarted/reward_view.png';
+
+const tr = Astro.locals.t;
+const prefix = Astro.currentLocale === 'en' ? '/en' : '';
+const to = (path: string) => (path.startsWith('http') ? path : `${prefix}${path}`);
+
+const showcase = {
+  eyebrow: tr('home.showcase.eyebrow'),
+  title: tr('home.showcase.title'),
+  desc: tr('home.showcase.desc'),
+  slides: [
+    { src: softwareMain, alt: tr('home.showcase.slides.home') },
+    { src: mainTasks, alt: tr('home.showcase.slides.tasks') },
+    { src: mainExtensions, alt: tr('home.showcase.slides.extensions') },
+    { src: mainConsole, alt: tr('home.showcase.slides.console') },
+    { src: mainSettings, alt: tr('home.showcase.slides.settings') },
+  ],
+  points: [
+    {
+      icon: 'laptop',
+      title: tr('home.showcase.points.noEmulator.title'),
+      text: tr('home.showcase.points.noEmulator.text'),
+    },
+    {
+      icon: 'server',
+      title: tr('home.showcase.points.servers.title'),
+      text: tr('home.showcase.points.servers.text'),
+    },
+    {
+      icon: 'desktop',
+      title: tr('home.showcase.points.hosting.title'),
+      text: tr('home.showcase.points.hosting.text'),
+    },
+  ],
+};
+
+const stats = [
+  { value: tr('home.stats.license.value'), label: tr('home.stats.license.label') },
+  { value: tr('home.stats.platform.value'), label: tr('home.stats.platform.label') },
+  { value: tr('home.stats.resolution.value'), label: tr('home.stats.resolution.label') },
+  { value: tr('home.stats.servers.value'), label: tr('home.stats.servers.label') },
+];
+
+const features = {
+  eyebrow: tr('home.features.eyebrow'),
+  title: tr('home.features.title'),
+  desc: tr('home.features.desc'),
+  items: [
+    {
+      icon: 'rocket',
+      title: tr('home.features.launch.title'),
+      text: tr('home.features.launch.text'),
+    },
+    {
+      icon: 'seti:cake_php',
+      title: tr('home.features.power.title'),
+      text: tr('home.features.power.text'),
+    },
+    {
+      icon: 'approve-check',
+      title: tr('home.features.rewards.title'),
+      text: tr('home.features.rewards.text'),
+    },
+    {
+      icon: 'seti:db',
+      title: tr('home.features.currencyWars.title'),
+      text: tr('home.features.currencyWars.text'),
+    },
+    {
+      icon: 'seti:happenings',
+      title: tr('home.features.universe.title'),
+      text: tr('home.features.universe.text'),
+    },
+    {
+      icon: 'bitbucket',
+      title: tr('home.features.accounts.title'),
+      text: tr('home.features.accounts.text'),
+    },
+    {
+      icon: 'puzzle',
+      title: tr('home.features.extensions.title'),
+      text: tr('home.features.extensions.text'),
+    },
+    {
+      icon: 'server',
+      title: tr('home.features.api.title'),
+      text: tr('home.features.api.text'),
+    },
+  ],
+};
+
+const shots = {
+  eyebrow: tr('home.shots.eyebrow'),
+  title: tr('home.shots.title'),
+  items: [
+    { src: shotTasks, caption: tr('home.shots.tasks') },
+    { src: shotPower, caption: tr('home.shots.power') },
+    { src: shotRewards, caption: tr('home.shots.rewards') },
+  ],
+};
+
+const usage = {
+  eyebrow: tr('home.usage.eyebrow'),
+  title: tr('home.usage.title'),
+  items: [
+    {
+      icon: 'laptop',
+      title: tr('home.usage.desktop.title'),
+      text: tr('home.usage.desktop.text'),
+      code: 'SRA.exe',
+      link: to('/download'),
+      linkText: tr('home.usage.desktop.link'),
+    },
+    {
+      icon: 'forward-slash',
+      title: tr('home.usage.cli.title'),
+      text: tr('home.usage.cli.text'),
+      code: 'sra task run Default',
+      link: to('/cli/simple-usage'),
+      linkText: tr('home.usage.cli.link'),
+    },
+    {
+      icon: 'server',
+      title: tr('home.usage.server.title'),
+      text: tr('home.usage.server.text'),
+      code: 'sra serve',
+      link: to('/server/simple-usage'),
+      linkText: tr('home.usage.server.link'),
+    },
+  ],
+};
+
+const steps = {
+  eyebrow: tr('home.steps.eyebrow'),
+  title: tr('home.steps.title'),
+  button: tr('home.steps.button'),
+  link: to('/getting-started/getting-started'),
+  items: [
+    { title: tr('home.steps.one.title'), text: tr('home.steps.one.text') },
+    { title: tr('home.steps.two.title'), text: tr('home.steps.two.text') },
+    { title: tr('home.steps.three.title'), text: tr('home.steps.three.text') },
+  ],
+};
+
+const links = {
+  title: tr('home.links.title'),
+  items: [
+    {
+      icon: 'document',
+      title: tr('home.links.docs.title'),
+      text: tr('home.links.docs.text'),
+      link: to('/getting-started/getting-started'),
+    },
+    {
+      icon: 'link-alt',
+      title: tr('home.links.api.title'),
+      text: tr('home.links.api.text'),
+      link: to('/reference/public-api'),
+    },
+    {
+      icon: 'server',
+      title: tr('home.links.mcp.title'),
+      text: tr('home.links.mcp.text'),
+      link: to('/server/mcp'),
+    },
+    {
+      icon: 'open-book',
+      title: tr('home.links.strategy.title'),
+      text: tr('home.links.strategy.text'),
+      link: '/strategy',
+    },
+    {
+      icon: 'information',
+      title: tr('home.links.changelog.title'),
+      text: tr('home.links.changelog.text'),
+      link: to('/ann/updates'),
+    },
+    {
+      icon: 'github',
+      title: tr('home.links.github.title'),
+      text: tr('home.links.github.text'),
+      link: 'https://github.com/Shasnow/StarRailAssistant',
+    },
+  ],
+};
+
+const cta = {
+  title: tr('home.cta.title'),
+  text: tr('home.cta.text'),
+  primary: tr('home.cta.primary'),
+  primaryLink: to('/download'),
+  secondary: tr('home.cta.secondary'),
+};
+
+const t = { showcase, stats, features, shots, usage, steps, links, cta };
+---
+
+<div class="sra-home">
+  <!-- 产品概览 -->
+  <section class="sra-showcase">
+    <div class="sra-showcase__text">
+      <p class="sra-eyebrow">{t.showcase.eyebrow}</p>
+      <h2 class="sra-title">{t.showcase.title}</h2>
+      <p class="sra-desc">{t.showcase.desc}</p>
+      <ul class="sra-points">
+        {
+          t.showcase.points.map((point) => (
+            <li>
+              <span class="sra-points__icon">
+                <Icon name={point.icon} />
+              </span>
+              <span>
+                <strong>{point.title}</strong>
+                <span class="sra-points__text">{point.text}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="sra-showcase__media">
+      <div class="sra-carousel">
+        <div
+          class="sra-carousel__viewport"
+          role="group"
+          aria-roledescription="carousel"
+          aria-label={tr('home.showcase.carousel.label')}
+          tabindex="0"
+        >
+          {
+            t.showcase.slides.map((slide) => (
+              <div class="sra-carousel__slide" role="group" aria-roledescription="slide">
+                <Image src={slide.src} alt={slide.alt} width={1280} format="webp" quality={82} loading="eager" />
+              </div>
+            ))
+          }
+        </div>
+        <button
+          type="button"
+          class="sra-carousel__nav sra-carousel__nav--prev"
+          aria-label={tr('home.showcase.carousel.prev')}
+        >
+          <Icon name="left-arrow" />
+        </button>
+        <button
+          type="button"
+          class="sra-carousel__nav sra-carousel__nav--next"
+          aria-label={tr('home.showcase.carousel.next')}
+        >
+          <Icon name="right-arrow" />
+        </button>
+        <div class="sra-carousel__dots">
+          {
+            t.showcase.slides.map((slide) => (
+              <button
+                type="button"
+                class="sra-carousel__dot"
+                aria-label={tr('home.showcase.carousel.goTo', { name: slide.alt })}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关键信息 -->
+  <section class="sra-stats">
+    {
+      t.stats.map((stat) => (
+        <div class="sra-stats__item">
+          <span class="sra-stats__value">{stat.value}</span>
+          <span class="sra-stats__label">{stat.label}</span>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- 核心能力 -->
+  <section class="sra-section">
+    <header class="sra-section__head">
+      <p class="sra-eyebrow">{t.features.eyebrow}</p>
+      <h2 class="sra-title">{t.features.title}</h2>
+      <p class="sra-desc">{t.features.desc}</p>
+    </header>
+    <div class="sra-features">
+      {
+        t.features.items.map((item) => (
+          <article class="sra-feature">
+            <span class="sra-feature__icon">
+              <Icon name={item.icon} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 界面预览 -->
+  <section class="sra-section">
+    <header class="sra-section__head">
+      <p class="sra-eyebrow">{t.shots.eyebrow}</p>
+      <h2 class="sra-title">{t.shots.title}</h2>
+    </header>
+    <div class="sra-shots">
+      {
+        t.shots.items.map((shot) => (
+          <figure class="sra-shot">
+            <Image src={shot.src} alt={shot.caption} width={1280} format="webp" quality={80} />
+            <figcaption>{shot.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 使用方式 -->
+  <section class="sra-section">
+    <header class="sra-section__head">
+      <p class="sra-eyebrow">{t.usage.eyebrow}</p>
+      <h2 class="sra-title">{t.usage.title}</h2>
+    </header>
+    <div class="sra-usage">
+      {
+        t.usage.items.map((item) => (
+          <article class="sra-usage__card">
+            <span class="sra-usage__icon">
+              <Icon name={item.icon} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <code class="sra-usage__code">{item.code}</code>
+            <a class="sra-usage__link" href={item.link}>
+              {item.linkText} <Icon name="right-arrow" />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 快速开始 -->
+  <section class="sra-start">
+    <header class="sra-section__head">
+      <p class="sra-eyebrow">{t.steps.eyebrow}</p>
+      <h2 class="sra-title">{t.steps.title}</h2>
+    </header>
+    <ol class="sra-steps">
+      {
+        t.steps.items.map((step, index) => (
+          <li>
+            <span class="sra-steps__index">{index + 1}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <a class="sra-button" href={t.steps.link}>
+      {t.steps.button} <Icon name="right-arrow" />
+    </a>
+  </section>
+
+  <!-- 相关入口 -->
+  <section class="sra-section">
+    <header class="sra-section__head">
+      <h2 class="sra-title">{t.links.title}</h2>
+    </header>
+    <div class="sra-links">
+      {
+        t.links.items.map((item) => {
+          const isExternal = item.link.startsWith('http');
+          return (
+            <a
+              class="sra-link"
+              href={item.link}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noreferrer' : undefined}
+            >
+              <span class="sra-link__icon">
+                <Icon name={item.icon} />
+              </span>
+              <span class="sra-link__body">
+                <strong>{item.title}</strong>
+                <span>{item.text}</span>
+              </span>
+              <Icon name={isExternal ? 'external' : 'right-arrow'} class="sra-link__arrow" />
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <!-- 底部行动区 -->
+  <section class="sra-cta">
+    <div>
+      <h2>{t.cta.title}</h2>
+      <p>{t.cta.text}</p>
+    </div>
+    <div class="sra-cta__actions">
+      <a class="sra-button" href={t.cta.primaryLink}>{t.cta.primary}</a>
+      <a class="sra-button sra-button--ghost" href="https://github.com/Shasnow/StarRailAssistant">
+        {t.cta.secondary}
+      </a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.querySelectorAll<HTMLElement>('.sra-carousel').forEach((root) => {
+    const viewport = root.querySelector<HTMLElement>('.sra-carousel__viewport');
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('.sra-carousel__slide'));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.sra-carousel__dot'));
+    const prev = root.querySelector<HTMLButtonElement>('.sra-carousel__nav--prev');
+    const next = root.querySelector<HTMLButtonElement>('.sra-carousel__nav--next');
+    if (!viewport || slides.length < 2) return;
+
+    let index = 0;
+    let paused = false;
+    let stopped = false;
+
+    const sync = () => {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+        dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+      });
+      slides.forEach((slide, i) => slide.setAttribute('aria-hidden', i === index ? 'false' : 'true'));
+    };
+
+    const goTo = (target: number) => {
+      index = (target + slides.length) % slides.length;
+      viewport.scrollTo({
+        left: index * viewport.clientWidth,
+        behavior: reduceMotion.matches ? 'auto' : 'smooth',
+      });
+      sync();
+    };
+
+    prev?.addEventListener('click', () => {
+      stopped = true;
+      goTo(index - 1);
+    });
+    next?.addEventListener('click', () => {
+      stopped = true;
+      goTo(index + 1);
+    });
+    dots.forEach((dot, i) =>
+      dot.addEventListener('click', () => {
+        stopped = true;
+        goTo(i);
+      }),
+    );
+
+    viewport.addEventListener(
+      'scroll',
+      () => {
+        const current = Math.round(viewport.scrollLeft / viewport.clientWidth);
+        if (current !== index && current >= 0 && current < slides.length) {
+          index = current;
+          sync();
+        }
+      },
+      { passive: true },
+    );
+
+    root.addEventListener('mouseenter', () => {
+      paused = true;
+    });
+    root.addEventListener('mouseleave', () => {
+      paused = false;
+    });
+    root.addEventListener('focusin', () => {
+      paused = true;
+    });
+    root.addEventListener('focusout', () => {
+      paused = false;
+    });
+
+    sync();
+
+    if (reduceMotion.matches) return;
+    window.setInterval(() => {
+      if (!paused && !stopped && !document.hidden) goTo(index + 1);
+    }, 5000);
+  });
+</script>
+
+<style>
+  .sra-home {
+    --sra-radius: 1rem;
+    --sra-radius-sm: 0.75rem;
+    --sra-border: var(--sl-color-hairline, var(--sl-color-gray-5));
+    --sra-surface: var(--sl-color-bg-nav, var(--sl-color-gray-7));
+    --sra-accent: var(--sl-color-text-accent);
+    --sra-glow: hsla(var(--purple-hsl, 255, 60%, 60%), 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding-block: 1rem 2rem;
+  }
+
+  /* Starlight 的 .sl-markdown-content 会给相邻兄弟元素追加 1rem 上边距，
+     这里统一清除，否则网格里的非首个元素会被额外下推。 */
+  .sra-home
+    :is(
+      .sra-showcase > *,
+      .sra-stats__item,
+      .sra-feature,
+      .sra-shot,
+      .sra-shot figcaption,
+      .sra-usage__card,
+      .sra-points li,
+      .sra-steps li,
+      .sra-cta > *
+    ) {
+    margin-top: 0;
+  }
+
+  /* ---------- 通用排版 ---------- */
+  .sra-eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sra-accent);
+  }
+
+  .sra-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .sra-desc {
+    margin: 0;
+    max-width: 46rem;
+    color: var(--sl-color-gray-2);
+    line-height: 1.75;
+  }
+
+  .sra-section__head {
+    margin-bottom: 2rem;
+  }
+
+  /* ---------- 产品概览 ---------- */
+  .sra-showcase {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .sra-points {
+    display: grid;
+    gap: 1rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sra-points li {
+    display: flex;
+    gap: 0.875rem;
+  }
+
+  .sra-points strong {
+    display: block;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-base);
+  }
+
+  .sra-points__text {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+    line-height: 1.6;
+  }
+
+  .sra-points__icon,
+  .sra-feature__icon,
+  .sra-usage__icon,
+  .sra-link__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    background: var(--overlay-blurple, var(--sra-glow));
+    color: var(--sra-accent);
+    border: 1px solid var(--sra-border);
+    font-size: 1.15rem;
+  }
+
+  .sra-showcase__media {
+    position: relative;
+    border-radius: var(--sra-radius);
+    border: 1px solid var(--sra-border);
+    background: var(--sra-surface);
+    padding: 0.5rem;
+    box-shadow: 0 1.5rem 4rem -1.5rem var(--sra-glow);
+  }
+
+  .sra-carousel {
+    position: relative;
+  }
+
+  .sra-carousel__viewport {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-radius: calc(var(--sra-radius) - 0.5rem);
+    scrollbar-width: none;
+  }
+
+  .sra-carousel__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sra-carousel__viewport:focus-visible {
+    outline: 2px solid var(--sra-accent);
+    outline-offset: 2px;
+  }
+
+  .sra-carousel__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .sra-showcase__media :global(img) {
+    border-radius: calc(var(--sra-radius) - 0.5rem);
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .sra-carousel__nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 1px solid var(--sra-border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sl-color-black) 55%, transparent);
+    backdrop-filter: blur(6px);
+    color: var(--sl-color-white);
+    cursor: pointer;
+    opacity: 0.75;
+    transition:
+      opacity 0.2s ease,
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .sra-carousel__nav:hover,
+  .sra-carousel__nav:focus-visible {
+    opacity: 1;
+    background: var(--sra-accent);
+    color: var(--sl-color-black);
+  }
+
+  .sra-carousel__nav--prev {
+    left: 1rem;
+  }
+
+  .sra-carousel__nav--next {
+    right: 1rem;
+  }
+
+  .sra-carousel__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 0.75rem;
+    translate: -50% 0;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-items: center;
+    gap: 0.375rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sl-color-black) 45%, transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  .sra-carousel__dot {
+    display: block;
+    flex: none;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sl-color-white) 45%, transparent);
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+    transition:
+      width 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .sra-carousel__dot.is-active {
+    width: 1.1rem;
+    background: var(--sra-accent);
+  }
+
+  /* ---------- 关键信息 ---------- */
+  .sra-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1px;
+    background: var(--sra-border);
+    border: 1px solid var(--sra-border);
+    border-radius: var(--sra-radius);
+    overflow: hidden;
+  }
+
+  .sra-stats__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--sl-color-bg);
+  }
+
+  .sra-stats__value {
+    font-size: var(--sl-text-lg);
+    font-weight: 700;
+    color: var(--sl-color-white);
+    letter-spacing: -0.01em;
+  }
+
+  .sra-stats__label {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+
+  /* ---------- 核心能力 ---------- */
+  .sra-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    /* 所有行等高，避免卡片长短不一 */
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .sra-feature {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: var(--sra-radius);
+    border: 1px solid var(--sra-border);
+    background: var(--sra-surface);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .sra-feature:hover {
+    border-color: var(--sra-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem -1rem var(--sra-glow);
+  }
+
+  .sra-feature h3 {
+    margin: 1rem 0 0.375rem;
+    font-size: var(--sl-text-lg);
+    color: var(--sl-color-white);
+  }
+
+  .sra-feature p {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    line-height: 1.7;
+    color: var(--sl-color-gray-3);
+  }
+
+  /* ---------- 界面预览 ---------- */
+  .sra-shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.25rem;
+  }
+
+  .sra-shot {
+    margin: 0;
+    border-radius: var(--sra-radius);
+    border: 1px solid var(--sra-border);
+    background: var(--sra-surface);
+    overflow: hidden;
+  }
+
+  .sra-shot :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .sra-shot figcaption {
+    padding: 0.75rem 1rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+    border-top: 1px solid var(--sra-border);
+  }
+
+  /* ---------- 使用方式 ---------- */
+  .sra-usage {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+  }
+
+  .sra-usage__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border-radius: var(--sra-radius);
+    border: 1px solid var(--sra-border);
+    background: var(--sra-surface);
+  }
+
+  .sra-usage__card h3 {
+    margin: 1rem 0 0.375rem;
+    font-size: var(--sl-text-lg);
+    color: var(--sl-color-white);
+  }
+
+  .sra-usage__card p {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    line-height: 1.7;
+    color: var(--sl-color-gray-3);
+  }
+
+  .sra-usage__code {
+    margin: 1rem 0 1.25rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--sra-border);
+    background: var(--sl-color-bg);
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .sra-usage__link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    color: var(--sra-accent);
+    text-decoration: none;
+  }
+
+  .sra-usage__link:hover {
+    text-decoration: underline;
+  }
+
+  /* ---------- 快速开始 ---------- */
+  .sra-start {
+    padding: clamp(1.75rem, 1rem + 2vw, 3rem);
+    border-radius: calc(var(--sra-radius) * 1.25);
+    border: 1px solid var(--sra-border);
+    background:
+      radial-gradient(60% 120% at 100% 0%, var(--overlay-blurple) 0%, transparent 60%),
+      var(--sra-surface);
+  }
+
+  .sra-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sra-steps li {
+    display: flex;
+    gap: 0.875rem;
+  }
+
+  .sra-steps__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 999px;
+    background: var(--sra-accent);
+    color: var(--sl-color-black);
+    font-size: var(--sl-text-sm);
+    font-weight: 700;
+  }
+
+  .sra-steps h3 {
+    margin: 0.125rem 0 0.25rem;
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+  }
+
+  .sra-steps p {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    line-height: 1.65;
+    color: var(--sl-color-gray-3);
+  }
+
+  /* ---------- 相关入口 ---------- */
+  .sra-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 0.875rem;
+  }
+
+  .sra-link {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem;
+    border-radius: var(--sra-radius-sm);
+    border: 1px solid var(--sra-border);
+    background: var(--sra-surface);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .sra-link:hover {
+    border-color: var(--sra-accent);
+    transform: translateY(-2px);
+  }
+
+  .sra-link__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+
+  .sra-link__body strong {
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+  }
+
+  .sra-link__body span {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+
+  .sra-link__arrow {
+    margin-left: auto;
+    flex: none;
+    color: var(--sl-color-gray-4);
+  }
+
+  .sra-link:hover .sra-link__arrow {
+    color: var(--sra-accent);
+  }
+
+  /* ---------- 底部行动区 ---------- */
+  .sra-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+    border-radius: calc(var(--sra-radius) * 1.25);
+    border: 1px solid var(--sra-border);
+    background:
+      radial-gradient(70% 130% at 0% 0%, var(--overlay-blurple) 0%, transparent 65%),
+      var(--sra-surface);
+  }
+
+  .sra-cta h2 {
+    margin: 0 0 0.375rem;
+    font-size: clamp(1.35rem, 1.1rem + 1vw, 1.85rem);
+  }
+
+  .sra-cta p {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+  }
+
+  .sra-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .sra-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.7rem 1.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--sra-accent);
+    background: var(--sra-accent);
+    color: var(--sl-color-black);
+    font-weight: 600;
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .sra-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.75rem 1.5rem -0.75rem var(--sra-glow);
+  }
+
+  .sra-button--ghost {
+    background: transparent;
+    color: var(--sl-color-white);
+    border-color: var(--sra-border);
+  }
+
+  .sra-button--ghost:hover {
+    border-color: var(--sra-accent);
+  }
+
+  /* ---------- 响应式 ---------- */
+  @media (min-width: 60rem) {
+    .sra-showcase {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 50rem) {
+    .sra-home {
+      gap: 3.5rem;
+    }
+
+    .sra-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sra-feature,
+    .sra-link,
+    .sra-button,
+    .sra-carousel__nav,
+    .sra-carousel__dot {
+      transition: none;
+    }
+
+    .sra-feature:hover,
+    .sra-link:hover,
+    .sra-button:hover {
+      transform: none;
+    }
+  }
+</style>

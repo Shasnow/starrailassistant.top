@@ -29,7 +29,7 @@ Create a new directory and save the following as `docker-compose.yml`:
 ```yaml
 services:
   sra-server:
-    image: ghcr.io/shasnow/starrailassistant:beta
+    image: ghcr.io/shasnow/starrailassistant:latest
     container_name: sra-server
     restart: unless-stopped
     ports:
@@ -67,7 +67,7 @@ docker run -d --name sra-server -p 5073:5073 \
   -e SRA_ACCESS_TOKEN=<你的令牌> \
   -v sra-data:/root/.config/SRA \
   -v sra-log:/app/log \
-  ghcr.io/shasnow/starrailassistant:beta
+  ghcr.io/shasnow/starrailassistant:latest
 ```
 
 :::tip
@@ -79,24 +79,24 @@ root is an equivalent version and also ships a health-check script.
 
 | Tag | Meaning |
 | --- | --- |
-| `beta` | The latest beta build (version numbers contain `-`) |
 | `latest` | The latest stable build |
-| `v<version>` | Pinned to a specific version, for example `v2.25.0-beta.3` |
+| `beta` | The latest beta build (version numbers contain `-`) |
+| `v<version>` | Pinned to a specific version, for example `v2.26.0` |
 | `sha-<short hash>` | Pinned to the build of a specific commit, for example `sha-d907a24` |
 
-`beta` / `latest` are **mutable tags** that move as new builds ship; if you need predictable updates, pin a version:
+`latest` / `beta` are **mutable tags** that move as new builds ship; if you need predictable updates, pin a version:
 
 ```bash
 # Pin a version
-SRA_IMAGE_TAG=v2.25.0-beta.3 docker compose up -d
+SRA_IMAGE_TAG=v2.26.0 docker compose up -d
 
 # Roll back to the build of a specific commit
 SRA_IMAGE_TAG=sha-d907a24 docker compose up -d
 ```
 
 :::note
-The current version is on the beta channel, so only `beta` / `v<version>` / `sha-<short hash>` are available;
-`latest` will appear once a stable release ships.
+The stable release is out: `latest` tracks the newest stable build and is the right choice for daily use;
+switch to `beta` if you want the test builds.
 :::
 
 ## Environment variables
@@ -184,7 +184,7 @@ exists locally, it uses the cache directly, so the `pull` step cannot be skipped
 To check whether the registry has an update first, compare digests:
 
 ```bash
-docker manifest inspect ghcr.io/shasnow/starrailassistant:beta
+docker manifest inspect ghcr.io/shasnow/starrailassistant:latest
 ```
 
 ## Exposing to the public internet

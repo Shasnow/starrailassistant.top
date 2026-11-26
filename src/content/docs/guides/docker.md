@@ -28,7 +28,7 @@ sidebar:
 ```yaml
 services:
   sra-server:
-    image: ghcr.io/shasnow/starrailassistant:beta
+    image: ghcr.io/shasnow/starrailassistant:latest
     container_name: sra-server
     restart: unless-stopped
     ports:
@@ -66,7 +66,7 @@ docker run -d --name sra-server -p 5073:5073 \
   -e SRA_ACCESS_TOKEN=<你的令牌> \
   -v sra-data:/root/.config/SRA \
   -v sra-log:/app/log \
-  ghcr.io/shasnow/starrailassistant:beta
+  ghcr.io/shasnow/starrailassistant:latest
 ```
 
 :::tip
@@ -78,23 +78,23 @@ docker run -d --name sra-server -p 5073:5073 \
 
 | 标签 | 含义 |
 | --- | --- |
-| `beta` | 最新的 beta 构建（版本号含 `-`） |
 | `latest` | 最新的正式版构建 |
-| `v<版本>` | 固定到某个版本，例如 `v2.25.0-beta.3` |
+| `beta` | 最新的 beta 构建（版本号含 `-`） |
+| `v<版本>` | 固定到某个版本，例如 `v2.26.0` |
 | `sha-<短哈希>` | 固定到某个提交的构建，例如 `sha-d907a24` |
 
-`beta` / `latest` 是**可变标签**，会随着新构建移动；需要可预期的更新就钉版本：
+`latest` / `beta` 是**可变标签**，会随着新构建移动；需要可预期的更新就钉版本：
 
 ```bash
 # 固定版本
-SRA_IMAGE_TAG=v2.25.0-beta.3 docker compose up -d
+SRA_IMAGE_TAG=v2.26.0 docker compose up -d
 
 # 回滚到某个提交的构建
 SRA_IMAGE_TAG=sha-d907a24 docker compose up -d
 ```
 
 :::note
-当前版本处于 beta 通道，所以只有 `beta` / `v<版本>` / `sha-<短哈希>` 可用，正式版发布后才会有 `latest`。
+正式版已发布，`latest` 指向最新稳定版，适合日常使用；想跟测试版可以改用 `beta`。
 :::
 
 ## 环境变量
@@ -172,7 +172,7 @@ Compose v2.22 及以上也可以用 `docker compose up -d --pull always` 一步�
 想先看看远端有没有更新，可以比对摘要：
 
 ```bash
-docker manifest inspect ghcr.io/shasnow/starrailassistant:beta
+docker manifest inspect ghcr.io/shasnow/starrailassistant:latest
 ```
 
 ## 暴露到公网

@@ -1,0 +1,22 @@
+---
+// Download page: reuses the Starlight page shell without the docs sidebar; copy comes from i18n
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import DownloadPage from "@/components/download/DownloadPage.astro";
+
+const tr = Astro.locals.t;
+---
+
+<StarlightPage
+  frontmatter={{
+    title: tr("download.meta.title"),
+    description: tr("download.meta.description"),
+    template: "splash",
+    editUrl: false,
+    lastUpdated: false,
+  }}
+  hasSidebar={false}
+>
+  <div class="not-content">
+    <DownloadPage />
+  </div>
+</StarlightPage>

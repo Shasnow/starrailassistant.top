@@ -28,52 +28,6 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import HomePage from '../../components/home/HomePage.astro';
 
-## 核心功能
-
-<CardGrid stagger>
-	<Card title="启动游戏" icon="rocket">
-		支持官服、b服、国际服，自动检测游戏路径
-	</Card>
-	<Card title="清体力" icon="approve-check">
-		自由选择关卡、执行次数、作战顺序，也可以混合搭配。
-    支持根据剩余体力自动计算、支持根据培养目标自动计算
-	</Card>
-	<Card title="领取奖励" icon="bitbucket">
-		帮您领取助战、兑换码、派遣、邮件、每个版本的巡星之礼等奖励。
-	</Card>
-	<Card title="货币战争" icon="seti:db">
-		标准博弈或超频博弈、最低或最高难度。
-    也可以刷开局Boss词条、投资策略、投资环境，刷你想要的任何组合。支持自定义策略。
-	</Card>
-	<Card title="差分宇宙" icon="seti:cake_php">
-		现已支持差分宇宙，通过刷取第一层来完成每周的差分宇宙任务。支持达到每周积分上限后自动停止。
-	</Card>
-  <Card title="多账号托管" icon="seti:happenings">
-    可以保存多个账号的配置，在它们之间自动切换，助力您轻松管理多个账号。
-  </Card>
-  <Card title="MCP服务器" icon="server">
-    支持与AI Agent集成, 实现更高级的功能
-  </Card>
-</CardGrid>
-
-## 为什么选择SRA
-
-<CardGrid>
-  <Card title="基于PC本体游戏">
-    无需额外下载模拟器
-  </Card>
-  <Card title="开箱即用">
-    无需额外配置，下载解压后即可使用
-  </Card>
-  <Card title="体积小巧">
-    包体不到 200MB，解压后不到 500MB
-  </Card>
-  <Card title="支持远程控制">
-    基于SRA-server，支持远程控制，轻松管理多个账号
-  </Card>
-  <Card title="MCP服务器">
-    提供MCP服务器，方便与AI Agent集成, 实现更高级的功能
-  </Card>
-</CardGrid>
+<HomePage />

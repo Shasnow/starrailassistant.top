@@ -12,7 +12,7 @@ hero:
     file: ../../../assets/SRAico.png
   actions:
     - text: Get Started
-      link: /en/getting-started/download
+      link: /en/download
       icon: right-arrow
     - text: View on GitHub
       link: https://github.com/Shasnow/StarRailAssistant
@@ -28,52 +28,6 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import HomePage from '../../../components/home/HomePage.astro';
 
-## Core Features
-
-<CardGrid stagger>
-	<Card title="Launch Game" icon="rocket">
-		Supports official, Bilibili, and global clients with automatic game path detection.
-	</Card>
-	<Card title="Trailblaze Power" icon="approve-check">
-		Freely choose stages, execution counts, and battle order, or mix and match.
-    Supports auto-calculation based on remaining power or character development goals.
-	</Card>
-	<Card title="Claim Rewards" icon="bitbucket">
-		Automatically claims support rewards, redemption codes, assignments, mail, and the monthly pass rewards for every version.
-	</Card>
-	<Card title="Currency Wars" icon="seti:db">
-		Standard or overclocked games, lowest or highest difficulty.
-    Also supports farming starting Boss effects, investment strategies, and investment environments — any combination you want. Custom strategies are supported.
-	</Card>
-	<Card title="Divergent Universe" icon="seti:cake_php">
-		Now supports the Divergent Universe: clear the first floor repeatedly to complete weekly Divergent Universe tasks. Automatically stops after reaching the weekly point cap.
-	</Card>
-  <Card title="Multi-Account Management" icon="seti:happenings">
-    Save configurations for multiple accounts and switch between them automatically for effortless multi-account management.
-  </Card>
-  <Card title="MCP Server" icon="server">
-    Integrates with AI Agents for more advanced capabilities.
-  </Card>
-</CardGrid>
-
-## Why SRA
-
-<CardGrid>
-  <Card title="Based on the PC Game">
-    No additional emulator download required.
-  </Card>
-  <Card title="Out of the Box">
-    No extra configuration needed — download, extract, and run.
-  </Card>
-  <Card title="Lightweight">
-    Package under 200MB, less than 500MB after extraction.
-  </Card>
-  <Card title="Remote Control">
-    Built on SRA-server with remote control support for effortless multi-account management.
-  </Card>
-  <Card title="MCP Server">
-    Provides an MCP server for easy integration with AI Agents and more advanced capabilities.
-  </Card>
-</CardGrid>
+<HomePage />

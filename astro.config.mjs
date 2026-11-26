@@ -58,7 +58,7 @@ export default defineConfig({
           href: "https://github.com/Shasnow/StarRailAssistant",
         },
         {
-          icon: "link-alt",
+          icon: "open-book",
           label: "攻略站",
           href: "/strategy",
         }
