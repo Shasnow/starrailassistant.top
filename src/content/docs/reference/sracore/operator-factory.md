@@ -25,6 +25,9 @@ SRA 的所有游戏交互都通过「操作器」（Operator）完成：截图�
 - `Operator` 通过窗口标题查找句柄，支持前台/后台截图，见[窗口与窗口上下文](/reference/sracore/window-context/)；
 - `BrowserOperator` 的 `hwnd` 恒为 `0`、`is_window_active()` 恒为 `True`，
   `screenshot()` 的 `background` 参数默认为 `True`，宽高以页面实际视口为准。
+- `BrowserOperator` 额外提供云游戏登录：`login(account, password, relogin, account_tag)` 使用账号密码登录，
+  `qrcode_login(timeout, relogin, account_tag)` 展示二维码并等待扫码；两者都按 `account_tag` 保存/恢复登录态，
+  二维码图片写入 `log/qrcode_login.png`。
 
 识别与输入接口完全一致，因此任务代码只需优先使用比例坐标，即可在两种实现之间通用。
 

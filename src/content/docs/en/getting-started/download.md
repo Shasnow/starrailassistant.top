@@ -177,7 +177,7 @@ Open `http://localhost:5073` in your browser and enter the token to use it.
 
 :::warning
 Only cloud game works inside the container, and you need cloud game hours or a Play Pass.
-Cloud game settings are written automatically on first launch; fill in the account and password once in the WebUI configuration.
+Cloud game settings are written automatically on first launch; complete the account/password or QR login once in the WebUI configuration.
 :::
 
 :::note

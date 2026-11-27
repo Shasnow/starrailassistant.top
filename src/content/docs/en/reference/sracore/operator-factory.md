@@ -26,6 +26,9 @@ The difference lies mainly in the window layer:
 - `Operator` locates the handle by window title and supports foreground/background screenshots; see [Windows and window context](/en/reference/sracore/window-context/);
 - `BrowserOperator` always has `hwnd` = `0` and `is_window_active()` = `True`,
   the `background` parameter of `screenshot()` defaults to `True`, and width/height follow the page's actual viewport.
+- `BrowserOperator` also handles cloud game login: `login(account, password, relogin, account_tag)` signs in with
+  credentials, and `qrcode_login(timeout, relogin, account_tag)` shows a QR code and waits for scanning. Both save and
+  restore login state per `account_tag`, and the QR image is written to `log/qrcode_login.png`.
 
 The recognition and input interfaces are identical, so task code only needs to prefer proportional coordinates to work with both implementations.
 

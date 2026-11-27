@@ -128,6 +128,7 @@ curl -X POST http://localhost:5073/api/operator/call \
 | --- | --- |
 | 认证 | `POST /api/auth` |
 | 任务 | `POST /api/task/run`、`POST /api/task/single`、`POST /api/task/stop`、`GET /api/task/status` |
+| 云游戏 | `GET /api/cloudgame/qrcode` |
 | 后端 | `POST /api/backend/restart`、`POST /api/backend/stop`、`GET /api/backend/logs`、`GET /api/backend/logs/stream`、`GET /api/backend/screenshot` |
 | 配置 | `GET /api/configs`、`POST /api/configs/{name}`、`GET/PUT/DELETE /api/configs/{name}` |
 | 设置 | `GET/PUT /api/settings` |

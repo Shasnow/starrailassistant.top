@@ -123,7 +123,13 @@ Click `Setting` in the sidebar to open the tab where you can change SRA's settin
 ![General task settings](../../../../assets/img/use/settings/tasksetting.png)
 
 - Game Path: sets the game's installation path. By default, SRA detects the game paths of all installed clients on this device and lets you choose one. Turn off auto-detection to add a game path manually.
-- Use Star Rail Cloud Game (experimental): when enabled, SRA automates the game through Star Rail Cloud. Only Microsoft Edge is currently supported, so make sure it is installed on your device.
+- Use Star Rail Cloud Game (experimental): when enabled, SRA automates the game through Star Rail Cloud. Expand it to configure:
+  - Browser: `Microsoft Edge`, `Chrome for Testing`, or `Firefox`; defaults to `Microsoft Edge`.
+  - Browser executable path: leave empty to use the installed browser; set it when you need a specific build.
+  - Browser headless mode: runs the browser in the background without a window; required for Docker deployments.
+  - Mute browser audio: mutes the browser while running the cloud game.
+  - Combined with "QR code login (cloud game)" in the Start Game task, you can log in by scanning without entering an account or password.
+  - Cloud game login state is stored per configuration name, encrypted, in `cache/cloudgame/<configuration>.json`, so switching accounts does not require logging in again.
 - Image recognition confidence threshold: controls how strict the app is when recognizing in-game elements. The default is 0.90 (90%) and can be adjusted between 0 and 1
   in steps of 0.01. Higher values make recognition stricter (fewer false positives); lower values widen the range (false positives may occur).
 - Stop hotkey: sets a global hotkey that immediately stops the current task while it is running. The default is `F9`. Click the input box and press the hotkey you want to change it. Click elsewhere to cancel the change.
