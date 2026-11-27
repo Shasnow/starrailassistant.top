@@ -46,6 +46,27 @@
       "startTime": "2026-11-11T10:00:00",
       "endTime": "2026-12-15T03:59:59",
       "cover": ""
+    },
+    {
+      "name": "Stress Block Smashing Project",
+      "description": "During the event, Travelers need to operate the \"Diggytron\" to dig up various blocks within the area and earn points to claim rewards.",
+      "startTime": "2026-11-20T10:00:00",
+      "endTime": "2026-11-30T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/10/22/26e63efacb631860bb8d404707efe35e_390885997757580082_transformed.png"
+    },
+    {
+      "name": "\"Genius Invokation TCG\" Heated Battle Mode: Sprinting Stratagems",
+      "description": "Go to the Invitation Board of The Cat's Tail to participate in \"Genius Invokation TCG\" duels under the special rules of \"Heated Battle Mode.\"",
+      "startTime": "2026-11-21T10:00:00",
+      "endTime": "2026-12-07T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2024/08/15/84e7290fb24b81ac89b7e1809c4b26ed_1559196153906586455.jpg"
+    },
+    {
+      "name": "Frames of Fierce Splendor",
+      "description": "Visit the designated photo-taking spots and use the \"Power-Framing\" Kamera to take pictures according to specific requirements to claim rewards.",
+      "startTime": "2026-11-27T10:00:00",
+      "endTime": "2026-12-07T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/11/10/bd067e18ac1d6203eba38a07fc477863_6235007342202945544_transformed.png"
     }
   ]
 }
