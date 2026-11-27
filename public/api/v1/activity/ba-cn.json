@@ -1,17 +1,10 @@
 {
   "version": "2026-11",
   "versionName": "国服活动",
-  "startTime": "2026-11-12T14:00:00",
+  "startTime": "2026-11-26T14:00:00",
   "endTime": "2026-12-17T14:00:59",
   "cover": "https://resource.starrailassistant.top/ba/activity/9166afb38aaebf5080ef5a7d35f2991bf14e7795.webp",
   "activities": [
-    {
-      "name": "Sheside Outside",
-      "description": "",
-      "startTime": "2026-11-12T14:00:00",
-      "endTime": "2026-11-26T14:00:59",
-      "cover": "https://resource.starrailassistant.top/ba/activity/ceb594bb9650e98be778c5bcc55c9760e90f7216.webp"
-    },
     {
       "name": "为谁而存的艺术~赝品与美学的归宿~",
       "description": "",

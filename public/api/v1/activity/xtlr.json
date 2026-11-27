@@ -22,22 +22,6 @@
             "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/TF84F7um.jpg"
         },
         {
-            "name": "「执笔展卷，勾勒未名之境」",
-            "kind": "区域探索活动",
-            "description": "沉寂海上突现神秘岛屿，收到地理协会邀请的你加入了以优叶为首的考察队，参与考察神秘岛屿，完成活动任务可获得五星秘纹[紧急救援]、称号[执笔展卷，勾勒未名之境]、[星之砂]、[青空礼券]、[圣洁之滴]、[星章抛光剂]、旅人与秘纹提升材料等奖励！活动商店与奖励兑换时间至 2026/12/04 10:59。参与条件：权限等级≥5",
-            "startTime": "2026-11-13T17:00:00",
-            "endTime": "2026-11-27T03:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/09/sgus1yfz.jpg"
-        },
-        {
-            "name": "「沁凉补给站」",
-            "kind": "限时活动",
-            "description": "秋日，海滩，甜品！按照顾客们的订单制作美味的冰淇淋吧！完成活动关卡获得[星之砂]、[新手旅人晋升礼盒]等奖励。参与条件：权限等级≥5",
-            "startTime": "2026-11-13T17:00:00",
-            "endTime": "2026-11-27T03:59:59",
-            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/13/vd7batQj.jpg"
-        },
-        {
             "name": "「灾变防线」",
             "kind": "挑战活动",
             "description": "参与防卫作战，消灭敌人抵达指定分数完成任务可获得[星之砂]、[保卫者奖章]奖励；灾变难度随版本更新轮换，通关灾变难度并抵达指定分数可额外获得[保卫者奖章]。[保卫者奖章]可在灾变防线商店兑换专属五星秘纹等奖励。参与条件：权限等级≥11",
@@ -76,6 +60,14 @@
             "startTime": "2026-11-27T12:00:00",
             "endTime": "2026-12-04T10:59:59",
             "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/05/pDCnz7VL.jpg"
+        },
+        {
+            "name": "「联合讨伐」（新一期）",
+            "kind": "挑战活动",
+            "description": "完成讨伐，累积星数，登上排行榜！本期领主为哈萨娜与终宵萤辉，根据排名可获取[星之砂]、称号[狩猎专家]奖励；排名奖励结算时间 2026/12/30 23:00 ~ 2027/01/01 02:59，领取时间至 2027/01/30 03:59。参与条件：权限等级≥21",
+            "startTime": "2026-12-01T04:00:00",
+            "endTime": "2026-12-30T22:59:59",
+            "cover": "https://webusstatic.yo-star.com/web-cms-test/upload/content/2026/11/26/5gG63_GS.jpg"
         }
     ]
 }
