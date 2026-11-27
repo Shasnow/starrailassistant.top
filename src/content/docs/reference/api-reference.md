@@ -143,6 +143,20 @@ SRA-server 基于 Litestar，所有业务端点以 `/api` 为前缀（路径均�
 - 运行中：`success=true`，`message="Stop signal sent"`；
 - 空闲：HTTP 200，`success=false`，`message="No task is running"`。
 
+## 云游戏
+
+### `GET /api/cloudgame/qrcode`
+
+返回最近一次扫码登录生成的二维码图片（`image/png`，已包含静区）。扫码登录流程会把图片写入日志目录的 `qrcode_login.png`；尚未生成或已被清理时返回 404。
+
+- 成功时响应体是**图片本身**，不是 JSON 信封，并带有 `Cache-Control: no-store`；
+- 启用访问令牌时同样需要认证，浏览器 `<img>` 场景可用 `?access_token=<令牌>` 查询参数。
+
+```bash
+curl -H "X-Access-Token: change-me" \
+  http://localhost:5073/api/cloudgame/qrcode -o qrcode.png
+```
+
 ## 后端
 
 ### `POST /api/backend/restart`

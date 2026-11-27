@@ -41,7 +41,7 @@ services:
       SRA_LOG_LEVEL: "INFO"
       TZ: "Asia/Shanghai"
     volumes:
-      # 状态盘：settings.json、configs/、cache/（云游戏登录态在 cache/selenium_profile 下）
+      # 状态盘：settings.json、configs/、cache/（云游戏登录态在 cache/selenium_profile 与 cache/cloudgame 下）
       - sra-data:/root/.config/SRA
       # 运行日志与失败截图
       - sra-log:/app/log
@@ -134,15 +134,17 @@ docker compose up -d
 ```
 :::
 
-还需要手动做的只剩一件事：**在 WebUI 的配置里填云游戏账号密码**。凭据属于每个任务配置，无法预置进镜像，
-也不该预置。
+还需要手动做的只剩登录：**在 WebUI 的配置里设置云游戏账号**。凭据属于每个任务配置，无法预置进镜像，也不该预置。
+
+- 账号密码登录：在配置里填入账号密码。
+- 扫码登录：把启动游戏任务的登录方式改为“扫码登录（云游戏）”，运行任务后通过 `GET /api/cloudgame/qrcode` 获取二维码（启用令牌时需携带 `X-Access-Token` 或 `access_token` 查询参数），用米游社 App 扫码即可；二维码图片也会写入 `sra-log` 卷中的 `qrcode_login.png`。
 
 :::caution[不要直接拷 Windows 上的配置]
 账号密码是加密存储的，而加密方式与平台绑定（Windows 用 DPAPI，其他平台只是 base64），把 Windows 上的
 `configs/*.json` 拷进容器会**解不出密码**，表现为登录静默失败。在容器的 WebUI 里新建配置填一次即可。
 :::
 
-云游戏登录态保存在 `cache/selenium_profile` 下，也就是 `sra-data` 卷里，容器重建不会掉登录。
+云游戏登录态保存在 `cache/selenium_profile` 与 `cache/cloudgame/<配置名>.json` 下，也就是 `sra-data` 卷里，容器重建不会掉登录。
 
 ## 数据与卷
 

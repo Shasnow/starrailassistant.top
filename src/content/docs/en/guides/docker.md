@@ -42,7 +42,7 @@ services:
       SRA_LOG_LEVEL: "INFO"
       TZ: "Asia/Shanghai"
     volumes:
-      # State volume: settings.json, configs/, cache/ (the cloud game login state lives under cache/selenium_profile)
+      # State volume: settings.json, configs/, cache/ (cloud game login state lives under cache/selenium_profile and cache/cloudgame)
       - sra-data:/root/.config/SRA
       # Run logs and failure screenshots
       - sra-log:/app/log
@@ -141,8 +141,11 @@ docker compose up -d
 ```
 :::
 
-The only remaining manual step is to **enter the cloud game account and password in the WebUI configuration**.
-Credentials belong to each task configuration, so they cannot be baked into the image, and they should not be.
+The only remaining manual step is signing in: **set the cloud game account in the WebUI configuration**. Credentials
+belong to each task configuration, so they cannot be baked into the image, and they should not be.
+
+- Password login: fill in the account and password in the configuration.
+- QR login: switch the Start Game task to "QR code login (cloud game)", run the task, then fetch the QR code via `GET /api/cloudgame/qrcode` (include `X-Access-Token` or the `access_token` query parameter when a token is enabled) and scan it with the HoYoLAB app. The image is also written to `qrcode_login.png` in the `sra-log` volume.
 
 :::caution[Do not copy configurations from Windows]
 Account passwords are stored encrypted, and the encryption is platform-bound (Windows uses DPAPI, other platforms
@@ -150,8 +153,7 @@ just use base64). Copying `configs/*.json` from Windows into the container will 
 which manifests as a silent login failure. Just create a configuration in the container's WebUI and fill it in once.
 :::
 
-The cloud game login state is stored under `cache/selenium_profile`, i.e. in the `sra-data` volume, so recreating the
-container will not lose the login.
+Cloud game login state is stored in `cache/selenium_profile` and `cache/cloudgame/<configuration>.json`, both inside the `sra-data` volume, so recreating the container will not lose the login.
 
 ## Data and volumes
 

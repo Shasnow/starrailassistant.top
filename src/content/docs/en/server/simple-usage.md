@@ -130,6 +130,7 @@ Once a token is enabled, every `/api/**` request must include the `X-Access-Toke
 | --- | --- |
 | Authentication | `POST /api/auth` |
 | Task | `POST /api/task/run`, `POST /api/task/single`, `POST /api/task/stop`, `GET /api/task/status` |
+| Cloud game | `GET /api/cloudgame/qrcode` |
 | Backend | `POST /api/backend/restart`, `POST /api/backend/stop`, `GET /api/backend/logs`, `GET /api/backend/logs/stream`, `GET /api/backend/screenshot` |
 | Config | `GET /api/configs`, `POST /api/configs/{name}`, `GET/PUT/DELETE /api/configs/{name}` |
 | Settings | `GET/PUT /api/settings` |

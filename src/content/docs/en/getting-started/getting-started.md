@@ -100,9 +100,13 @@ This task configures everything related to launching the game.
    :::
 
 3. Auto login: determines whether to log in after launch.
-   If enabled, you must enter your account and password so SRA can log in; otherwise, you must make sure you are already logged in.
+   If enabled, enter your account and password when using password login; QR login does not need them.
    Checking Auto login indicates that you have read and agree to the User Agreement and Privacy Policy.
 4. Always log in again: determines whether to log in again every time. If enabled, SRA logs out the current account and logs in again after each game launch.
+5. Login method: choose "Account and password" or "QR code login (cloud game)".
+   - Account and password: log in with the account and password entered below.
+   - QR code login (cloud game): only available when using Star Rail Cloud. SRA opens a login QR code; scan it with the HoYoLAB app to log in. The image is saved to `log/qrcode_login.png`, which you can open in headless mode or Docker deployments, or fetch via `GET /api/cloudgame/qrcode`; SRA waits 180 seconds by default and refreshes the code when it expires.
+   - Cloud game login state is remembered per configuration name, so different configurations map to different accounts and switching does not require logging in again.
 
 ### Trailblaze Power
 
