@@ -1,0 +1,73 @@
+{
+  "version": "9.1",
+  "versionName": "A New Page in Time",
+  "startTime": "2026-10-22T06:00:00",
+  "endTime": "2026-12-24T06:00:00",
+  "cover": "https://fastcdn.hoyoverse.com/content-v2/bh3/166943/62ce5fc4788f159719c13941c73c46aa_2549856761350085488.png",
+  "activities": [
+    {
+      "name": "We Meet ♪ A Toy House of Memories",
+      "kind": "Featured Event",
+      "description": "To help one of her fans out, Ellie decides to run Meet Miracles, a game center, with her friends! Experience the event to obtain Lone Planetfarer's new outfit \"Another Dream's Captive\", Crystals, Source Prisms, A Fairy Tale of the Years Emblem, and more.",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-12-24T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Rekindled Sparks ~ Bonds Beneath the Autumn Moon",
+      "kind": "Login Event",
+      "description": "Log in for 7 days to claim Let Time Be Your Name Stigma Option x1, 120 Crystals, and more!",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-12-24T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Memories of Silver Sea",
+      "kind": "Limited-time Event",
+      "description": "Complete missions on the event panel to get Nostalgic Tides Tickets, which can be used for a chance to win a selectable S-rank battlesuit and her max-level recommended equipment, Paladin BP Unlock Coupon, Special Outfit Coupons, Special Outfit Option, Crystals, and more.",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-11-19T09:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Fun on the Sand",
+      "kind": "Limited-time Event",
+      "description": "During the event, log in and play permanent game modes to earn Refreshing Sweethearts, which can be exchanged for Honey Conch's Gift Weapon Option, Whispers Upon the Waves Outfit Option, Prism Stigma Direct Level-Up Coupon, and more in the event shop.",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-12-24T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Gifts from a Dream",
+      "kind": "Carnival Bonuses",
+      "description": "Log in before 04:00, DEC 24 to claim Shadow Dream's Gift Option, the commemorative item A Memento Filled With Everyone's Wishes, and Asterite.",
+      "startTime": "2026-10-22T11:00:00",
+      "endTime": "2026-12-24T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Maple-Hued Fireworks ~ Autumn Funfair",
+      "kind": "Login Event",
+      "description": "Log in for 7 days to claim Battlesuit Option x1 and Supply Option x3!",
+      "startTime": "2026-10-29T04:00:00",
+      "endTime": "2026-12-24T03:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Autumn Gift",
+      "kind": "Login Event",
+      "description": "Log in to claim 10x Carnival Battlesuit Supply Card x2 for v9.1's Carnival Battlesuit Supply.",
+      "startTime": "2026-10-29T12:00:00",
+      "endTime": "2026-11-19T11:59:59",
+      "cover": ""
+    },
+    {
+      "name": "Hero's Expedition: Oracle's Test",
+      "kind": "Version Event",
+      "description": "Place cards to withstand enemy attacks! Progress through the event and complete missions on the event panel to claim Crystals, Source Prisms, AE Imaginons, and more.",
+      "startTime": "2026-11-09T10:00:00",
+      "endTime": "2026-12-24T03:59:59",
+      "cover": ""
+    }
+  ]
+}

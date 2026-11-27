@@ -20,6 +20,7 @@ https://starrailassistant.top/api/v1
 | `sr` | Honkai: Star Rail | 崩坏：星穹铁道 |
 | `ys` | Genshin Impact | 原神 |
 | `zzz` | Zenless Zone Zero | 绝区零 |
+| `bh3` | Honkai Impact 3rd | 崩坏3 |
 | `ww` | Wuthering Waves | 鸣潮 |
 | `nte` | NTE | 异环 |
 | `ba-cn` | Blue Archive (CN) | 蔚蓝档案（国服） |
