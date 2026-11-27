@@ -56,6 +56,16 @@ export const games: Game[] = [
     },
   },
   {
+    id: "bh3",
+    name: { "zh-CN": "崩坏3", en: "Honkai Impact 3rd" },
+    locales: ["zh-CN", "en-US"],
+    defaultLocale: "zh-CN",
+    updateMode: "version",
+    dataSources: {
+      all: [{ type: "script", script: "scripts/fetch-bh3-activity.mjs" }],
+    },
+  },
+  {
     id: "ww",
     name: { "zh-CN": "鸣潮", en: "Wuthering Waves" },
     locales: ["zh-CN", "en-US"],
