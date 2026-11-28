@@ -46,6 +46,27 @@
       "startTime": "2026-11-11T10:00:00",
       "endTime": "2026-12-15T03:59:59",
       "cover": ""
+    },
+    {
+      "name": "压力方块粉碎计划",
+      "description": "活动中，旅行者需要操纵「挖挖机关」，挖掘场地中的各种方块，获取对应评分达到指定目标即可获得奖励。",
+      "startTime": "2026-11-20T10:00:00",
+      "endTime": "2026-11-30T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/10/22/bdbaea51f1cf359270c339c2e8de90ba_336241796675845975_transformed.png"
+    },
+    {
+      "name": "「七圣召唤」热斗模式：奇策竞驰",
+      "description": "前往猫尾酒馆的邀请板处，参与「热斗模式」特殊规则下的「七圣召唤」对局。",
+      "startTime": "2026-11-21T10:00:00",
+      "endTime": "2026-12-07T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2024/08/15/2c3f0ca243a83f671d8d2b108975ebae_7938319715510221941.jpg"
+    },
+    {
+      "name": "厉影定格录",
+      "description": "前往指定留影点，用「定格力量」留影机按特定要求记录下各类画片，首次完成留影后可在活动界面领取奖励。",
+      "startTime": "2026-11-27T10:00:00",
+      "endTime": "2026-12-07T03:59:59",
+      "cover": "https://sdk.hoyoverse.com/upload/ann/2026/11/10/056f4221b3d12025a1bf2529baf6787b_2041703663922999745_transformed.png"
     }
   ]
 }
